@@ -2,20 +2,36 @@ name: project_magang
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
-environment: 
-  sdk: '>=2.17.3 <3.0.0'
+environment:
+  sdk: ">=2.17.3 <3.0.0"
 
-dependencies: 
+dependencies:
   cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
+  flutter_native_splash: ^2.2.4
   get: 4.6.5
-  flutter: 
-    sdk: flutter
+  hexcolor: ^2.0.7
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^2.0.0
-  flutter_test: 
+  flutter_test:
     sdk: flutter
 
-flutter: 
+flutter_native_splash:
+  image: assets/icons/icon.png
+  color: "#0E3566"
+  # image_dark: assets/icons/iconRevert.png
+  # color_dark: "#866374"
+
+flutter:
   uses-material-design: true
+
+  assets:
+    - assets/icons/
+
+  fonts:
+      - family: CustomIconLogin
+        fonts:
+          - asset: fonts/CustomIconLogin.ttf
 

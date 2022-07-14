@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:project_magang/app/modules/login/views/login_view.dart';
 
 import 'app/routes/app_pages.dart';
 
@@ -17,6 +18,7 @@ class ProjectMagangApp extends StatelessWidget {
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      home: LoginView(),
     ));
   }
 }
