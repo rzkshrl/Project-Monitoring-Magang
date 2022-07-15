@@ -36,6 +36,9 @@ class HomeView extends GetView<HomeController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              SizedBox(
+                width: 20,
+              ),
               ClipOval(
                 child: Container(
                   width: 100,
@@ -140,6 +143,7 @@ class HomeView extends GetView<HomeController> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
+                    primary: Blue1,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(16),
                     ),
@@ -170,6 +174,7 @@ class HomeView extends GetView<HomeController> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
+                    primary: Blue1,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(16),
                     ),
@@ -208,6 +213,7 @@ class HomeView extends GetView<HomeController> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
+                    primary: Blue1,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(16),
                     ),
@@ -238,6 +244,7 @@ class HomeView extends GetView<HomeController> {
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
+                    primary: Blue1,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(16),
                     ),
