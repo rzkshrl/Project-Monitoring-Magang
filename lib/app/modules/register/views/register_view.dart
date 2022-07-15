@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:project_magang/app/modules/login/views/login_view.dart';
 import 'package:project_magang/app/theme/theme.dart';
 import 'package:project_magang/app/widgets/custom_icon_login_icons.dart';
 
@@ -215,9 +216,7 @@ class RegisterView extends GetView<RegisterController> {
                     style: regular12pt.copyWith(color: light),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Get.to(RegisterView());
-                    },
+                    onTap: () => Get.to(LoginView()),
                     child: Text(
                       'Login',
                       style: bold12pt.copyWith(

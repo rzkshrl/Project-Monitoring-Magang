@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:project_magang/app/modules/lupa_sandi/views/lupa_sandi_view.dart';
 import 'package:project_magang/app/modules/register/views/register_view.dart';
 import 'package:project_magang/app/theme/theme.dart';
 import 'package:project_magang/app/widgets/custom_icon_login_icons.dart';
@@ -119,7 +120,7 @@ class LoginView extends GetView<LoginController> {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () => Get.to(LupaSandiView()),
               child: Text(
                 'Lupa Kata Sandi?',
                 style: regular12pt.copyWith(
@@ -137,9 +138,7 @@ class LoginView extends GetView<LoginController> {
                   style: regular12pt.copyWith(color: light),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Get.to(RegisterView());
-                  },
+                  onTap: () => Get.to(RegisterView()),
                   child: Text(
                     'Register',
                     style: bold12pt.copyWith(
