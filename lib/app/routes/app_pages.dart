@@ -12,7 +12,11 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
+<<<<<<< HEAD
   static const INITIAL = Routes.HOME;
+=======
+  static const INITIAL = Routes.REGISTER;
+>>>>>>> 99cab468a24c7466eb9116df0a02d8f4a7fddcb2
 
   static final routes = [
     GetPage(
