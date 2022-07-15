@@ -6,6 +6,7 @@ Color dark = HexColor('#000000');
 Color backgroundBlue = HexColor('#0E3566');
 Color Blue1 = HexColor('#3A5BA0');
 Color Yellow1 = HexColor('#FFEB3B');
+Color Grey1 = HexColor('#D9D9D9');
 
 TextStyle heading6 = TextStyle(
   fontSize: 15,

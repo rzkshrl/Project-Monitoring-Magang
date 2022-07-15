@@ -18,7 +18,7 @@ class ProjectMagangApp extends StatelessWidget {
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-      home: LoginView(),
+      // home: LoginView(),
     ));
   }
 }
