@@ -86,7 +86,7 @@ class SettingView extends GetView<SettingController> {
                       ],
                     ),
                     SizedBox(
-                      width: 30,
+                      width: MediaQuery.of(context).size.width * 0.03,
                     ),
                     IconButton(
                       onPressed: () {},
