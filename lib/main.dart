@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:project_magang/app/modules/login/views/login_view.dart';
@@ -7,6 +8,8 @@ import 'package:project_magang/app/modules/register/views/register_view.dart';
 import 'app/routes/app_pages.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(ProjectMagangApp());
 }
 
