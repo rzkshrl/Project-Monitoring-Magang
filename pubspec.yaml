@@ -7,29 +7,26 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.2
+  dropdown_search: ^5.0.2
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.2.4
   footer: ^0.0.4
   get: 4.6.5
   hexcolor: ^2.0.7
+  iconly: ^1.0.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
 
-flutter_native_splash:
-  image: assets/icons/icon.png
-  color: "#0E3566"
-  # image_dark: assets/icons/iconRevert.png
-  # color_dark: "#866374"
-
 flutter:
   uses-material-design: true
 
   assets:
     - assets/icons/
+    - assets/images/
 
   fonts:
     - family: CustomIconLogin
