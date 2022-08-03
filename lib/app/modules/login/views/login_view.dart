@@ -13,6 +13,8 @@ class LoginView extends GetView<LoginController> {
   const LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final textScale = MediaQuery.of(context).textScaleFactor;
+
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
     return AnnotatedRegion(
@@ -71,7 +73,8 @@ class LoginView extends GetView<LoginController> {
                                         color: Grey1,
                                       )),
                                   hintText: 'Email',
-                                  hintStyle: heading6.copyWith(color: Grey1),
+                                  hintStyle: heading6.copyWith(
+                                      color: Grey1, fontSize: 14 * textScale),
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide.none)),
                             ),
@@ -98,7 +101,8 @@ class LoginView extends GetView<LoginController> {
                                         color: Grey1,
                                       )),
                                   hintText: 'Kata Sandi',
-                                  hintStyle: heading6.copyWith(color: Grey1),
+                                  hintStyle: heading6.copyWith(
+                                      color: Grey1, fontSize: 14 * textScale),
                                   // suffixIcon: IconButton(
                                   //   color: dark,
                                   //   splashRadius: 1,
@@ -132,7 +136,8 @@ class LoginView extends GetView<LoginController> {
                         /*authC.login(emailC.text, passC.text)*/
                         child: Text(
                           'Masuk',
-                          style: headingBtn.copyWith(color: Yellow1),
+                          style: headingBtn.copyWith(
+                              color: Yellow1, fontSize: 18 * textScale),
                         ),
                       ),
                     ),
@@ -144,7 +149,9 @@ class LoginView extends GetView<LoginController> {
                       child: Text(
                         'Lupa Kata Sandi?',
                         style: regular12pt.copyWith(
-                            color: light, decoration: TextDecoration.underline),
+                            color: light,
+                            decoration: TextDecoration.underline,
+                            fontSize: 12 * textScale),
                       ),
                     ),
                     SizedBox(
@@ -155,7 +162,8 @@ class LoginView extends GetView<LoginController> {
                       children: [
                         Text(
                           'Belum punya akun? ',
-                          style: regular12pt.copyWith(color: light),
+                          style: regular12pt.copyWith(
+                              color: light, fontSize: 12 * textScale),
                         ),
                         GestureDetector(
                           onTap: () => Get.to(RegisterView()),
@@ -163,7 +171,8 @@ class LoginView extends GetView<LoginController> {
                             'Daftar',
                             style: bold12pt.copyWith(
                                 color: light,
-                                decoration: TextDecoration.underline),
+                                decoration: TextDecoration.underline,
+                                fontSize: 12 * textScale),
                           ),
                         )
                       ],

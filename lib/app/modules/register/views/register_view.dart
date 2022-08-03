@@ -15,6 +15,7 @@ class RegisterView extends GetView<RegisterController> {
   const RegisterView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final textScale = MediaQuery.of(context).textScaleFactor;
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
     return AnnotatedRegion(
@@ -91,12 +92,12 @@ class RegisterView extends GetView<RegisterController> {
                               clearButtonProps: ClearButtonProps(
                                   isVisible: true, color: dark),
                               items: [
-                                "Brazil",
-                                "Italia (Disabled)",
-                                "Tunisia",
-                                'Canada',
-                                "Tunisia",
-                                'Canada'
+                                "Teknis",
+                                "Marketing",
+                                "Human Resource",
+                                'Project Manager',
+                                "Engineer",
+                                'QA'
                               ],
                               dropdownDecoratorProps: DropDownDecoratorProps(
                                   dropdownSearchDecoration: InputDecoration(
@@ -187,7 +188,8 @@ class RegisterView extends GetView<RegisterController> {
                                         color: Grey1,
                                       )),
                                   hintText: 'Email',
-                                  hintStyle: heading6.copyWith(color: Grey1),
+                                  hintStyle: heading6.copyWith(
+                                      color: Grey1, fontSize: 14 * textScale),
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide.none)),
                             ),
@@ -214,7 +216,8 @@ class RegisterView extends GetView<RegisterController> {
                                         color: Grey1,
                                       )),
                                   hintText: 'Kata Sandi',
-                                  hintStyle: heading6.copyWith(color: Grey1),
+                                  hintStyle: heading6.copyWith(
+                                      color: Grey1, fontSize: 14 * textScale),
                                   // suffixIcon: IconButton(
                                   //   color: dark,
                                   //   splashRadius: 1,
@@ -248,7 +251,8 @@ class RegisterView extends GetView<RegisterController> {
                         /*authC.login(emailC.text, passC.text)*/
                         child: Text(
                           'Masuk',
-                          style: headingBtn.copyWith(color: Yellow1),
+                          style: headingBtn.copyWith(
+                              color: Yellow1, fontSize: 18 * textScale),
                         ),
                       ),
                     ),
@@ -260,7 +264,9 @@ class RegisterView extends GetView<RegisterController> {
                       child: Text(
                         'Lupa Kata Sandi?',
                         style: regular12pt.copyWith(
-                            color: light, decoration: TextDecoration.underline),
+                            color: light,
+                            decoration: TextDecoration.underline,
+                            fontSize: 12 * textScale),
                       ),
                     ),
                     SizedBox(
@@ -271,7 +277,8 @@ class RegisterView extends GetView<RegisterController> {
                       children: [
                         Text(
                           'Sudah punya akun? ',
-                          style: regular12pt.copyWith(color: light),
+                          style: regular12pt.copyWith(
+                              color: light, fontSize: 12 * textScale),
                         ),
                         GestureDetector(
                           onTap: () => Get.to(LoginView()),
@@ -279,7 +286,8 @@ class RegisterView extends GetView<RegisterController> {
                             'Masuk',
                             style: bold12pt.copyWith(
                                 color: light,
-                                decoration: TextDecoration.underline),
+                                decoration: TextDecoration.underline,
+                                fontSize: 12 * textScale),
                           ),
                         )
                       ],

@@ -9,21 +9,17 @@ Color Yellow1 = HexColor('#FFEB3B');
 Color Grey1 = HexColor('#D9D9D9');
 
 TextStyle heading6 = TextStyle(
-  fontSize: 15,
   fontWeight: FontWeight.w600,
 );
 
 TextStyle regular12pt = TextStyle(
-  fontSize: 12,
   fontWeight: FontWeight.w600,
 );
 
 TextStyle bold12pt = TextStyle(
-  fontSize: 12,
   fontWeight: FontWeight.w800,
 );
 
 TextStyle headingBtn = TextStyle(
-  fontSize: 20,
   fontWeight: FontWeight.w800,
 );
