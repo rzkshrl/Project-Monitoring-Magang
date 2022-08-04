@@ -164,18 +164,19 @@ class AttendanceView extends GetView<AttendanceController> {
                             height: 30,
                           ),
                           Container(
-                            height: 75,
-                            width: 215,
+                            width: MediaQuery.of(context).size.width * 1,
+                            height: bodyHeight * 0.07,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Blue1,
-                                border: Border.all(width: 5.0, color: Yellow1)),
+                              borderRadius: BorderRadius.circular(80),
+                              color: Blue1,
+                            ),
                             child: TextButton(
                               onPressed: () {},
                               /*authC.login(emailC.text, passC.text)*/
                               child: Text(
-                                'Send',
-                                style: headingBtn.copyWith(color: Yellow1),
+                                'Masuk',
+                                style: headingBtn.copyWith(
+                                    color: Yellow1, fontSize: 18 * textScale),
                               ),
                             ),
                           ),
