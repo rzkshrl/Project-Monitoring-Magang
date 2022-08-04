@@ -11,6 +11,7 @@ abstract class Routes {
   static const LOCATION = _Paths.LOCATION;
   static const REPORT = _Paths.REPORT;
   static const SETTING = _Paths.SETTING;
+  static const DASHBOARD = _Paths.DASHBOARD;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const LOCATION = '/location';
   static const REPORT = '/report';
   static const SETTING = '/setting';
+  static const DASHBOARD = '/dashboard';
 }
