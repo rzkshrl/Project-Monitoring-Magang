@@ -14,7 +14,6 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     final textScale = MediaQuery.of(context).textScaleFactor;
-
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
     return AnnotatedRegion(
