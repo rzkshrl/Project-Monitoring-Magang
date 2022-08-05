@@ -41,14 +41,10 @@ class CustomIconAll {
   static const _kFontFam = 'CustomIconAll';
   static const String? _kFontPkg = null;
 
-  static const IconData majesticons_logout_half_circle = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData vector = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData attach = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData bx_link_alt = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData ant_design_paper_clip_outlined = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData logout = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData logout_1 = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData entypo_location = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData akar_icons_arrow_right = IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData logout_2 = IconData(0xf02d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData pencil = IconData(0xf330, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData sign_in = IconData(0xf365, fontFamily: _kFontFam, fontPackage: _kFontPkg);

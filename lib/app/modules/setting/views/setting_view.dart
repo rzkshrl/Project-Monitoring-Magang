@@ -197,8 +197,6 @@ class SettingView extends GetView<SettingController> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(CustomIconAll.majesticons_logout_half_circle,
-                                color: Yellow1, size: 30),
                             SizedBox(
                               height: 5,
                             ),
