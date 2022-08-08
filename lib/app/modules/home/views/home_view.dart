@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:project_magang/app/modules/attendance/views/attendance_view.dart';
-import 'package:project_magang/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:project_magang/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:project_magang/app/modules/location/views/location_view.dart';
 import 'package:project_magang/app/modules/report/views/report_view.dart';
 import 'package:project_magang/app/modules/setting/views/setting_view.dart';
 import 'package:project_magang/app/theme/theme.dart';
-import 'package:project_magang/app/widgets/custom_icon_home_icons.dart';
-import 'package:footer/footer.dart';
-import 'package:footer/footer_view.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -22,8 +16,9 @@ class HomeView extends StatelessWidget {
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
     return Obx(() => Container(
+          color: Colors.transparent,
           alignment: Alignment.bottomCenter,
-          height: bodyHeight * 0.1,
+          height: bodyHeight * 0.09,
           child: Padding(
             padding: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.05,
@@ -69,10 +64,11 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryHeight = MediaQuery.of(context).size.height;
+    final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
     final HomeController controller =
         Get.put(HomeController(), permanent: false);
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       extendBody: true,
       bottomNavigationBar: buildBottomNavigationMenu(context, controller),
       body: Obx(() => IndexedStack(
@@ -85,7 +81,7 @@ class HomeView extends StatelessWidget {
               SettingView()
             ],
           )),
-    ));
+    );
   }
 
   _bottomNavBarItem({required IconData icon, required String label}) {

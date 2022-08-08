@@ -40,7 +40,7 @@ class LupaSandiView extends GetView<LupaSandiController> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: bodyHeight * 0.08,
+                      height: bodyHeight * 0.06,
                     ),
                     Row(
                       children: [
@@ -52,7 +52,7 @@ class LupaSandiView extends GetView<LupaSandiController> {
                             ))
                       ],
                     ),
-                    SizedBox(height: bodyHeight * 0.16),
+                    SizedBox(height: bodyHeight * 0.18),
                     Column(
                       children: [
                         Image.asset(
@@ -137,8 +137,10 @@ class LupaSandiView extends GetView<LupaSandiController> {
                         /*authC.login(emailC.text, passC.text)*/
                         child: Text(
                           'Masuk',
+                          textScaleFactor: 1.25,
                           style: headingBtn.copyWith(
-                              color: Yellow1, fontSize: 18 * textScale),
+                            color: Yellow1,
+                          ),
                         ),
                       ),
                     ),

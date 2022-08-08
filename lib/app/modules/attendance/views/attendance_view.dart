@@ -6,6 +6,8 @@ import 'package:footer/footer_view.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:project_magang/app/modules/dashboard/views/dashboard_view.dart';
+import 'package:project_magang/app/modules/home/views/home_view.dart';
 
 import '../../../theme/theme.dart';
 import '../../../widgets/custom_icon_login_icons.dart';
@@ -22,17 +24,19 @@ class AttendanceView extends GetView<AttendanceController> {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.light,
-        statusBarColor: backgroundBlue,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: light,
       ),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: light,
         body: LayoutBuilder(
           builder: (context, constraints) => SingleChildScrollView(
+            reverse: true,
             padding: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.05,
               right: MediaQuery.of(context).size.width * 0.05,
-              bottom: bodyHeight * 0.02,
+              bottom: bodyHeight * 0.01,
             ),
             child: ConstrainedBox(
               constraints: BoxConstraints(minWidth: constraints.maxHeight),
@@ -43,20 +47,19 @@ class AttendanceView extends GetView<AttendanceController> {
                       height: bodyHeight * 0.2,
                     ),
                     Container(
-                      height: bodyHeight * 0.81,
                       child: Column(
                         children: [
                           ClipOval(
                             child: Container(
-                              width: 155,
-                              height: 155,
+                              width: MediaQuery.of(context).size.width * 0.46,
+                              height: bodyHeight * 0.22,
                               color: Colors.grey.shade200,
                               child: Center(child: Text("X")),
                               // child: Image.network(src),
                             ),
                           ),
                           SizedBox(
-                            height: 40,
+                            height: bodyHeight * 0.08,
                           ),
                           Form(
                             child: Column(
@@ -87,7 +90,7 @@ class AttendanceView extends GetView<AttendanceController> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 20,
+                                  height: bodyHeight * 0.025,
                                 ),
                                 Container(
                                   width: MediaQuery.of(context).size.width * 1,
@@ -118,8 +121,11 @@ class AttendanceView extends GetView<AttendanceController> {
                                                           color: Grey1,
                                                         )),
                                                     hintText: "Divisi",
-                                                    hintStyle: heading6
-                                                        .copyWith(color: Grey1),
+                                                    hintStyle:
+                                                        heading6.copyWith(
+                                                            color: Grey1,
+                                                            fontSize:
+                                                                14 * textScale),
                                                     border: OutlineInputBorder(
                                                         borderSide:
                                                             BorderSide.none))),
@@ -133,7 +139,7 @@ class AttendanceView extends GetView<AttendanceController> {
                                       menuProps: MenuProps(
                                         borderRadius: BorderRadius.circular(12),
                                         backgroundColor: Colors.transparent,
-                                        elevation: 5,
+                                        elevation: 0,
                                       ),
                                       containerBuilder: (ctx, popupWidget) {
                                         return Column(
@@ -147,8 +153,20 @@ class AttendanceView extends GetView<AttendanceController> {
                                             ),
                                             Flexible(
                                               child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: light,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          offset:
+                                                              Offset(0, 0.5),
+                                                          blurRadius: 1,
+                                                          color: dark
+                                                              .withOpacity(0.5))
+                                                    ],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12)),
                                                 child: popupWidget,
-                                                color: light,
                                               ),
                                             ),
                                           ],
@@ -161,7 +179,7 @@ class AttendanceView extends GetView<AttendanceController> {
                             ),
                           ),
                           SizedBox(
-                            height: 30,
+                            height: bodyHeight * 0.06,
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width * 1,
@@ -175,14 +193,18 @@ class AttendanceView extends GetView<AttendanceController> {
                               /*authC.login(emailC.text, passC.text)*/
                               child: Text(
                                 'Masuk',
-                                style: headingBtn.copyWith(
-                                    color: Yellow1, fontSize: 18 * textScale),
+                                textScaleFactor: 1.3,
+                                style: headingBtn.copyWith(color: Yellow1),
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            bottom:
+                                MediaQuery.of(context).viewInsets.bottom * 0.4))
                   ],
                 ),
               ),

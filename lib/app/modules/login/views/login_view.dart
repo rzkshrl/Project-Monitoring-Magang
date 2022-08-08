@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:project_magang/app/modules/home/views/home_view.dart';
 import 'package:project_magang/app/modules/lupa_sandi/views/lupa_sandi_view.dart';
 import 'package:project_magang/app/modules/register/views/register_view.dart';
 import 'package:project_magang/app/theme/theme.dart';
@@ -23,13 +24,14 @@ class LoginView extends GetView<LoginController> {
         statusBarColor: backgroundBlue,
       ),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: backgroundBlue,
         body: LayoutBuilder(
           builder: (context, constraints) => SingleChildScrollView(
+            reverse: true,
             padding: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.05,
               right: MediaQuery.of(context).size.width * 0.05,
-              bottom: bodyHeight * 0.02,
             ),
             child: ConstrainedBox(
               constraints: BoxConstraints(minWidth: constraints.maxHeight),
@@ -131,12 +133,12 @@ class LoginView extends GetView<LoginController> {
                         color: Blue1,
                       ),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () => Get.to(HomeView()),
                         /*authC.login(emailC.text, passC.text)*/
                         child: Text(
                           'Masuk',
-                          style: headingBtn.copyWith(
-                              color: Yellow1, fontSize: 18 * textScale),
+                          textScaleFactor: 1.25,
+                          style: headingBtn.copyWith(color: Yellow1),
                         ),
                       ),
                     ),
@@ -147,10 +149,11 @@ class LoginView extends GetView<LoginController> {
                       onPressed: () => Get.to(LupaSandiView()),
                       child: Text(
                         'Lupa Kata Sandi?',
+                        textScaleFactor: 0.8,
                         style: regular12pt.copyWith(
-                            color: light,
-                            decoration: TextDecoration.underline,
-                            fontSize: 12 * textScale),
+                          color: light,
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -161,21 +164,26 @@ class LoginView extends GetView<LoginController> {
                       children: [
                         Text(
                           'Belum punya akun? ',
-                          style: regular12pt.copyWith(
-                              color: light, fontSize: 12 * textScale),
+                          textScaleFactor: 0.8,
+                          style: regular12pt.copyWith(color: light),
                         ),
                         GestureDetector(
                           onTap: () => Get.to(RegisterView()),
                           child: Text(
                             'Daftar',
+                            textScaleFactor: 0.8,
                             style: bold12pt.copyWith(
-                                color: light,
-                                decoration: TextDecoration.underline,
-                                fontSize: 12 * textScale),
+                              color: light,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                         )
                       ],
                     ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            bottom:
+                                MediaQuery.of(context).viewInsets.bottom * 0.3))
                   ],
                 ),
               ),
