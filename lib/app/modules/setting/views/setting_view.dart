@@ -1,8 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
 
 import 'package:get/get.dart';
+import 'package:iconly/iconly.dart';
 import 'package:project_magang/app/widgets/custom_icon_all_icons.dart';
 import 'package:project_magang/app/widgets/custom_icon_login_icons.dart';
 
@@ -14,218 +17,247 @@ class SettingView extends GetView<SettingController> {
   const SettingView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final textScale = MediaQuery.of(context).textScaleFactor;
     final mediaQueryHeight = MediaQuery.of(context).size.height;
-    final myAppBar = AppBar(
-      toolbarHeight: 82,
-      title: Image.asset(
-        'assets/icons/icon.png',
-        fit: BoxFit.cover,
-        width: 220,
-        height: 40,
+    final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
+
+    return AnnotatedRegion(
+      value: SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
+        statusBarColor: backgroundBlue,
       ),
-      centerTitle: true,
-      backgroundColor: Blue1,
-    );
-    final bodyHeight = mediaQueryHeight -
-        myAppBar.preferredSize.height -
-        MediaQuery.of(context).padding.top;
-    return Scaffold(
-      appBar: myAppBar,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
+      child: Scaffold(
+        backgroundColor: light,
+        body: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.05,
+              right: MediaQuery.of(context).size.width * 0.05,
+              bottom: bodyHeight * 0.02,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: bodyHeight * 0.025,
-                ),
-                ClipOval(
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    color: Colors.grey.shade200,
-                    child: Center(child: Text("X")),
-                    // child: Image.network(src),
-                  ),
-                ),
-                SizedBox(
-                  width: bodyHeight * 0.025,
-                ),
-                Row(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minWidth: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    SizedBox(
+                      height: bodyHeight * 0.08,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        SizedBox(
+                          width: bodyHeight * 0.01,
+                        ),
+                        ClipOval(
+                          child: Container(
+                            width: 80,
+                            height: 80,
+                            color: Colors.grey.shade200,
+                            child: Center(child: Text("X")),
+                            // child: Image.network(src),
+                          ),
+                        ),
+                        SizedBox(
+                          width: bodyHeight * 0.015,
+                        ),
                         Row(
                           children: [
-                            Text(
-                              "ARIEL SIMANJUTAK",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            Container(
+                              height: bodyHeight * 0.12,
+                              width: MediaQuery.of(context).size.width * 0.64,
+                              padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width * 0.06,
+                                right: MediaQuery.of(context).size.width * 0.04,
+                                bottom: bodyHeight * 0.02,
+                                top: bodyHeight * 0.02,
+                              ),
+                              decoration: BoxDecoration(
+                                  color: Grey1,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          AutoSizeText(
+                                            "Ariel Natama",
+                                            textAlign: TextAlign.start,
+                                            textScaleFactor: 1.2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: regular12pt.copyWith(
+                                                color: dark,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          SizedBox(
+                                            height: bodyHeight * 0.01,
+                                          ),
+                                          Text(
+                                            "Teknis",
+                                            textAlign: TextAlign.center,
+                                            textScaleFactor: 1,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          Text(
+                                            "134173676713",
+                                            textAlign: TextAlign.center,
+                                            textScaleFactor: 1,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.15,
+                                      ),
+                                      ClipOval(
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          child: IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(
+                                              IconlyLight.edit,
+                                              color: dark,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
-                        ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        Text(
-                          "BackEnd Developer",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        Text(
-                          "arielsimanjutak@gmail.com",
-                          style: TextStyle(fontSize: 18),
                         ),
                       ],
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.03,
+                      height: bodyHeight * 0.075,
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        CustomIconAll.pencil,
-                        color: Grey1,
-                        size: 30,
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(
-              height: bodyHeight * 0.04,
-            ),
-            Container(
-              height: bodyHeight * 0.42,
-              width: bodyHeight * 0.49,
-              padding: EdgeInsets.fromLTRB(15, 25, 15, 20),
-              decoration: BoxDecoration(
-                  color: Grey1, borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "Pengaturan Akun",
-                          style: TextStyle(fontSize: 22),
+                          textAlign: TextAlign.center,
+                          textScaleFactor: 1,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.45,
+                        ),
+                        ClipOval(
+                          child: Material(
+                            color: Colors.transparent,
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                IconlyLight.edit,
+                                color: dark,
+                              ),
+                            ),
+                          ),
+                        )
                       ],
+                    ),
+                    SizedBox(
+                      height: bodyHeight * 0.010,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 1,
+                      height: bodyHeight * 0.065,
+                      decoration: BoxDecoration(
+                          color: Yellow1,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Row(
+                        children: [
+                          Align(
+                              alignment: Alignment(-0.95, -0.1),
+                              child: Icon(
+                                IconlyLight.message,
+                              )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.015,
+                          ),
+                          Text(
+                            "arielnatam0@gmail.com",
+                            textAlign: TextAlign.center,
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: bodyHeight * 0.025,
                     ),
-                    Container(width: 400, height: 2, color: dark),
                     Container(
-                      width: bodyHeight * 0.49,
-                      height: bodyHeight * 0.07,
+                      width: MediaQuery.of(context).size.width * 1,
+                      height: bodyHeight * 0.065,
                       decoration: BoxDecoration(
-                          color: Grey1,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: TextFormField(
-                        style: TextStyle(color: dark),
-                        decoration: InputDecoration(
-                            prefixIcon: Align(
-                                widthFactor: 1.0,
-                                heightFactor: 1.0,
-                                child: Icon(
-                                  CustomIconLogin.mail,
-                                  color: dark,
-                                )),
-                            hintText: 'Email',
-                            hintStyle: heading6.copyWith(color: dark),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none)),
-                      ),
-                    ),
-                    Container(width: 400, height: 2, color: dark),
-                    Container(
-                      width: bodyHeight * 0.49,
-                      height: bodyHeight * 0.07,
-                      decoration: BoxDecoration(
-                          color: Grey1,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: TextFormField(
-                        style: TextStyle(color: dark),
-                        // obscureText: controller.isPasswordHidden.value,
-                        // controller: passC,
-                        decoration: InputDecoration(
-                            prefixIcon: Align(
-                                widthFactor: 1.0,
-                                heightFactor: 1.0,
-                                child: Icon(
-                                  CustomIconLogin.lock,
-                                  color: dark,
-                                )),
-                            hintText: 'Password',
-                            hintStyle: heading6.copyWith(color: dark),
-                            // suffixIcon: IconButton(
-                            //   color: dark,
-                            //   splashRadius: 1,
-                            //   icon: Icon(controller.isPasswordHidden.value
-                            //       ? Icons.visibility_outlined
-                            //       : Icons.visibility_off_outlined),
-                            //   onPressed: () {
-                            //     controller.isPasswordHidden.value =
-                            //         !controller.isPasswordHidden.value;
-                            //   },
-                            // ),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none)),
-                      ),
-                    ),
-                    SizedBox(
-                      height: bodyHeight * 0.02,
-                    ),
-                    Container(
-                      height: bodyHeight * 0.11,
-                      width: bodyHeight * 0.36,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Blue1,
-                          border: Border.all(width: 5.0, color: Yellow1)),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Logout',
-                              style: TextStyle(fontSize: 14),
-                            )
-                          ],
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Blue1,
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(16),
+                          color: Yellow1,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Row(
+                        children: [
+                          Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: Icon(
+                                IconlyLight.lock,
+                              )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.015,
                           ),
-                        ),
+                          Text(
+                            "*************",
+                            textAlign: TextAlign.center,
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(
-                      height: bodyHeight * 0.020,
-                    )
-                  ]),
+                      height: bodyHeight * 0.045,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 1,
+                      height: bodyHeight * 0.07,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(80),
+                        color: Blue1,
+                      ),
+                      child: TextButton(
+                        onPressed: () {},
+                        /*authC.logut(emailC.text, passC.text)*/
+                        child: Text(
+                          'Logout',
+                          textScaleFactor: 1.3,
+                          style: headingBtn.copyWith(color: Yellow1),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            SizedBox(height: bodyHeight * 0.29),
-            Container(
-              height: bodyHeight * 0.1,
-              width: MediaQuery.of(context).size.width,
-              color: backgroundBlue,
-            ),
-          ],
+          ),
         ),
       ),
     );
