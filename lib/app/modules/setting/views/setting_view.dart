@@ -6,6 +6,9 @@ import 'package:footer/footer_view.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:project_magang/app/modules/edit_emailpass/views/edit_emailpass_view.dart';
+import 'package:project_magang/app/modules/edit_profile/views/edit_profile_view.dart';
+import 'package:project_magang/app/modules/login/views/login_view.dart';
 import 'package:project_magang/app/widgets/custom_icon_all_icons.dart';
 import 'package:project_magang/app/widgets/custom_icon_login_icons.dart';
 
@@ -24,8 +27,8 @@ class SettingView extends GetView<SettingController> {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.light,
-        statusBarColor: backgroundBlue,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: light,
       ),
       child: Scaffold(
         backgroundColor: light,
@@ -42,7 +45,7 @@ class SettingView extends GetView<SettingController> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: bodyHeight * 0.08,
+                      height: bodyHeight * 0.12,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -52,8 +55,8 @@ class SettingView extends GetView<SettingController> {
                         ),
                         ClipOval(
                           child: Container(
-                            width: 80,
-                            height: 80,
+                            width: MediaQuery.of(context).size.width * 0.19,
+                            height: bodyHeight * 0.09,
                             color: Colors.grey.shade200,
                             child: Center(child: Text("X")),
                             // child: Image.network(src),
@@ -65,11 +68,10 @@ class SettingView extends GetView<SettingController> {
                         Row(
                           children: [
                             Container(
-                              height: bodyHeight * 0.12,
-                              width: MediaQuery.of(context).size.width * 0.64,
+                              height: bodyHeight * 0.115,
+                              width: MediaQuery.of(context).size.width * 0.65,
                               padding: EdgeInsets.only(
                                 left: MediaQuery.of(context).size.width * 0.06,
-                                right: MediaQuery.of(context).size.width * 0.04,
                                 bottom: bodyHeight * 0.02,
                                 top: bodyHeight * 0.02,
                               ),
@@ -117,13 +119,14 @@ class SettingView extends GetView<SettingController> {
                                       SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.15,
+                                                0.2,
                                       ),
                                       ClipOval(
                                         child: Material(
                                           color: Colors.transparent,
                                           child: IconButton(
-                                            onPressed: () {},
+                                            onPressed: () =>
+                                                Get.to(EditProfileView()),
                                             icon: Icon(
                                               IconlyLight.edit,
                                               color: dark,
@@ -145,14 +148,17 @@ class SettingView extends GetView<SettingController> {
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.01,
+                        ),
                         Text(
                           "Pengaturan Akun",
                           textAlign: TextAlign.center,
-                          textScaleFactor: 1,
+                          textScaleFactor: 1.1,
                           style: TextStyle(
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         SizedBox(
@@ -162,7 +168,7 @@ class SettingView extends GetView<SettingController> {
                           child: Material(
                             color: Colors.transparent,
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () => Get.to(EditEmailpassView()),
                               icon: Icon(
                                 IconlyLight.edit,
                                 color: dark,
@@ -183,8 +189,12 @@ class SettingView extends GetView<SettingController> {
                           borderRadius: BorderRadius.circular(12)),
                       child: Row(
                         children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.05,
+                          ),
                           Align(
-                              alignment: Alignment(-0.95, -0.1),
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
                               child: Icon(
                                 IconlyLight.message,
                               )),
@@ -193,7 +203,7 @@ class SettingView extends GetView<SettingController> {
                           ),
                           Text(
                             "arielnatam0@gmail.com",
-                            textAlign: TextAlign.center,
+                            textAlign: TextAlign.start,
                             textScaleFactor: 1,
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
@@ -213,6 +223,9 @@ class SettingView extends GetView<SettingController> {
                           borderRadius: BorderRadius.circular(12)),
                       child: Row(
                         children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.05,
+                          ),
                           Align(
                               widthFactor: 1.0,
                               heightFactor: 1.0,
@@ -224,7 +237,7 @@ class SettingView extends GetView<SettingController> {
                           ),
                           Text(
                             "*************",
-                            textAlign: TextAlign.center,
+                            textAlign: TextAlign.start,
                             textScaleFactor: 1,
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
@@ -244,7 +257,7 @@ class SettingView extends GetView<SettingController> {
                         color: Blue1,
                       ),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () => Get.to(LoginView()),
                         /*authC.logut(emailC.text, passC.text)*/
                         child: Text(
                           'Logout',

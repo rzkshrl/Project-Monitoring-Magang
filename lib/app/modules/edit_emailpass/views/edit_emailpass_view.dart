@@ -1,26 +1,22 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:footer/footer.dart';
-import 'package:footer/footer_view.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
-import 'package:project_magang/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:project_magang/app/modules/home/views/home_view.dart';
 
 import '../../../theme/theme.dart';
-import '../../../widgets/custom_icon_login_icons.dart';
-import '../controllers/attendance_controller.dart';
+import '../../setting/views/setting_view.dart';
+import '../controllers/edit_emailpass_controller.dart';
 
-class AttendanceView extends GetView<AttendanceController> {
-  const AttendanceView({Key? key}) : super(key: key);
+class EditEmailpassView extends GetView<EditEmailpassController> {
+  const EditEmailpassView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final textScale = MediaQuery.of(context).textScaleFactor;
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
-
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
@@ -44,8 +40,19 @@ class AttendanceView extends GetView<AttendanceController> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: bodyHeight * 0.15,
+                      height: bodyHeight * 0.06,
                     ),
+                    Row(
+                      children: [
+                        IconButton(
+                            onPressed: () => Get.to(HomeView()),
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: dark,
+                            ))
+                      ],
+                    ),
+                    SizedBox(height: bodyHeight * 0.04),
                     Container(
                       child: Column(
                         children: [
@@ -72,16 +79,17 @@ class AttendanceView extends GetView<AttendanceController> {
                                       color: Yellow1,
                                       borderRadius: BorderRadius.circular(12)),
                                   child: TextFormField(
+                                    keyboardType: TextInputType.emailAddress,
                                     style: TextStyle(color: dark),
                                     decoration: InputDecoration(
                                         prefixIcon: Align(
                                             widthFactor: 1.0,
                                             heightFactor: 1.0,
                                             child: Icon(
-                                              IconlyLight.profile,
+                                              IconlyLight.message,
                                               color: Grey1,
                                             )),
-                                        hintText: 'Nama',
+                                        hintText: 'Email',
                                         hintStyle: heading6.copyWith(
                                             color: Grey1,
                                             fontSize: 14 * textScale),
@@ -98,83 +106,37 @@ class AttendanceView extends GetView<AttendanceController> {
                                   decoration: BoxDecoration(
                                       color: Yellow1,
                                       borderRadius: BorderRadius.circular(12)),
-                                  child: DropdownSearch<String>(
-                                    clearButtonProps: ClearButtonProps(
-                                        isVisible: true, color: dark),
-                                    items: [
-                                      "Teknis",
-                                      "Marketing",
-                                      "Human Resource",
-                                      'Project Manager',
-                                      "Engineer",
-                                      'QA'
-                                    ],
-                                    dropdownDecoratorProps:
-                                        DropDownDecoratorProps(
-                                            dropdownSearchDecoration:
-                                                InputDecoration(
-                                                    prefixIcon: Align(
-                                                        widthFactor: 1.0,
-                                                        heightFactor: 1.0,
-                                                        child: Icon(
-                                                          IconlyLight.user_1,
-                                                          color: Grey1,
-                                                        )),
-                                                    hintText: "Divisi",
-                                                    hintStyle:
-                                                        heading6.copyWith(
-                                                            color: Grey1,
-                                                            fontSize:
-                                                                14 * textScale),
-                                                    border: OutlineInputBorder(
-                                                        borderSide:
-                                                            BorderSide.none))),
-                                    popupProps: PopupProps.menu(
-                                      constraints: BoxConstraints(
-                                          maxHeight: bodyHeight * 0.18),
-                                      scrollbarProps: ScrollbarProps(
-                                          trackVisibility: true,
-                                          trackColor: dark),
-                                      fit: FlexFit.loose,
-                                      menuProps: MenuProps(
-                                        borderRadius: BorderRadius.circular(12),
-                                        backgroundColor: Colors.transparent,
-                                        elevation: 0,
-                                      ),
-                                      containerBuilder: (ctx, popupWidget) {
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 20),
-                                            ),
-                                            Flexible(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: light,
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                          offset:
-                                                              Offset(0, 0.5),
-                                                          blurRadius: 1,
-                                                          color: dark
-                                                              .withOpacity(0.5))
-                                                    ],
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12)),
-                                                child: popupWidget,
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    ),
+                                  child: TextFormField(
+                                    style: TextStyle(color: dark),
+                                    // obscureText: controller.isPasswordHidden.value,
+                                    // controller: passC,
+                                    decoration: InputDecoration(
+                                        prefixIcon: Align(
+                                            widthFactor: 1.0,
+                                            heightFactor: 1.0,
+                                            child: Icon(
+                                              IconlyLight.lock,
+                                              color: Grey1,
+                                            )),
+                                        hintText: 'Kata Sandi',
+                                        hintStyle: heading6.copyWith(
+                                            color: Grey1,
+                                            fontSize: 14 * textScale),
+                                        // suffixIcon: IconButton(
+                                        //   color: dark,
+                                        //   splashRadius: 1,
+                                        //   icon: Icon(controller.isPasswordHidden.value
+                                        //       ? Icons.visibility_outlined
+                                        //       : Icons.visibility_off_outlined),
+                                        //   onPressed: () {
+                                        //     controller.isPasswordHidden.value =
+                                        //         !controller.isPasswordHidden.value;
+                                        //   },
+                                        // ),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide.none)),
                                   ),
-                                ),
+                                )
                               ],
                             ),
                           ),
@@ -192,7 +154,7 @@ class AttendanceView extends GetView<AttendanceController> {
                               onPressed: () {},
                               /*authC.login(emailC.text, passC.text)*/
                               child: Text(
-                                'Masuk',
+                                'Kirim',
                                 textScaleFactor: 1.3,
                                 style: headingBtn.copyWith(color: Yellow1),
                               ),
@@ -204,7 +166,7 @@ class AttendanceView extends GetView<AttendanceController> {
                     Padding(
                         padding: EdgeInsets.only(
                             bottom:
-                                MediaQuery.of(context).viewInsets.bottom * 0.4))
+                                MediaQuery.of(context).viewInsets.bottom * 1))
                   ],
                 ),
               ),

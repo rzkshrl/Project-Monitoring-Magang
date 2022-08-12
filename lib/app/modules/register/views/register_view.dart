@@ -192,6 +192,7 @@ class RegisterView extends GetView<RegisterController> {
                                 color: light,
                                 borderRadius: BorderRadius.circular(12)),
                             child: TextFormField(
+                              keyboardType: TextInputType.emailAddress,
                               style: TextStyle(color: dark),
                               decoration: InputDecoration(
                                   prefixIcon: Align(

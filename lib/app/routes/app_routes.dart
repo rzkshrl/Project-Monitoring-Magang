@@ -12,6 +12,8 @@ abstract class Routes {
   static const REPORT = _Paths.REPORT;
   static const SETTING = _Paths.SETTING;
   static const DASHBOARD = _Paths.DASHBOARD;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const EDIT_EMAILPASS = _Paths.EDIT_EMAILPASS;
 }
 
 abstract class _Paths {
@@ -25,4 +27,6 @@ abstract class _Paths {
   static const REPORT = '/report';
   static const SETTING = '/setting';
   static const DASHBOARD = '/dashboard';
+  static const EDIT_PROFILE = '/edit-profile';
+  static const EDIT_EMAILPASS = '/edit-emailpass';
 }
