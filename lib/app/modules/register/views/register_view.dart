@@ -8,6 +8,7 @@ import 'package:project_magang/app/modules/login/views/login_view.dart';
 import 'package:project_magang/app/theme/theme.dart';
 import 'package:project_magang/app/widgets/custom_icon_login_icons.dart';
 
+import '../../../controller/auth_controller.dart';
 import '../../lupa_sandi/views/lupa_sandi_view.dart';
 import '../controllers/register_controller.dart';
 
@@ -18,6 +19,10 @@ class RegisterView extends GetView<RegisterController> {
     final textScale = MediaQuery.of(context).textScaleFactor;
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
+    final emailC = TextEditingController();
+    final passC = TextEditingController();
+    final authC = Get.find<AuthController>();
+    final RegisterController controller = Get.put(RegisterController());
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
@@ -67,6 +72,19 @@ class RegisterView extends GetView<RegisterController> {
                                 borderRadius: BorderRadius.circular(12)),
                             child: TextFormField(
                               style: TextStyle(color: dark),
+                              onTap: () {
+                                FocusScopeNode currentFocus =
+                                    FocusScope.of(context);
+
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                }
+                              },
+                              validator: (value) {
+                                return value!.isNotEmpty
+                                    ? null
+                                    : "Form tidak boleh kosong";
+                              },
                               decoration: InputDecoration(
                                   prefixIcon: Align(
                                       widthFactor: 1.0,
@@ -193,6 +211,19 @@ class RegisterView extends GetView<RegisterController> {
                                 borderRadius: BorderRadius.circular(12)),
                             child: TextFormField(
                               keyboardType: TextInputType.emailAddress,
+                              onTap: () {
+                                FocusScopeNode currentFocus =
+                                    FocusScope.of(context);
+
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                }
+                              },
+                              validator: (value) {
+                                return value!.isNotEmpty
+                                    ? null
+                                    : "Form tidak boleh kosong";
+                              },
                               style: TextStyle(color: dark),
                               decoration: InputDecoration(
                                   prefixIcon: Align(
@@ -212,40 +243,64 @@ class RegisterView extends GetView<RegisterController> {
                           SizedBox(
                             height: bodyHeight * 0.025,
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 1,
-                            height: bodyHeight * 0.065,
-                            decoration: BoxDecoration(
-                                color: light,
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextFormField(
-                              style: TextStyle(color: dark),
-                              // obscureText: controller.isPasswordHidden.value,
-                              // controller: passC,
-                              decoration: InputDecoration(
-                                  prefixIcon: Align(
-                                      widthFactor: 1.0,
-                                      heightFactor: 1.0,
-                                      child: Icon(
-                                        IconlyLight.lock,
-                                        color: Grey1,
-                                      )),
-                                  hintText: 'Kata Sandi',
-                                  hintStyle: heading6.copyWith(
-                                      color: Grey1, fontSize: 14 * textScale),
-                                  // suffixIcon: IconButton(
-                                  //   color: dark,
-                                  //   splashRadius: 1,
-                                  //   icon: Icon(controller.isPasswordHidden.value
-                                  //       ? Icons.visibility_outlined
-                                  //       : Icons.visibility_off_outlined),
-                                  //   onPressed: () {
-                                  //     controller.isPasswordHidden.value =
-                                  //         !controller.isPasswordHidden.value;
-                                  //   },
-                                  // ),
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none)),
+                          Obx(
+                            () => Container(
+                              width: MediaQuery.of(context).size.width * 1,
+                              height: bodyHeight * 0.065,
+                              decoration: BoxDecoration(
+                                  color: light,
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: TextFormField(
+                                style: TextStyle(color: dark),
+                                onTap: () {
+                                  FocusScopeNode currentFocus =
+                                      FocusScope.of(context);
+
+                                  if (!currentFocus.hasPrimaryFocus) {
+                                    currentFocus.unfocus();
+                                  }
+                                },
+                                validator: (value) {
+                                  return value!.isNotEmpty
+                                      ? null
+                                      : "Form tidak boleh kosong";
+                                },
+                                obscureText: controller.isPasswordHidden.value,
+                                controller: passC,
+                                decoration: InputDecoration(
+                                    prefixIcon: Align(
+                                        widthFactor: 1.0,
+                                        heightFactor: 1.0,
+                                        child: Icon(
+                                          IconlyLight.lock,
+                                          color: Grey1,
+                                        )),
+                                    hintText: 'Kata Sandi',
+                                    hintStyle: heading6.copyWith(
+                                        color: Grey1, fontSize: 14 * textScale),
+                                    suffixIcon: Padding(
+                                      padding: EdgeInsets.only(
+                                        right:
+                                            MediaQuery.of(context).size.width *
+                                                0.02,
+                                      ),
+                                      child: IconButton(
+                                        color: Colors.black26,
+                                        splashRadius: 1,
+                                        icon: Icon(
+                                            controller.isPasswordHidden.value
+                                                ? Icons.visibility_rounded
+                                                : Icons.visibility_off),
+                                        onPressed: () {
+                                          controller.isPasswordHidden.value =
+                                              !controller
+                                                  .isPasswordHidden.value;
+                                        },
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide.none)),
+                              ),
                             ),
                           )
                         ],
@@ -262,8 +317,8 @@ class RegisterView extends GetView<RegisterController> {
                         color: Blue1,
                       ),
                       child: TextButton(
-                        onPressed: () {},
-                        /*authC.login(emailC.text, passC.text)*/
+                        onPressed: () =>
+                            authC.register(emailC.text, passC.text),
                         child: Text(
                           'Daftar',
                           textScaleFactor: 1.3,

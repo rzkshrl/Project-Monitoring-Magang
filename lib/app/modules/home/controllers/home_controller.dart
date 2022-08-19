@@ -1,11 +1,16 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
+  // final _pageController = PageController(initialPage: 0);
+
   var tabIndex = 0.obs;
 
-  void changeTabIndex(int index) {
+  void changeTabIndex(index) {
     tabIndex.value = index;
     update();
+    // _pageController.animateToPage(index,
+    //     duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
 
   final count = 0.obs;

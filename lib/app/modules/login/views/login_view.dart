@@ -3,11 +3,12 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
-import 'package:project_magang/app/modules/home/views/home_view.dart';
+
 import 'package:project_magang/app/modules/lupa_sandi/views/lupa_sandi_view.dart';
 import 'package:project_magang/app/modules/register/views/register_view.dart';
 import 'package:project_magang/app/theme/theme.dart';
 
+import '../../../controller/auth_controller.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -17,6 +18,10 @@ class LoginView extends GetView<LoginController> {
     final textScale = MediaQuery.of(context).textScaleFactor;
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
+    final emailC = TextEditingController();
+    final passC = TextEditingController();
+    final authC = Get.find<AuthController>();
+    final LoginController controller = Get.put(LoginController());
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
@@ -64,7 +69,21 @@ class LoginView extends GetView<LoginController> {
                                 color: light,
                                 borderRadius: BorderRadius.circular(12)),
                             child: TextFormField(
+                              // onTap: () {
+                              //   FocusScopeNode currentFocus =
+                              //       FocusScope.of(context);
+
+                              //   if (!currentFocus.hasPrimaryFocus) {
+                              //     currentFocus.unfocus();
+                              //   }
+                              // },
                               keyboardType: TextInputType.emailAddress,
+                              // validator: (value) {
+                              //   return value!.isNotEmpty
+                              //       ? null
+                              //       : "Form tidak boleh kosong";
+                              // },
+                              controller: emailC,
                               style: TextStyle(color: dark),
                               decoration: InputDecoration(
                                   prefixIcon: Align(
@@ -84,40 +103,64 @@ class LoginView extends GetView<LoginController> {
                           SizedBox(
                             height: bodyHeight * 0.025,
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 1,
-                            height: bodyHeight * 0.065,
-                            decoration: BoxDecoration(
-                                color: light,
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextFormField(
-                              style: TextStyle(color: dark),
-                              // obscureText: controller.isPasswordHidden.value,
-                              // controller: passC,
-                              decoration: InputDecoration(
-                                  prefixIcon: Align(
-                                      widthFactor: 1.0,
-                                      heightFactor: 1.0,
-                                      child: Icon(
-                                        IconlyLight.lock,
-                                        color: Grey1,
-                                      )),
-                                  hintText: 'Kata Sandi',
-                                  hintStyle: heading6.copyWith(
-                                      color: Grey1, fontSize: 14 * textScale),
-                                  // suffixIcon: IconButton(
-                                  //   color: dark,
-                                  //   splashRadius: 1,
-                                  //   icon: Icon(controller.isPasswordHidden.value
-                                  //       ? Icons.visibility_outlined
-                                  //       : Icons.visibility_off_outlined),
-                                  //   onPressed: () {
-                                  //     controller.isPasswordHidden.value =
-                                  //         !controller.isPasswordHidden.value;
-                                  //   },
-                                  // ),
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none)),
+                          Obx(
+                            () => Container(
+                              width: MediaQuery.of(context).size.width * 1,
+                              height: bodyHeight * 0.065,
+                              decoration: BoxDecoration(
+                                  color: light,
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: TextFormField(
+                                style: TextStyle(color: dark),
+                                onTap: () {
+                                  FocusScopeNode currentFocus =
+                                      FocusScope.of(context);
+
+                                  if (!currentFocus.hasPrimaryFocus) {
+                                    currentFocus.unfocus();
+                                  }
+                                },
+                                validator: (value) {
+                                  return value!.isNotEmpty
+                                      ? null
+                                      : "Form tidak boleh kosong";
+                                },
+                                obscureText: controller.isPasswordHidden.value,
+                                controller: passC,
+                                decoration: InputDecoration(
+                                    prefixIcon: Align(
+                                        widthFactor: 1.0,
+                                        heightFactor: 1.0,
+                                        child: Icon(
+                                          IconlyLight.lock,
+                                          color: Grey1,
+                                        )),
+                                    hintText: 'Kata Sandi',
+                                    hintStyle: heading6.copyWith(
+                                        color: Grey1, fontSize: 14 * textScale),
+                                    suffixIcon: Padding(
+                                      padding: EdgeInsets.only(
+                                        right:
+                                            MediaQuery.of(context).size.width *
+                                                0.02,
+                                      ),
+                                      child: IconButton(
+                                        color: Colors.black26,
+                                        splashRadius: 1,
+                                        icon: Icon(
+                                            controller.isPasswordHidden.value
+                                                ? Icons.visibility_rounded
+                                                : Icons.visibility_off_rounded),
+                                        onPressed: () {
+                                          controller.isPasswordHidden.value =
+                                              !controller
+                                                  .isPasswordHidden.value;
+                                        },
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide.none)),
+                              ),
                             ),
                           )
                         ],
@@ -134,8 +177,7 @@ class LoginView extends GetView<LoginController> {
                         color: Blue1,
                       ),
                       child: TextButton(
-                        onPressed: () => Get.to(HomeView()),
-                        /*authC.login(emailC.text, passC.text)*/
+                        onPressed: () => authC.login(emailC.text, passC.text),
                         child: Text(
                           'Masuk',
                           textScaleFactor: 1.25,

@@ -71,15 +71,17 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       bottomNavigationBar: buildBottomNavigationMenu(context, controller),
-      body: Obx(() => IndexedStack(
-            index: controller.tabIndex.value,
-            children: [
-              DashboardView(),
-              AttendanceView(),
-              ReportView(),
-              LocationView(),
-              SettingView()
-            ],
+      body: Obx(() => GestureDetector(
+            child: IndexedStack(
+              index: controller.tabIndex.value,
+              children: [
+                DashboardView(),
+                AttendanceView(),
+                ReportView(),
+                LocationView(),
+                SettingView()
+              ],
+            ),
           )),
     );
   }

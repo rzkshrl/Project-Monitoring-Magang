@@ -8,6 +8,7 @@ Color Blue1 = HexColor('#3A5BA0');
 Color Yellow1 = HexColor('#FFEB3B');
 Color Grey1 = HexColor('#D9D9D9');
 Color Grey2 = HexColor('#868D95');
+Color error = HexColor('#FF0000');
 
 TextStyle heading6 = TextStyle(
   fontWeight: FontWeight.w600,

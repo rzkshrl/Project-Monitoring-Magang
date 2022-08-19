@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "905502518141",
+    "project_id": "projectmonitoringmaganggeek22",
+    "storage_bucket": "projectmonitoringmaganggeek22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905502518141:android:5f3637164939376b63ba14",
+        "android_client_info": {
+          "package_name": "com.example.project_magang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905502518141-rmsl5b1d939865uubkcu69u0heqippls.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhs_4T60wImqwNsCKiH6z41tHvCyBIyHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905502518141-rmsl5b1d939865uubkcu69u0heqippls.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "905502518141-e1mrnsli49slgoliadk4pruur8dcl0ki.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.projectMagang"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

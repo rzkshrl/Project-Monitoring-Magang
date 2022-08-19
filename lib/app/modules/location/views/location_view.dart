@@ -146,7 +146,7 @@ class LocationView extends GetView<LocationController> {
                               onPressed: () => {},
                               /*authC.logut(emailC.text, passC.text)*/
                               child: Text(
-                                'Logout',
+                                'Masuk',
                                 textScaleFactor: 1.1,
                                 style: headingBtn.copyWith(color: Yellow1),
                               ),

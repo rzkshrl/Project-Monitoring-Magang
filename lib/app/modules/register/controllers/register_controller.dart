@@ -4,6 +4,7 @@ class RegisterController extends GetxController {
   //TODO: Implement RegisterController
 
   final count = 0.obs;
+  var isPasswordHidden = true.obs;
   @override
   void onInit() {
     super.onInit();

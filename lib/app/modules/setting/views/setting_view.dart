@@ -12,6 +12,7 @@ import 'package:project_magang/app/modules/login/views/login_view.dart';
 import 'package:project_magang/app/widgets/custom_icon_all_icons.dart';
 import 'package:project_magang/app/widgets/custom_icon_login_icons.dart';
 
+import '../../../controller/auth_controller.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/custom_icon_home_icons.dart';
 import '../controllers/setting_controller.dart';
@@ -23,7 +24,7 @@ class SettingView extends GetView<SettingController> {
     final textScale = MediaQuery.of(context).textScaleFactor;
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
-
+    final authC = Get.find<AuthController>();
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
@@ -257,7 +258,7 @@ class SettingView extends GetView<SettingController> {
                         color: Blue1,
                       ),
                       child: TextButton(
-                        onPressed: () => Get.to(LoginView()),
+                        onPressed: () => authC.logout(),
                         /*authC.logut(emailC.text, passC.text)*/
                         child: Text(
                           'Logout',
