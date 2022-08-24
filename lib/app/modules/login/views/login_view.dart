@@ -12,15 +12,15 @@ import '../../../controller/auth_controller.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
+  LoginView({Key? key}) : super(key: key);
+
+  final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     final textScale = MediaQuery.of(context).textScaleFactor;
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
-    final emailC = TextEditingController();
-    final passC = TextEditingController();
-    final authC = Get.find<AuthController>();
+
     final LoginController controller = Get.put(LoginController());
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
@@ -83,7 +83,7 @@ class LoginView extends GetView<LoginController> {
                               //       ? null
                               //       : "Form tidak boleh kosong";
                               // },
-                              controller: emailC,
+                              controller: controller.emailC,
                               style: TextStyle(color: dark),
                               decoration: InputDecoration(
                                   prefixIcon: Align(
@@ -126,7 +126,7 @@ class LoginView extends GetView<LoginController> {
                                       : "Form tidak boleh kosong";
                                 },
                                 obscureText: controller.isPasswordHidden.value,
-                                controller: passC,
+                                controller: controller.passC,
                                 decoration: InputDecoration(
                                     prefixIcon: Align(
                                         widthFactor: 1.0,
@@ -177,7 +177,8 @@ class LoginView extends GetView<LoginController> {
                         color: Blue1,
                       ),
                       child: TextButton(
-                        onPressed: () => authC.login(emailC.text, passC.text),
+                        onPressed: () => authC.login(
+                            controller.emailC.text, controller.passC.text),
                         child: Text(
                           'Masuk',
                           textScaleFactor: 1.25,

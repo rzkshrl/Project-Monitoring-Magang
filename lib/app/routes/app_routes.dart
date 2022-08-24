@@ -14,6 +14,15 @@ abstract class Routes {
   static const DASHBOARD = _Paths.DASHBOARD;
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
   static const EDIT_EMAILPASS = _Paths.EDIT_EMAILPASS;
+  static const DASHBOARD_H_R = _Paths.DASHBOARD_H_R;
+  static const ATTENDANCE_H_R = _Paths.ATTENDANCE_H_R;
+  static const LIST_ATTENDANCE_H_R = _Paths.LIST_ATTENDANCE_H_R;
+  static const LIST_LOCATION_H_R = _Paths.LIST_LOCATION_H_R;
+  static const DETAIL_LOCATION_H_R = _Paths.DETAIL_LOCATION_H_R;
+  static const SETTING_H_R = _Paths.SETTING_H_R;
+  static const EDIT_EMAILPASS_H_R = _Paths.EDIT_EMAILPASS_H_R;
+  static const EDIT_PROFILE_H_R = _Paths.EDIT_PROFILE_H_R;
+  static const HOME_H_R = _Paths.HOME_H_R;
 }
 
 abstract class _Paths {
@@ -29,4 +38,13 @@ abstract class _Paths {
   static const DASHBOARD = '/dashboard';
   static const EDIT_PROFILE = '/edit-profile';
   static const EDIT_EMAILPASS = '/edit-emailpass';
+  static const DASHBOARD_H_R = '/dashboard-h-r';
+  static const ATTENDANCE_H_R = '/attendance-h-r';
+  static const LIST_ATTENDANCE_H_R = '/list-attendance-h-r';
+  static const LIST_LOCATION_H_R = '/list-location-h-r';
+  static const DETAIL_LOCATION_H_R = '/detail-location-h-r';
+  static const SETTING_H_R = '/setting-h-r';
+  static const EDIT_EMAILPASS_H_R = '/edit-emailpass-h-r';
+  static const EDIT_PROFILE_H_R = '/edit-profile-h-r';
+  static const HOME_H_R = '/home-h-r';
 }

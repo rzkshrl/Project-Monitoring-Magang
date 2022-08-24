@@ -1,13 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {
-  //TODO: Implement LoginController
-  final emailC = TextEditingController();
-  final passC = TextEditingController();
+class EditEmailpassHRController extends GetxController {
+  //TODO: Implement EditEmailpassHRController
 
   final count = 0.obs;
-  var isPasswordHidden = true.obs;
   @override
   void onInit() {
     super.onInit();

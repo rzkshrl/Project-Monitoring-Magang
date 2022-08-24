@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,15 +15,15 @@ import '../../lupa_sandi/views/lupa_sandi_view.dart';
 import '../controllers/register_controller.dart';
 
 class RegisterView extends GetView<RegisterController> {
-  const RegisterView({Key? key}) : super(key: key);
+  // ignore: prefer_const_constructors_in_immutables
+  RegisterView({Key? key}) : super(key: key);
+  final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     final textScale = MediaQuery.of(context).textScaleFactor;
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
-    final emailC = TextEditingController();
-    final passC = TextEditingController();
-    final authC = Get.find<AuthController>();
+
     final RegisterController controller = Get.put(RegisterController());
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
@@ -72,6 +74,7 @@ class RegisterView extends GetView<RegisterController> {
                                 borderRadius: BorderRadius.circular(12)),
                             child: TextFormField(
                               style: TextStyle(color: dark),
+                              controller: controller.nameC,
                               onTap: () {
                                 FocusScopeNode currentFocus =
                                     FocusScope.of(context);
@@ -114,12 +117,16 @@ class RegisterView extends GetView<RegisterController> {
                                   isVisible: true, color: dark),
                               items: [
                                 "Teknis",
-                                "Marketing",
-                                "Human Resource",
-                                'Project Manager',
-                                "Engineer",
-                                'QA'
+                                "Marketing & Sales",
+                                "HR & Legal",
+                                'Multimedia',
+                                "Finance",
                               ],
+                              onChanged: (value) {
+                                if (value != null) {
+                                  controller.setDivisi(value);
+                                }
+                              },
                               dropdownDecoratorProps: DropDownDecoratorProps(
                                   dropdownSearchDecoration: InputDecoration(
                                       prefixIcon: Align(
@@ -177,29 +184,6 @@ class RegisterView extends GetView<RegisterController> {
                               ),
                             ),
                           ),
-
-                          // Container(
-                          //   width: MediaQuery.of(context).size.width * 1,
-                          //   height: bodyHeight * 0.065,
-                          //   decoration: BoxDecoration(
-                          //       color: light,
-                          //       borderRadius: BorderRadius.circular(12)),
-                          //   child: TextFormField(
-                          //     style: TextStyle(color: dark),
-                          //     decoration: InputDecoration(
-                          //         prefixIcon: Align(
-                          //             widthFactor: 1.0,
-                          //             heightFactor: 1.0,
-                          //             child: Icon(
-                          //               IconlyLight.user_1,
-                          //               color: Grey1,
-                          //             )),
-                          //         hintText: 'Divisi',
-                          //         hintStyle: heading6.copyWith(color: Grey1),
-                          //         border: OutlineInputBorder(
-                          //             borderSide: BorderSide.none)),
-                          //   ),
-                          // ),
                           SizedBox(
                             height: bodyHeight * 0.025,
                           ),
@@ -211,6 +195,7 @@ class RegisterView extends GetView<RegisterController> {
                                 borderRadius: BorderRadius.circular(12)),
                             child: TextFormField(
                               keyboardType: TextInputType.emailAddress,
+                              controller: controller.emailC,
                               onTap: () {
                                 FocusScopeNode currentFocus =
                                     FocusScope.of(context);
@@ -266,7 +251,7 @@ class RegisterView extends GetView<RegisterController> {
                                       : "Form tidak boleh kosong";
                                 },
                                 obscureText: controller.isPasswordHidden.value,
-                                controller: passC,
+                                controller: controller.passC,
                                 decoration: InputDecoration(
                                     prefixIcon: Align(
                                         widthFactor: 1.0,
@@ -317,13 +302,16 @@ class RegisterView extends GetView<RegisterController> {
                         color: Blue1,
                       ),
                       child: TextButton(
-                        onPressed: () =>
-                            authC.register(emailC.text, passC.text),
                         child: Text(
                           'Daftar',
                           textScaleFactor: 1.3,
                           style: headingBtn.copyWith(color: Yellow1),
                         ),
+                        onPressed: () => authC.register(
+                            controller.nameC.text,
+                            controller.emailC.text,
+                            controller.passC.text,
+                            controller.divisiC.value),
                       ),
                     ),
                     SizedBox(

@@ -103,11 +103,10 @@ class AttendanceView extends GetView<AttendanceController> {
                                         isVisible: true, color: dark),
                                     items: [
                                       "Teknis",
-                                      "Marketing",
-                                      "Human Resource",
-                                      'Project Manager',
-                                      "Engineer",
-                                      'QA'
+                                      "Marketing & Sales",
+                                      "HR & Legal",
+                                      'Multimedia',
+                                      "Finance",
                                     ],
                                     dropdownDecoratorProps:
                                         DropDownDecoratorProps(
