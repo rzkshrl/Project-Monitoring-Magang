@@ -46,7 +46,7 @@ class AuthController extends GetxController {
           email: email, password: password);
       CollectionReference users = firestore.collection('Users');
 
-      users.doc(useruid);
+      // users.doc(useruid);
       // if (myUser.user!.)
       if (myUser.user!.emailVerified) {
         Get.offAllNamed(Routes.HOME);
