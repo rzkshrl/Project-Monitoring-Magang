@@ -20,8 +20,7 @@ import '../modules/edit_profileHR/bindings/edit_profile_h_r_binding.dart';
 import '../modules/edit_profileHR/views/edit_profile_h_r_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/homeHR/bindings/home_h_r_binding.dart';
-import '../modules/homeHR/views/home_h_r_view.dart';
+
 import '../modules/list_attendanceHR/bindings/list_attendance_h_r_binding.dart';
 import '../modules/list_attendanceHR/views/list_attendance_h_r_view.dart';
 import '../modules/list_locationHR/bindings/list_location_h_r_binding.dart';
@@ -143,11 +142,6 @@ class AppPages {
       name: _Paths.EDIT_PROFILE_H_R,
       page: () => const EditProfileHRView(),
       binding: EditProfileHRBinding(),
-    ),
-    GetPage(
-      name: _Paths.HOME_H_R,
-      page: () => const HomeHRView(),
-      binding: HomeHRBinding(),
     ),
   ];
 }

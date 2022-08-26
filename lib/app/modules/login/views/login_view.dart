@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,6 +10,8 @@ import 'package:project_magang/app/modules/register/views/register_view.dart';
 import 'package:project_magang/app/theme/theme.dart';
 
 import '../../../controller/auth_controller.dart';
+import '../../../utils/loading.dart';
+import '../../home/views/home_view.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -176,7 +179,22 @@ class LoginView extends GetView<LoginController> {
                         borderRadius: BorderRadius.circular(80),
                         color: Blue1,
                       ),
-                      child: TextButton(
+                      child:
+                          // StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                          //     stream: authC.streamRole(),
+                          //     builder: (context, snapshot) {
+                          //       if (snapshot.connectionState ==
+                          //           ConnectionState.waiting) {
+                          //         return LoadingView();
+                          //       }
+                          //       String role = snapshot.data!.data()!['divisi'];
+                          //       if (role == "HR & Legal") {
+                          //
+                          //       } else {
+                          //
+                          //       }
+                          //     }),
+                          TextButton(
                         onPressed: () => authC.login(
                             controller.emailC.text, controller.passC.text),
                         child: Text(

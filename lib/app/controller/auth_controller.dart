@@ -1,7 +1,14 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:project_magang/app/utils/loading.dart';
 
+import '../modules/home/views/home_view.dart';
 import '../routes/app_pages.dart';
 
 class AuthController extends GetxController {
@@ -23,7 +30,7 @@ class AuthController extends GetxController {
 
     CollectionReference users = firestore.collection('Users');
     try {
-      users.add({
+      users.doc(uid).set({
         'uid': uid,
         'name': name,
         'email': email,
@@ -39,17 +46,68 @@ class AuthController extends GetxController {
     }
   }
 
+  // Stream<QuerySnapshot> streamRole() async* {
+  //   yield* firestore.collection("Users").snapshots();
+  // }
+
+  // Stream<DocumentSnapshot<Map<String, dynamic>>> streamRole() async* {
+  //   String uid = auth.currentUser!.uid;
+  //   log("${uid}");
+  //   yield* firestore.collection("Users").doc(uid).snapshots();
+  //   // log("${firestore.collection("Users").doc(uid).snapshots()}");
+  // }
+
+  Future<DocumentSnapshot<Object?>> role() async {
+    String uid = auth.currentUser!.uid;
+    DocumentReference users = firestore.collection('Users').doc(uid);
+    return users.get();
+  }
+
   //login
   void login(String email, String password) async {
     try {
       UserCredential myUser = await auth.signInWithEmailAndPassword(
           email: email, password: password);
-      CollectionReference users = firestore.collection('Users');
 
-      // users.doc(useruid);
-      // if (myUser.user!.)
       if (myUser.user!.emailVerified) {
         Get.offAllNamed(Routes.HOME);
+        // StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+        //   stream: streamRole(),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.connectionState == ConnectionState.waiting) {
+        //       return LoadingView();
+        //     }
+        //     String role = snapshot.data!.data()!["divisi"];
+        //     if (role == "HR & Legal") {
+        //       return const HomeHRView();
+        //     } else {
+        //       return HomeView();
+        //     }
+        //   },
+        // );
+
+        // User? user = FirebaseAuth.currentUser;
+        // StreamBuilder<DocumentSnapshot>(
+        //   stream: FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.currentUser!.uid).snapshots(),
+        //   builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        //     return checkDivision(snapshot.data);
+        //   },
+        // );
+
+        // final userID = auth.currentUser?.uid;
+        // firestore
+        //     .collection('Users')
+        //     .doc(userID)
+        //     .get()
+        //     .then((DocumentSnapshot doc) {
+        //   bool divisi;
+        //   if (divisi = doc.get('divisi') == 'HR & Legal') {
+        //     Get.offAllNamed(Routes.HOME_H_R);
+        //   } else {
+        //     Get.offAllNamed(Routes.HOME);
+        //   }
+        // });
+
       } else {
         Get.defaultDialog(
             title: 'Verifikasi Email',
@@ -157,4 +215,12 @@ class AuthController extends GetxController {
     await FirebaseAuth.instance.signOut();
     Get.offAllNamed(Routes.LOGIN);
   }
+
+  // Widget checkDivision(DocumentSnapshot<Object?>? snapshot) {
+  //   if (snapshot?.get('divisi') == 'HR & Legal') {
+  //     return HomeHRView();
+  //   } else {
+  //     return HomeView();
+  //   }
+  // }
 }
