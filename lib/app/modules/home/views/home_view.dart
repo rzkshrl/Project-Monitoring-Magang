@@ -136,7 +136,7 @@ class HomeView extends StatelessWidget {
           }
           if (snap.hasData) {
             var role = snap.data!.get("divisi");
-            log("${role}");
+
             if (role != "HR & Legal") {
               return Scaffold(
                 extendBody: true,

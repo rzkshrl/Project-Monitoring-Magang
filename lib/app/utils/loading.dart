@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_magang/app/theme/theme.dart';
 
 class LoadingView extends StatelessWidget {
   const LoadingView({Key? key}) : super(key: key);
@@ -9,7 +10,9 @@ class LoadingView extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           body: Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          color: backgroundBlue,
+        ),
       )),
     );
   }
