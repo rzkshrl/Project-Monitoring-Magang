@@ -9,6 +9,7 @@ class RegisterController extends GetxController {
   final emailC = TextEditingController();
   final passC = TextEditingController();
   final nameC = TextEditingController();
+  final nomorindukC = TextEditingController();
   final divisiC = "".obs;
   final count = 0.obs;
   var isPasswordHidden = true.obs;

@@ -42,7 +42,7 @@ class DashboardView extends GetView<DashboardController> {
               if (snap.hasData) {
                 var nama = snap.data!.get("name");
                 var divisi = snap.data!.get("divisi");
-
+                var nomor_induk = snap.data!.get("nomor_induk");
                 return LayoutBuilder(
                   builder: (context, constraints) => SingleChildScrollView(
                     reverse: true,
@@ -115,7 +115,7 @@ class DashboardView extends GetView<DashboardController> {
                                           ),
                                         ),
                                         Text(
-                                          "134173676713",
+                                          "$nomor_induk",
                                           textAlign: TextAlign.start,
                                           textScaleFactor: 1.5,
                                           style: TextStyle(

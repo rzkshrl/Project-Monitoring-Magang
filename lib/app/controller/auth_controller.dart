@@ -23,9 +23,15 @@ class AuthController extends GetxController {
     return users.snapshots();
   }
 
+  Future<DocumentSnapshot<Object?>> getUserDoc() async {
+    String uid = auth.currentUser!.uid;
+    DocumentReference user = firestore.collection("Users").doc(uid);
+    return user.get();
+  }
+
   //store user data
-  void syncUsers(
-      String name, String email, String password, String divisi) async {
+  void syncUsers(String name, String email, String password, String divisi,
+      String nomor_induk) async {
     String uid = auth.currentUser!.uid.toString();
 
     CollectionReference users = firestore.collection('Users');
@@ -33,6 +39,7 @@ class AuthController extends GetxController {
       users.doc(uid).set({
         'uid': uid,
         'name': name,
+        'nomor_induk': nomor_induk,
         'email': email,
         'password': password,
         'divisi': divisi,
@@ -138,8 +145,8 @@ class AuthController extends GetxController {
   }
 
   //register
-  void register(
-      String name, String email, String password, String divisi) async {
+  void register(String name, String email, String password, String divisi,
+      String nomor_induk) async {
     try {
       UserCredential myUser =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -148,7 +155,7 @@ class AuthController extends GetxController {
       );
 
       await myUser.user?.updateDisplayName(name);
-      syncUsers(name, email, password, divisi);
+      syncUsers(name, email, password, divisi, nomor_induk);
       await myUser.user!.sendEmailVerification();
       Get.defaultDialog(
           title: 'Verifikasi Email',

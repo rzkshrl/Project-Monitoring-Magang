@@ -45,6 +45,7 @@ class SettingView extends GetView<SettingController> {
               if (snap.hasData) {
                 var nama = snap.data!.get("name");
                 var divisi = snap.data!.get("divisi");
+                var nomor_induk = snap.data!.get("nomor_induk");
                 var email = snap.data!.get("email");
                 var pass = snap.data!.get("password");
                 return LayoutBuilder(
@@ -82,90 +83,82 @@ class SettingView extends GetView<SettingController> {
                                 SizedBox(
                                   width: bodyHeight * 0.015,
                                 ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: bodyHeight * 0.115,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.65,
-                                      padding: EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.width *
-                                                0.06,
-                                        bottom: bodyHeight * 0.02,
-                                        top: bodyHeight * 0.02,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: Grey1,
-                                          borderRadius:
-                                              BorderRadius.circular(30)),
-                                      child: Column(
+                                Container(
+                                  height: bodyHeight * 0.115,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.65,
+                                  padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width *
+                                        0.06,
+                                    right: MediaQuery.of(context).size.width *
+                                        0.02,
+                                    bottom: bodyHeight * 0.02,
+                                    top: bodyHeight * 0.02,
+                                  ),
+                                  decoration: BoxDecoration(
+                                      color: Grey1,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Row(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  AutoSizeText(
-                                                    "$nama",
-                                                    textAlign: TextAlign.start,
-                                                    textScaleFactor: 1.2,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: regular12pt.copyWith(
-                                                        color: dark,
-                                                        fontWeight:
-                                                            FontWeight.w700),
-                                                  ),
-                                                  SizedBox(
-                                                    height: bodyHeight * 0.01,
-                                                  ),
-                                                  Text(
-                                                    "$divisi",
-                                                    textAlign: TextAlign.center,
-                                                    textScaleFactor: 1,
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    "134173676713",
-                                                    textAlign: TextAlign.center,
-                                                    textScaleFactor: 1,
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.2,
-                                              ),
-                                              ClipOval(
-                                                child: Material(
-                                                  color: Colors.transparent,
-                                                  child: IconButton(
-                                                    onPressed: () => Get.to(
-                                                        EditProfileView()),
-                                                    icon: Icon(
-                                                      IconlyLight.edit,
-                                                      color: dark,
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
+                                          AutoSizeText(
+                                            "$nama",
+                                            textAlign: TextAlign.start,
+                                            textScaleFactor: 1.2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: regular12pt.copyWith(
+                                                color: dark,
+                                                fontWeight: FontWeight.w700),
                                           ),
+                                          SizedBox(
+                                            height: bodyHeight * 0.01,
+                                          ),
+                                          Text(
+                                            "$divisi",
+                                            textAlign: TextAlign.center,
+                                            textScaleFactor: 1,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          Text(
+                                            "$nomor_induk",
+                                            textAlign: TextAlign.center,
+                                            textScaleFactor: 1,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          // SizedBox(
+                                          //   width: MediaQuery.of(context)
+                                          //           .size
+                                          //           .width *
+                                          //       0.2,
+                                          // ),
                                         ],
                                       ),
-                                    ),
-                                  ],
+                                      ClipOval(
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          child: IconButton(
+                                            onPressed: () =>
+                                                Get.to(EditProfileView()),
+                                            icon: Icon(
+                                              IconlyLight.edit,
+                                              color: dark,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -174,7 +167,7 @@ class SettingView extends GetView<SettingController> {
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 SizedBox(
                                   width:

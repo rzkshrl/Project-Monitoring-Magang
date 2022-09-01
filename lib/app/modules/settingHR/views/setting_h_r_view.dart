@@ -40,6 +40,7 @@ class SettingHRView extends GetView<SettingHRController> {
               if (snap.hasData) {
                 var nama = snap.data!.get("name");
                 var divisi = snap.data!.get("divisi");
+                var nomor_induk = snap.data!.get("nomor_induk");
                 var email = snap.data!.get("email");
                 var pass = snap.data!.get("password");
                 return LayoutBuilder(
@@ -70,97 +71,91 @@ class SettingHRView extends GetView<SettingHRController> {
                                         0.19,
                                     height: bodyHeight * 0.09,
                                     color: Colors.grey.shade200,
-                                    child: Center(child: Text("X")),
-                                    // child: Image.network(src),
+                                    child: Image.network(
+                                      "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33",
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
                                   width: bodyHeight * 0.015,
                                 ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: bodyHeight * 0.115,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.65,
-                                      padding: EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.width *
-                                                0.06,
-                                        bottom: bodyHeight * 0.02,
-                                        top: bodyHeight * 0.02,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: Grey1,
-                                          borderRadius:
-                                              BorderRadius.circular(30)),
-                                      child: Column(
+                                Container(
+                                  height: bodyHeight * 0.115,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.65,
+                                  padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width *
+                                        0.06,
+                                    right: MediaQuery.of(context).size.width *
+                                        0.02,
+                                    bottom: bodyHeight * 0.02,
+                                    top: bodyHeight * 0.02,
+                                  ),
+                                  decoration: BoxDecoration(
+                                      color: Grey1,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Row(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  AutoSizeText(
-                                                    "$nama",
-                                                    textAlign: TextAlign.start,
-                                                    textScaleFactor: 1.2,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: regular12pt.copyWith(
-                                                        color: dark,
-                                                        fontWeight:
-                                                            FontWeight.w700),
-                                                  ),
-                                                  SizedBox(
-                                                    height: bodyHeight * 0.01,
-                                                  ),
-                                                  Text(
-                                                    "$divisi",
-                                                    textAlign: TextAlign.start,
-                                                    textScaleFactor: 1,
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    "134173676713",
-                                                    textAlign: TextAlign.start,
-                                                    textScaleFactor: 1,
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.2,
-                                              ),
-                                              ClipOval(
-                                                child: Material(
-                                                  color: Colors.transparent,
-                                                  child: IconButton(
-                                                    onPressed: () => Get.to(
-                                                        EditProfileHRView()),
-                                                    icon: Icon(
-                                                      IconlyLight.edit,
-                                                      color: dark,
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
+                                          AutoSizeText(
+                                            "$nama",
+                                            textAlign: TextAlign.start,
+                                            textScaleFactor: 1.2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: regular12pt.copyWith(
+                                                color: dark,
+                                                fontWeight: FontWeight.w700),
                                           ),
+                                          SizedBox(
+                                            height: bodyHeight * 0.01,
+                                          ),
+                                          Text(
+                                            "$divisi",
+                                            textAlign: TextAlign.center,
+                                            textScaleFactor: 1,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          Text(
+                                            "$nomor_induk",
+                                            textAlign: TextAlign.center,
+                                            textScaleFactor: 1,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          // SizedBox(
+                                          //   width: MediaQuery.of(context)
+                                          //           .size
+                                          //           .width *
+                                          //       0.2,
+                                          // ),
                                         ],
                                       ),
-                                    ),
-                                  ],
+                                      ClipOval(
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          child: IconButton(
+                                            onPressed: () =>
+                                                Get.to(EditProfileHRView()),
+                                            icon: Icon(
+                                              IconlyLight.edit,
+                                              color: dark,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

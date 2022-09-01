@@ -7,15 +7,16 @@ environment:
 
 dependencies:
   auto_size_text: ^3.0.0
+  cloud_firestore: ^3.1.1
   cupertino_icons: ^1.0.2
   dropdown_search: ^5.0.2
   firebase_auth: ^3.6.3
   firebase_core: ^1.20.1
-  cloud_firestore: ^3.1.1
   floating_bottom_navigation_bar: ^1.5.2
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.2.4
+  focused_menu: ^1.0.5
   footer: ^0.0.4
   get: 4.6.5
   hexcolor: ^2.0.7

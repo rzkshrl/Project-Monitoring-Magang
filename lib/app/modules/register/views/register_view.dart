@@ -48,7 +48,7 @@ class RegisterView extends GetView<RegisterController> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: bodyHeight * 0.2,
+                      height: bodyHeight * 0.11,
                     ),
                     Column(
                       children: [
@@ -194,6 +194,51 @@ class RegisterView extends GetView<RegisterController> {
                                 color: light,
                                 borderRadius: BorderRadius.circular(12)),
                             child: TextFormField(
+                              style: TextStyle(color: dark),
+                              controller: controller.nomorindukC,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9]')),
+                              ],
+                              onTap: () {
+                                FocusScopeNode currentFocus =
+                                    FocusScope.of(context);
+
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                }
+                              },
+                              validator: (value) {
+                                return value!.isNotEmpty
+                                    ? null
+                                    : "Form tidak boleh kosong";
+                              },
+                              decoration: InputDecoration(
+                                  prefixIcon: Align(
+                                      widthFactor: 1.0,
+                                      heightFactor: 1.0,
+                                      child: Icon(
+                                        IconlyLight.info_circle,
+                                        color: Grey1,
+                                      )),
+                                  hintText: 'Nomor Induk Karyawan',
+                                  hintStyle: heading6.copyWith(
+                                      color: Grey1, fontSize: 14 * textScale),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none)),
+                            ),
+                          ),
+                          SizedBox(
+                            height: bodyHeight * 0.025,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 1,
+                            height: bodyHeight * 0.065,
+                            decoration: BoxDecoration(
+                                color: light,
+                                borderRadius: BorderRadius.circular(12)),
+                            child: TextFormField(
                               keyboardType: TextInputType.emailAddress,
                               controller: controller.emailC,
                               onTap: () {
@@ -308,10 +353,12 @@ class RegisterView extends GetView<RegisterController> {
                           style: headingBtn.copyWith(color: Yellow1),
                         ),
                         onPressed: () => authC.register(
-                            controller.nameC.text,
-                            controller.emailC.text,
-                            controller.passC.text,
-                            controller.divisiC.value),
+                          controller.nameC.text,
+                          controller.emailC.text,
+                          controller.passC.text,
+                          controller.divisiC.value,
+                          controller.nomorindukC.text,
+                        ),
                       ),
                     ),
                     SizedBox(
