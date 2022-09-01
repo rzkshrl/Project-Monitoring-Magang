@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:project_magang/app/routes/app_pages.dart';
 import 'package:project_magang/app/utils/loading.dart';
 
 import '../../../controller/auth_controller.dart';
@@ -146,8 +147,9 @@ class SettingHRView extends GetView<SettingHRController> {
                                                 child: Material(
                                                   color: Colors.transparent,
                                                   child: IconButton(
-                                                    onPressed: () => Get.to(
-                                                        EditProfileHRView()),
+                                                    onPressed: () =>
+                                                        Get.offAllNamed(Routes
+                                                            .EDIT_PROFILE_H_R),
                                                     icon: Icon(
                                                       IconlyLight.edit,
                                                       color: dark,
