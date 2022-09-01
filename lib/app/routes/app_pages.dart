@@ -140,7 +140,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EDIT_PROFILE_H_R,
-      page: () => const EditProfileHRView(),
+      page: () => EditProfileHRView(),
       binding: EditProfileHRBinding(),
     ),
   ];
