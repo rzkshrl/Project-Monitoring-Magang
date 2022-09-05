@@ -8,8 +8,9 @@ class EditProfileHRController extends GetxController {
   //TODO: Implement EditProfileHRController
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  late TextEditingController nameC;
-  late TextEditingController divisiC;
+  late TextEditingController nameC = TextEditingController();
+  late TextEditingController divisiC = TextEditingController();
+  late TextEditingController nomorindukC = TextEditingController();
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -19,10 +20,7 @@ class EditProfileHRController extends GetxController {
     return user.get();
   }
 
-  void editProfil(
-    String nama,
-    String divisi,
-  ) async {
+  void editProfil(String nama, String divisi, String nomorInduk) async {
     String uid = auth.currentUser!.uid;
     DocumentReference docUsers = firestore.collection("Users").doc(uid);
 
@@ -30,6 +28,7 @@ class EditProfileHRController extends GetxController {
       await docUsers.update({
         "name": nama,
         "divisi": divisi,
+        "nomor_induk": nomorInduk,
       });
 
       Get.defaultDialog(
@@ -38,6 +37,7 @@ class EditProfileHRController extends GetxController {
         onConfirm: () {
           nameC.clear();
           divisiC.clear();
+          nomorindukC.clear();
 
           Get.back();
           Get.back();
@@ -58,6 +58,7 @@ class EditProfileHRController extends GetxController {
   void onInit() {
     nameC = TextEditingController();
     divisiC = TextEditingController();
+    nomorindukC = TextEditingController();
 
     super.onInit();
   }
@@ -71,6 +72,7 @@ class EditProfileHRController extends GetxController {
   void onClose() {
     nameC.dispose();
     divisiC.dispose();
+    nomorindukC.dispose();
 
     super.onClose();
   }

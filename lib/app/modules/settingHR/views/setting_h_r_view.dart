@@ -146,8 +146,9 @@ class SettingHRView extends GetView<SettingHRController> {
                                         child: Material(
                                           color: Colors.transparent,
                                           child: IconButton(
-                                            onPressed: () =>
-                                                Get.to(EditProfileHRView()),
+                                            onPressed: () => Get.toNamed(
+                                                Routes.EDIT_PROFILE_H_R,
+                                                arguments: snap.data!.data()),
                                             icon: Icon(
                                               IconlyLight.edit,
                                               color: dark,
