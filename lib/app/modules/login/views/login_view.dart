@@ -245,7 +245,7 @@ class LoginView extends GetView<LoginController> {
                     Padding(
                         padding: EdgeInsets.only(
                             bottom:
-                                MediaQuery.of(context).viewInsets.bottom * 0.3))
+                                MediaQuery.of(context).viewInsets.bottom * 0.4))
                   ],
                 ),
               ),

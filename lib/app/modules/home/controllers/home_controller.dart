@@ -4,13 +4,10 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   // final _pageController = PageController(initialPage: 0);
 
-  var tabIndex = 0.obs;
+  var currentIndex = 0.obs;
 
-  void changeTabIndex(index) {
-    tabIndex.value = index;
-    update();
-    // _pageController.animateToPage(index,
-    //     duration: Duration(milliseconds: 500), curve: Curves.ease);
+  changePage(int i) {
+    currentIndex.value = i;
   }
 
   final count = 0.obs;

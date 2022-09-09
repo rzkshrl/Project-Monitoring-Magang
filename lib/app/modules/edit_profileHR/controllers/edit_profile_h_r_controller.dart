@@ -8,6 +8,10 @@ class EditProfileHRController extends GetxController {
   //TODO: Implement EditProfileHRController
   FirebaseAuth auth = FirebaseAuth.instance;
 
+  final namaKey = GlobalKey<FormState>().obs;
+  final divisiKey = GlobalKey<FormState>().obs;
+  final nomorIndukKey = GlobalKey<FormState>().obs;
+
   late TextEditingController nameC = TextEditingController();
   late TextEditingController divisiC = TextEditingController();
   late TextEditingController nomorindukC = TextEditingController();

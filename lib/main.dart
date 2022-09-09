@@ -33,6 +33,8 @@ class ProjectMagangApp extends StatelessWidget {
       // ignore: prefer_const_constructors
       value: SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark,
+        statusBarColor: light,
       ),
       child: StreamBuilder<User?>(
         stream: authC.streamAuthStatus,

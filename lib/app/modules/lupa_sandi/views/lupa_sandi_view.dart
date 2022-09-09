@@ -14,11 +14,13 @@ import '../controllers/lupa_sandi_controller.dart';
 
 class LupaSandiView extends GetView<LupaSandiController> {
   const LupaSandiView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final textScale = MediaQuery.of(context).textScaleFactor;
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
+    final LupaSandiController controller = Get.put(LupaSandiController());
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
@@ -26,6 +28,7 @@ class LupaSandiView extends GetView<LupaSandiController> {
         statusBarColor: backgroundBlue,
       ),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: backgroundBlue,
         body: LayoutBuilder(
           builder: (context, constraints) => SingleChildScrollView(
@@ -45,7 +48,7 @@ class LupaSandiView extends GetView<LupaSandiController> {
                     Row(
                       children: [
                         IconButton(
-                            onPressed: () => Get.to(LoginView()),
+                            onPressed: () => Get.back(),
                             icon: Icon(
                               Icons.arrow_back,
                               color: light,
@@ -60,90 +63,100 @@ class LupaSandiView extends GetView<LupaSandiController> {
                           width: MediaQuery.of(context).size.width * 0.5,
                           height: bodyHeight * 0.05,
                         ),
+                        SizedBox(
+                          height: bodyHeight * 0.03,
+                        ),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.75,
+                                height: bodyHeight * 0.02,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Blue1,
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Kami akan kirimkan link reset password ke email anda",
+                                      textAlign: TextAlign.center,
+                                      textScaleFactor: 0.8,
+                                      style: regular12pt.copyWith(color: light),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ]),
+                        SizedBox(
+                          height: bodyHeight * 0.03,
+                        ),
+                        Form(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 1,
+                                height: bodyHeight * 0.065,
+                                decoration: BoxDecoration(
+                                    color: light,
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: TextFormField(
+                                  controller: controller.emailC,
+                                  style: TextStyle(color: dark),
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration: InputDecoration(
+                                      prefixIcon: Align(
+                                          widthFactor: 1.0,
+                                          heightFactor: 1.0,
+                                          child: Icon(
+                                            IconlyLight.message,
+                                            color: Grey1,
+                                          )),
+                                      hintText: 'Email',
+                                      hintStyle: heading6.copyWith(
+                                          color: Grey1,
+                                          fontSize: 14 * textScale),
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide.none)),
+                                ),
+                              ),
+                              SizedBox(
+                                height: bodyHeight * 0.025,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: bodyHeight * 0.035,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 1,
+                          height: bodyHeight * 0.07,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(80),
+                            color: Blue1,
+                          ),
+                          child: TextButton(
+                            onPressed: () =>
+                                controller.lupaSandi(controller.emailC.text),
+                            /*authC.login(emailC.text, passC.text)*/
+                            child: Text(
+                              'Masuk',
+                              textScaleFactor: 1.25,
+                              style: headingBtn.copyWith(
+                                color: Yellow1,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    SizedBox(
-                      height: bodyHeight * 0.03,
-                    ),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.75,
-                        height: bodyHeight * 0.02,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Blue1,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Kami akan kirimkan link reset password ke email anda",
-                              textAlign: TextAlign.center,
-                              textScaleFactor: 0.8,
-                              style: regular12pt.copyWith(color: light),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ]),
-                    SizedBox(
-                      height: bodyHeight * 0.03,
-                    ),
-                    Form(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 1,
-                            height: bodyHeight * 0.065,
-                            decoration: BoxDecoration(
-                                color: light,
-                                borderRadius: BorderRadius.circular(12)),
-                            child: TextFormField(
-                              style: TextStyle(color: dark),
-                              decoration: InputDecoration(
-                                  prefixIcon: Align(
-                                      widthFactor: 1.0,
-                                      heightFactor: 1.0,
-                                      child: Icon(
-                                        IconlyLight.message,
-                                        color: Grey1,
-                                      )),
-                                  hintText: 'Email',
-                                  hintStyle: heading6.copyWith(
-                                      color: Grey1, fontSize: 14 * textScale),
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none)),
-                            ),
-                          ),
-                          SizedBox(
-                            height: bodyHeight * 0.025,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: bodyHeight * 0.035,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 1,
-                      height: bodyHeight * 0.07,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(80),
-                        color: Blue1,
-                      ),
-                      child: TextButton(
-                        onPressed: () {},
-                        /*authC.login(emailC.text, passC.text)*/
-                        child: Text(
-                          'Masuk',
-                          textScaleFactor: 1.25,
-                          style: headingBtn.copyWith(
-                            color: Yellow1,
-                          ),
-                        ),
-                      ),
-                    ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            bottom:
+                                MediaQuery.of(context).viewInsets.bottom * 1))
                   ],
                 ),
               ),

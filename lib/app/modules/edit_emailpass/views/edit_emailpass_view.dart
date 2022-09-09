@@ -45,7 +45,7 @@ class EditEmailpassView extends GetView<EditEmailpassController> {
                     Row(
                       children: [
                         IconButton(
-                            onPressed: () => Get.to(HomeView()),
+                            onPressed: () => Get.back(),
                             icon: Icon(
                               Icons.arrow_back,
                               color: dark,

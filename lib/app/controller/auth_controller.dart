@@ -191,32 +191,6 @@ class AuthController extends GetxController {
     }
   }
 
-  //resetpassword
-  void resetPassword(String email) async {
-    if (email != '' && GetUtils.isEmail(email)) {
-      try {
-        auth.sendPasswordResetEmail(email: email);
-        Get.defaultDialog(
-            title: 'Berhasil',
-            middleText: 'Reset password sudah dikirim. Cek email anda',
-            onConfirm: () {
-              Get.back();
-              Get.back();
-            },
-            textConfirm: 'Okay');
-      } catch (e) {
-        Get.defaultDialog(
-            title: 'Terjadi kesalahan',
-            middleText: 'Tidak dapat mengirimkan reset password');
-      }
-    } else {
-      title:
-      'Terjadi kesalahan';
-      middleText:
-      'Email tidak valid';
-    }
-  }
-
   //logout
   void logout() async {
     await FirebaseAuth.instance.signOut();
