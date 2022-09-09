@@ -18,32 +18,25 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
   EditProfileHRView({Key? key}) : super(key: key);
   final EditProfileHRController controller = Get.put(EditProfileHRController());
 
-  final GlobalKey<FormState> namaKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> divisiKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> nomorIndukKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final textScale = MediaQuery.of(context).textScaleFactor;
-    final mediaQueryHeight = MediaQuery.of(context).size.height;
-    final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
     final user = Get.arguments;
     log("$user");
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: light,
-      ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: light,
-        body: FutureBuilder<DocumentSnapshot<Object?>>(
-          future: controller.getUserDoc(),
-          builder: (context, snap) {
-            if (snap.connectionState == ConnectionState.done) {
-              var nama = controller.nameC.text = user['name'];
-              controller.divisiC.text = user['divisi'];
-              controller.nomorindukC.text = user['nomor_induk'];
+    return FutureBuilder<DocumentSnapshot<Object?>>(
+      future: controller.getUserDoc(),
+      builder: (context, snap) {
+        if (snap.connectionState == ConnectionState.done) {
+          var nama = controller.nameC.text = user['name'];
+          controller.divisiC.text = user['divisi'];
+          controller.nomorindukC.text = user['nomor_induk'];
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: light,
+            body: LayoutBuilder(builder: (context, constraint) {
+              final textScale = MediaQuery.of(context).textScaleFactor;
+              final mediaQueryHeight = MediaQuery.of(context).size.height;
+              final bodyHeight =
+                  mediaQueryHeight - MediaQuery.of(context).padding.top;
               return SingleChildScrollView(
                 reverse: true,
                 padding: EdgeInsets.only(
@@ -108,7 +101,7 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                           height: bodyHeight * 0.08,
                         ),
                         Form(
-                          key: namaKey,
+                          key: controller.namaKey.value,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
@@ -124,7 +117,7 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                                   controller: controller.nameC,
                                   // key: _nama,
                                   autocorrect: false,
-                                  // textInputAction: TextInputAction.done,
+                                  textInputAction: TextInputAction.next,
                                   onTap: () {},
                                   decoration: InputDecoration(
                                       prefixIcon: Align(
@@ -149,7 +142,7 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                           height: bodyHeight * 0.025,
                         ),
                         Form(
-                          key: divisiKey,
+                          key: controller.divisiKey.value,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
@@ -161,7 +154,6 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                                     color: Yellow1,
                                     borderRadius: BorderRadius.circular(12)),
                                 child: DropdownSearch<String>(
-                                  enabled: true,
                                   // key: _divisi,
                                   clearButtonProps: ClearButtonProps(
                                       isVisible: true, color: dark),
@@ -243,7 +235,7 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                           height: bodyHeight * 0.025,
                         ),
                         Form(
-                          key: nomorIndukKey,
+                          key: controller.nomorIndukKey.value,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
@@ -317,12 +309,12 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                   ],
                 ),
               );
-            } else {
-              return LoadingView();
-            }
-          },
-        ),
-      ),
+            }),
+          );
+        } else {
+          return LoadingView();
+        }
+      },
     );
   }
 }

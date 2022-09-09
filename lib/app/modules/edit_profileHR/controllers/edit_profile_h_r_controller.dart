@@ -14,6 +14,12 @@ class EditProfileHRController extends GetxController {
 
   late TextEditingController nameC = TextEditingController();
   late TextEditingController divisiC = TextEditingController();
+  late var divisiCon = "".obs;
+  void setDivisi(String divisi) {
+    divisiCon.value = divisi;
+    // log(divisiCon.value);
+  }
+
   late TextEditingController nomorindukC = TextEditingController();
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -40,7 +46,7 @@ class EditProfileHRController extends GetxController {
         middleText: "Berhasil Mengubah Data",
         onConfirm: () {
           nameC.clear();
-          divisiC.clear();
+          divisiCon.close();
           nomorindukC.clear();
 
           Get.back();
@@ -61,7 +67,7 @@ class EditProfileHRController extends GetxController {
   @override
   void onInit() {
     nameC = TextEditingController();
-    divisiC = TextEditingController();
+    divisiCon;
     nomorindukC = TextEditingController();
 
     super.onInit();
