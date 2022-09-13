@@ -188,8 +188,9 @@ class SettingHRView extends GetView<SettingHRController> {
                                   child: Material(
                                     color: Colors.transparent,
                                     child: IconButton(
-                                      onPressed: () =>
-                                          Get.to(EditEmailpassHRView()),
+                                      onPressed: () => Get.toNamed(
+                                          Routes.EDIT_EMAILPASS_H_R,
+                                          arguments: snap.data!.data()),
                                       icon: Icon(
                                         IconlyLight.edit,
                                         color: dark,

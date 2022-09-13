@@ -135,7 +135,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EDIT_EMAILPASS_H_R,
-      page: () => const EditEmailpassHRView(),
+      page: () => EditEmailpassHRView(),
       binding: EditEmailpassHRBinding(),
     ),
     GetPage(

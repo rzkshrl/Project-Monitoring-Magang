@@ -45,7 +45,6 @@ class HomeView extends GetView<HomeController> {
             var role = snap.data!.get("divisi");
             if (role != "HR & Legal") {
               return Scaffold(
-                extendBody: true,
                 body: Obx(() => pages[controller.currentIndex.value]),
                 bottomNavigationBar: Container(
                   decoration: BoxDecoration(
@@ -98,7 +97,7 @@ class HomeView extends GetView<HomeController> {
 
   Widget navBarItem(BuildContext context, IconData icon, int index) {
     double bodyHeight = MediaQuery.of(context).size.height;
-    double bodyWidth = MediaQuery.of(context).size.width;
+    // double bodyWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
