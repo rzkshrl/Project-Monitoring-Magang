@@ -29,6 +29,8 @@ class EditProfileView extends GetView<EditProfileController> {
           var nama = controller.nameC.text = user['name'];
           controller.divisiC.text = user['divisi'];
           controller.nomorindukC.text = user['nomor_induk'];
+          String defaultImage =
+              "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
           return Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: light,
@@ -72,7 +74,11 @@ class EditProfileView extends GetView<EditProfileController> {
                                   height: bodyHeight * 0.22,
                                   color: Colors.grey.shade200,
                                   child: Image.network(
-                                    "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33",
+                                    snap.data!.get("profile") != null
+                                        ? snap.data!.get("profile") != ""
+                                            ? snap.data!.get("profile")
+                                            : defaultImage
+                                        : defaultImage,
                                     fit: BoxFit.cover,
                                   ),
                                 ),

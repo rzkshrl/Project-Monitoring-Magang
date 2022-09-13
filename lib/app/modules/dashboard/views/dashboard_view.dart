@@ -19,6 +19,8 @@ class DashboardView extends GetView<DashboardController> {
   final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
+    final user = Get.arguments;
+    log("$user");
     final textScale = MediaQuery.of(context).textScaleFactor;
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
@@ -43,6 +45,8 @@ class DashboardView extends GetView<DashboardController> {
                 var nama = snap.data!.get("name");
                 var divisi = snap.data!.get("divisi");
                 var nomor_induk = snap.data!.get("nomor_induk");
+                String defaultImage =
+                    "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
                 return LayoutBuilder(
                   builder: (context, constraints) => SingleChildScrollView(
                     reverse: true,
@@ -69,7 +73,16 @@ class DashboardView extends GetView<DashboardController> {
                                           0.38,
                                       height: bodyHeight * 0.18,
                                       color: Colors.grey.shade200,
-                                      child: Center(child: Text("X")),
+                                      child: Center(
+                                        child: Image.network(
+                                          snap.data!.get("profile") != null
+                                              ? snap.data!.get("profile") != ""
+                                                  ? snap.data!.get("profile")
+                                                  : defaultImage
+                                              : defaultImage,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                       // child: Image.network(src),
                                     ),
                                   ),

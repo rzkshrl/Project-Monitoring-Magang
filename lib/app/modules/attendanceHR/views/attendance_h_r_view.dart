@@ -43,6 +43,8 @@ class AttendanceHRView extends GetView<AttendanceHRController> {
               }
               if (snap.hasData) {
                 var nama = snap.data!.get("name");
+                var defaultImage =
+                    "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
                 return LayoutBuilder(
                   builder: (context, constraints) => SingleChildScrollView(
                     reverse: true,
@@ -117,7 +119,11 @@ class AttendanceHRView extends GetView<AttendanceHRController> {
                                     height: bodyHeight * 0.22,
                                     color: Colors.grey.shade200,
                                     child: Image.network(
-                                      "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33",
+                                      snap.data!.get("profile") != null
+                                          ? snap.data!.get("profile") != ""
+                                              ? snap.data!.get("profile")
+                                              : defaultImage
+                                          : defaultImage,
                                       fit: BoxFit.cover,
                                     ),
                                   ),

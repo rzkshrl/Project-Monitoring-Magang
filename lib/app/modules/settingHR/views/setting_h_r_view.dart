@@ -44,6 +44,8 @@ class SettingHRView extends GetView<SettingHRController> {
                 var nomor_induk = snap.data!.get("nomor_induk");
                 var email = snap.data!.get("email");
                 var pass = snap.data!.get("password");
+                var defaultImage =
+                    "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
                 return LayoutBuilder(
                   builder: (context, constraints) => SingleChildScrollView(
                     padding: EdgeInsets.only(
@@ -73,7 +75,11 @@ class SettingHRView extends GetView<SettingHRController> {
                                     height: bodyHeight * 0.09,
                                     color: Colors.grey.shade200,
                                     child: Image.network(
-                                      "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33",
+                                      snap.data!.get("profile") != null
+                                          ? snap.data!.get("profile") != ""
+                                              ? snap.data!.get("profile")
+                                              : defaultImage
+                                          : defaultImage,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
