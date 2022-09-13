@@ -15,6 +15,7 @@ import 'package:project_magang/app/widgets/custom_icon_all_icons.dart';
 import 'package:project_magang/app/widgets/custom_icon_login_icons.dart';
 
 import '../../../controller/auth_controller.dart';
+import '../../../routes/app_pages.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/custom_icon_home_icons.dart';
 import '../controllers/setting_controller.dart';
@@ -148,8 +149,9 @@ class SettingView extends GetView<SettingController> {
                                         child: Material(
                                           color: Colors.transparent,
                                           child: IconButton(
-                                            onPressed: () =>
-                                                Get.to(EditProfileView()),
+                                            onPressed: () => Get.toNamed(
+                                                Routes.EDIT_PROFILE,
+                                                arguments: snap.data!.data()),
                                             icon: Icon(
                                               IconlyLight.edit,
                                               color: dark,

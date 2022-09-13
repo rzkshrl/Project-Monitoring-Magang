@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,36 +11,39 @@ import 'package:project_magang/app/modules/home/views/home_view.dart';
 import 'package:project_magang/app/modules/setting/views/setting_view.dart';
 
 import '../../../theme/theme.dart';
+import '../../../utils/loading.dart';
 import '../controllers/edit_profile_controller.dart';
 
 class EditProfileView extends GetView<EditProfileController> {
-  const EditProfileView({Key? key}) : super(key: key);
+  EditProfileView({Key? key}) : super(key: key);
+  final EditProfileController controller = Get.put(EditProfileController());
 
   @override
   Widget build(BuildContext context) {
-    final textScale = MediaQuery.of(context).textScaleFactor;
-    final mediaQueryHeight = MediaQuery.of(context).size.height;
-    final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: light,
-      ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: light,
-        body: LayoutBuilder(
-          builder: (context, constraints) => SingleChildScrollView(
-            reverse: true,
-            padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.05,
-              right: MediaQuery.of(context).size.width * 0.05,
-              bottom: bodyHeight * 0.01,
-            ),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minWidth: constraints.maxHeight),
-              child: IntrinsicHeight(
+    final user = Get.arguments;
+    log("$user");
+    return FutureBuilder<DocumentSnapshot<Object?>>(
+      future: controller.getUserDoc(),
+      builder: (context, snap) {
+        if (snap.connectionState == ConnectionState.done) {
+          var nama = controller.nameC.text = user['name'];
+          controller.divisiC.text = user['divisi'];
+          controller.nomorindukC.text = user['nomor_induk'];
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: light,
+            body: LayoutBuilder(builder: (context, constraint) {
+              final textScale = MediaQuery.of(context).textScaleFactor;
+              final mediaQueryHeight = MediaQuery.of(context).size.height;
+              final bodyHeight =
+                  mediaQueryHeight - MediaQuery.of(context).padding.top;
+              return SingleChildScrollView(
+                reverse: true,
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.05,
+                  right: MediaQuery.of(context).size.width * 0.05,
+                  bottom: bodyHeight * 0.01,
+                ),
                 child: Column(
                   children: [
                     SizedBox(
@@ -46,7 +52,7 @@ class EditProfileView extends GetView<EditProfileController> {
                     Row(
                       children: [
                         IconButton(
-                            onPressed: () => Get.to(HomeView()),
+                            onPressed: () => Get.back(),
                             icon: Icon(
                               Icons.arrow_back,
                               color: dark,
@@ -65,8 +71,10 @@ class EditProfileView extends GetView<EditProfileController> {
                                       MediaQuery.of(context).size.width * 0.46,
                                   height: bodyHeight * 0.22,
                                   color: Colors.grey.shade200,
-                                  child: Center(child: Text("X")),
-                                  // child: Image.network(src),
+                                  child: Image.network(
+                                    "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -93,8 +101,10 @@ class EditProfileView extends GetView<EditProfileController> {
                           height: bodyHeight * 0.08,
                         ),
                         Form(
+                          key: controller.namaKey.value,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Container(
                                 width: MediaQuery.of(context).size.width * 1,
@@ -104,6 +114,11 @@ class EditProfileView extends GetView<EditProfileController> {
                                     borderRadius: BorderRadius.circular(12)),
                                 child: TextFormField(
                                   style: TextStyle(color: dark),
+                                  controller: controller.nameC,
+                                  // key: _nama,
+                                  autocorrect: false,
+                                  textInputAction: TextInputAction.next,
+                                  onTap: () {},
                                   decoration: InputDecoration(
                                       prefixIcon: Align(
                                           widthFactor: 1.0,
@@ -120,9 +135,18 @@ class EditProfileView extends GetView<EditProfileController> {
                                           borderSide: BorderSide.none)),
                                 ),
                               ),
-                              SizedBox(
-                                height: bodyHeight * 0.025,
-                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: bodyHeight * 0.025,
+                        ),
+                        Form(
+                          key: controller.divisiKey.value,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
                               Container(
                                 width: MediaQuery.of(context).size.width * 1,
                                 height: bodyHeight * 0.065,
@@ -130,16 +154,22 @@ class EditProfileView extends GetView<EditProfileController> {
                                     color: Yellow1,
                                     borderRadius: BorderRadius.circular(12)),
                                 child: DropdownSearch<String>(
+                                  // key: _divisi,
                                   clearButtonProps: ClearButtonProps(
                                       isVisible: true, color: dark),
                                   items: [
                                     "Teknis",
-                                    "Marketing",
-                                    "Human Resource",
-                                    'Project Manager',
-                                    "Engineer",
-                                    'QA'
+                                    "Marketing & Sales",
+                                    "HR & Legal",
+                                    'Multimedia',
+                                    "Finance",
                                   ],
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      controller.setDivisi(value);
+                                    }
+                                  },
+                                  selectedItem: controller.divisiC.text,
                                   dropdownDecoratorProps:
                                       DropDownDecoratorProps(
                                           dropdownSearchDecoration:
@@ -207,6 +237,52 @@ class EditProfileView extends GetView<EditProfileController> {
                           ),
                         ),
                         SizedBox(
+                          height: bodyHeight * 0.025,
+                        ),
+                        Form(
+                          key: controller.nomorIndukKey.value,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 1,
+                                height: bodyHeight * 0.065,
+                                decoration: BoxDecoration(
+                                    color: Yellow1,
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: TextFormField(
+                                  autocorrect: false,
+                                  controller: controller.nomorindukC,
+                                  // onTap: () {
+                                  //   FocusScopeNode currentFocus =
+                                  //       FocusScope.of(context);
+
+                                  //   if (!currentFocus.hasPrimaryFocus) {
+                                  //     currentFocus.unfocus();
+                                  //   }
+                                  // },
+                                  style: TextStyle(color: dark),
+                                  decoration: InputDecoration(
+                                      prefixIcon: Align(
+                                          widthFactor: 1.0,
+                                          heightFactor: 1.0,
+                                          child: Icon(
+                                            IconlyLight.info_square,
+                                            color: Grey1,
+                                          )),
+                                      hintText: 'Nomor Induk',
+                                      hintStyle: heading6.copyWith(
+                                          color: Grey1,
+                                          fontSize: 14 * textScale),
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide.none)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
                           height: bodyHeight * 0.06,
                         ),
                         Container(
@@ -217,8 +293,11 @@ class EditProfileView extends GetView<EditProfileController> {
                             color: Blue1,
                           ),
                           child: TextButton(
-                            onPressed: () {},
-                            /*authC.login(emailC.text, passC.text)*/
+                            onPressed: () => controller.editProfil(
+                              controller.nameC.text,
+                              controller.divisiCon.value,
+                              controller.nomorindukC.text,
+                            ),
                             child: Text(
                               'Kirim',
                               textScaleFactor: 1.3,
@@ -234,11 +313,13 @@ class EditProfileView extends GetView<EditProfileController> {
                                 MediaQuery.of(context).viewInsets.bottom * 1))
                   ],
                 ),
-              ),
-            ),
-          ),
-        ),
-      ),
+              );
+            }),
+          );
+        } else {
+          return LoadingView();
+        }
+      },
     );
   }
 }

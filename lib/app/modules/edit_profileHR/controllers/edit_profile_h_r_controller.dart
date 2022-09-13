@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_magang/app/controller/auth_controller.dart';
 
 class EditProfileHRController extends GetxController {
   //TODO: Implement EditProfileHRController
@@ -11,6 +12,7 @@ class EditProfileHRController extends GetxController {
   final namaKey = GlobalKey<FormState>().obs;
   final divisiKey = GlobalKey<FormState>().obs;
   final nomorIndukKey = GlobalKey<FormState>().obs;
+  final authC = Get.put(AuthController());
 
   late TextEditingController nameC = TextEditingController();
   late TextEditingController divisiC = TextEditingController();
@@ -40,20 +42,45 @@ class EditProfileHRController extends GetxController {
         "divisi": divisi,
         "nomor_induk": nomorInduk,
       });
+      if (divisi != "HR & Legal") {
+        Get.defaultDialog(
+          title: "Berhasil",
+          middleText: "Berhasil Mengubah Data, Silahkan login kembali",
+          onConfirm: () {
+            nameC.clear();
+            divisiCon.close();
+            nomorindukC.clear();
+            authC.logout();
+          },
+          textConfirm: "Okay",
+        );
+      } else if (divisi == "HR & Legal") {
+        Get.defaultDialog(
+          title: "Berhasil",
+          middleText: "Berhasil Mengubah Data, Silahkan login kembali",
+          onConfirm: () {
+            nameC.clear();
+            divisiCon.close();
+            nomorindukC.clear();
+            authC.logout();
+          },
+          textConfirm: "Okay",
+        );
+      } else {
+        Get.defaultDialog(
+          title: "Berhasil",
+          middleText: "Berhasil Mengubah Data",
+          onConfirm: () {
+            nameC.clear();
+            divisiCon.close();
+            nomorindukC.clear();
 
-      Get.defaultDialog(
-        title: "Berhasil",
-        middleText: "Berhasil Mengubah Data",
-        onConfirm: () {
-          nameC.clear();
-          divisiCon.close();
-          nomorindukC.clear();
-
-          Get.back();
-          Get.back();
-        },
-        textConfirm: "Okay",
-      );
+            Get.back();
+            Get.back();
+          },
+          textConfirm: "Okay",
+        );
+      }
     } catch (e) {
       print(e);
       Get.defaultDialog(
@@ -67,7 +94,11 @@ class EditProfileHRController extends GetxController {
   @override
   void onInit() {
     nameC = TextEditingController();
-    divisiCon;
+    setDivisi(String divisi) {
+      divisiCon.value = divisi;
+      // log(divisiCon.value);
+    }
+
     nomorindukC = TextEditingController();
 
     super.onInit();
@@ -81,7 +112,7 @@ class EditProfileHRController extends GetxController {
   @override
   void onClose() {
     nameC.dispose();
-    divisiC.dispose();
+    divisiCon.close();
     nomorindukC.dispose();
 
     super.onClose();

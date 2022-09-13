@@ -164,6 +164,11 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                                     'Multimedia',
                                     "Finance",
                                   ],
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      controller.setDivisi(value);
+                                    }
+                                  },
                                   selectedItem: controller.divisiC.text,
                                   dropdownDecoratorProps:
                                       DropDownDecoratorProps(
@@ -290,7 +295,7 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                           child: TextButton(
                             onPressed: () => controller.editProfil(
                               controller.nameC.text,
-                              controller.divisiC.text,
+                              controller.divisiCon.value,
                               controller.nomorindukC.text,
                             ),
                             child: Text(
