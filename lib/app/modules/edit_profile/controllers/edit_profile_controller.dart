@@ -43,6 +43,7 @@ class EditProfileController extends GetxController {
         "divisi": divisi,
         "nomor_induk": nomorInduk,
       });
+      await auth.currentUser?.updateDisplayName(nama);
       if (divisi != "HR & Legal") {
         Get.defaultDialog(
           title: "Berhasil",

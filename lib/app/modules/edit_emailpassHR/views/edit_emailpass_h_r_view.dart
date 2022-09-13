@@ -1,39 +1,46 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:project_magang/app/utils/loading.dart';
 
 import '../../../theme/theme.dart';
 import '../controllers/edit_emailpass_h_r_controller.dart';
 
 class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
-  const EditEmailpassHRView({Key? key}) : super(key: key);
+  EditEmailpassHRView({Key? key}) : super(key: key);
+  final EditEmailpassHRController controller =
+      Get.put(EditEmailpassHRController());
   @override
   Widget build(BuildContext context) {
-    final textScale = MediaQuery.of(context).textScaleFactor;
-    final mediaQueryHeight = MediaQuery.of(context).size.height;
-    final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: light,
-      ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: light,
-        body: LayoutBuilder(
-          builder: (context, constraints) => SingleChildScrollView(
-            reverse: true,
-            padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.05,
-              right: MediaQuery.of(context).size.width * 0.05,
-              bottom: bodyHeight * 0.01,
-            ),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minWidth: constraints.maxHeight),
-              child: IntrinsicHeight(
+    final user = Get.arguments;
+    log("$user");
+    return FutureBuilder<DocumentSnapshot<Object?>>(
+      future: controller.getUserDoc(),
+      builder: (context, snap) {
+        if (snap.connectionState == ConnectionState.done) {
+          var nama = controller.nameC.text = user['name'];
+          controller.emailC.text = user['email'];
+
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: light,
+            body: LayoutBuilder(builder: (context, constraint) {
+              final textScale = MediaQuery.of(context).textScaleFactor;
+
+              double bodyHeight = constraint.maxHeight;
+              double bodyWidth = constraint.maxWidth;
+              return SingleChildScrollView(
+                reverse: true,
+                padding: EdgeInsets.only(
+                  left: bodyWidth * 0.05,
+                  right: bodyWidth * 0.05,
+                  bottom: bodyHeight * 0.01,
+                ),
                 child: Column(
                   children: [
                     SizedBox(
@@ -50,63 +57,98 @@ class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
                       ],
                     ),
                     SizedBox(height: bodyHeight * 0.04),
-                    Container(
-                      child: Column(
-                        children: [
-                          ClipOval(
+                    Column(
+                      children: [
+                        Center(
+                          child: ClipOval(
                             child: Container(
-                              width: MediaQuery.of(context).size.width * 0.46,
+                              width: bodyWidth * 0.46,
                               height: bodyHeight * 0.22,
                               color: Colors.grey.shade200,
-                              child: Center(child: Text("X")),
-                              // child: Image.network(src),
+                              child: Image.network(
+                                "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33",
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            height: bodyHeight * 0.08,
-                          ),
-                          Form(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: MediaQuery.of(context).size.width * 1,
-                                  height: bodyHeight * 0.065,
-                                  decoration: BoxDecoration(
-                                      color: Yellow1,
-                                      borderRadius: BorderRadius.circular(12)),
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.emailAddress,
-                                    style: TextStyle(color: dark),
-                                    decoration: InputDecoration(
-                                        prefixIcon: Align(
-                                            widthFactor: 1.0,
-                                            heightFactor: 1.0,
-                                            child: Icon(
-                                              IconlyLight.message,
-                                              color: Grey1,
-                                            )),
-                                        hintText: 'Email',
-                                        hintStyle: heading6.copyWith(
+                        ),
+                        //button untuk ganti foto profil
+
+                        SizedBox(
+                          height: bodyHeight * 0.08,
+                        ),
+                        Form(
+                          key: controller.emailKey.value,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                width: bodyWidth * 1,
+                                height: bodyHeight * 0.065,
+                                decoration: BoxDecoration(
+                                    color: Yellow1,
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: TextFormField(
+                                  style: TextStyle(color: dark),
+                                  controller: controller.emailC,
+                                  // key: _nama,
+                                  autocorrect: false,
+                                  textInputAction: TextInputAction.next,
+                                  onTap: () {},
+                                  decoration: InputDecoration(
+                                      prefixIcon: Align(
+                                          widthFactor: 1.0,
+                                          heightFactor: 1.0,
+                                          child: Icon(
+                                            IconlyLight.profile,
                                             color: Grey1,
-                                            fontSize: 14 * textScale),
-                                        border: OutlineInputBorder(
-                                            borderSide: BorderSide.none)),
-                                  ),
+                                          )),
+                                      hintText: 'Nama',
+                                      hintStyle: heading6.copyWith(
+                                          color: Grey1,
+                                          fontSize: 14 * textScale),
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide.none)),
                                 ),
-                                SizedBox(
-                                  height: bodyHeight * 0.025,
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width * 1,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: bodyHeight * 0.025,
+                        ),
+                        Form(
+                          key: controller.currentpassKey.value,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Obx(
+                                () => Container(
+                                  width: bodyWidth * 1,
                                   height: bodyHeight * 0.065,
                                   decoration: BoxDecoration(
                                       color: Yellow1,
                                       borderRadius: BorderRadius.circular(12)),
                                   child: TextFormField(
                                     style: TextStyle(color: dark),
-                                    // obscureText: controller.isPasswordHidden.value,
-                                    // controller: passC,
+                                    onTap: () {
+                                      FocusScopeNode currentFocus =
+                                          FocusScope.of(context);
+
+                                      if (!currentFocus.hasPrimaryFocus) {
+                                        currentFocus.unfocus();
+                                      }
+                                    },
+                                    validator: (value) {
+                                      return value!.isNotEmpty
+                                          ? null
+                                          : "Form tidak boleh kosong";
+                                    },
+                                    obscureText:
+                                        controller.isPasswordHidden.value,
+                                    controller: controller.currentpassC,
                                     decoration: InputDecoration(
                                         prefixIcon: Align(
                                             widthFactor: 1.0,
@@ -115,50 +157,139 @@ class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
                                               IconlyLight.lock,
                                               color: Grey1,
                                             )),
-                                        hintText: 'Kata Sandi',
+                                        hintText: 'Kata Sandi Saat Ini',
                                         hintStyle: heading6.copyWith(
                                             color: Grey1,
                                             fontSize: 14 * textScale),
-                                        // suffixIcon: IconButton(
-                                        //   color: dark,
-                                        //   splashRadius: 1,
-                                        //   icon: Icon(controller.isPasswordHidden.value
-                                        //       ? Icons.visibility_outlined
-                                        //       : Icons.visibility_off_outlined),
-                                        //   onPressed: () {
-                                        //     controller.isPasswordHidden.value =
-                                        //         !controller.isPasswordHidden.value;
-                                        //   },
-                                        // ),
+                                        suffixIcon: Padding(
+                                          padding: EdgeInsets.only(
+                                            right: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.02,
+                                          ),
+                                          child: IconButton(
+                                            color: Colors.black45,
+                                            splashRadius: 1,
+                                            icon: Icon(controller
+                                                    .isPasswordHidden.value
+                                                ? Icons.visibility_rounded
+                                                : Icons.visibility_off),
+                                            onPressed: () {
+                                              controller
+                                                      .isPasswordHidden.value =
+                                                  !controller
+                                                      .isPasswordHidden.value;
+                                            },
+                                          ),
+                                        ),
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide.none)),
                                   ),
-                                )
-                              ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: bodyHeight * 0.025,
+                        ),
+                        Form(
+                          key: controller.newpassKey.value,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Obx(
+                                () => Container(
+                                  width: bodyWidth * 1,
+                                  height: bodyHeight * 0.065,
+                                  decoration: BoxDecoration(
+                                      color: Yellow1,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child: TextFormField(
+                                    style: TextStyle(color: dark),
+                                    onTap: () {
+                                      FocusScopeNode currentFocus =
+                                          FocusScope.of(context);
+
+                                      if (!currentFocus.hasPrimaryFocus) {
+                                        currentFocus.unfocus();
+                                      }
+                                    },
+                                    validator: (value) {
+                                      return value!.isNotEmpty
+                                          ? null
+                                          : "Form tidak boleh kosong";
+                                    },
+                                    obscureText:
+                                        controller.isPasswordHidden1.value,
+                                    controller: controller.newpassC,
+                                    decoration: InputDecoration(
+                                        prefixIcon: Align(
+                                            widthFactor: 1.0,
+                                            heightFactor: 1.0,
+                                            child: Icon(
+                                              IconlyLight.lock,
+                                              color: Grey1,
+                                            )),
+                                        hintText: 'Kata Sandi Baru',
+                                        hintStyle: heading6.copyWith(
+                                            color: Grey1,
+                                            fontSize: 14 * textScale),
+                                        suffixIcon: Padding(
+                                          padding: EdgeInsets.only(
+                                            right: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.02,
+                                          ),
+                                          child: IconButton(
+                                            color: Colors.black45,
+                                            splashRadius: 1,
+                                            icon: Icon(controller
+                                                    .isPasswordHidden1.value
+                                                ? Icons.visibility_rounded
+                                                : Icons.visibility_off),
+                                            onPressed: () {
+                                              controller
+                                                      .isPasswordHidden1.value =
+                                                  !controller
+                                                      .isPasswordHidden1.value;
+                                            },
+                                          ),
+                                        ),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide.none)),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: bodyHeight * 0.06,
+                        ),
+
+                        Container(
+                          width: bodyWidth * 1,
+                          height: bodyHeight * 0.07,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(80),
+                            color: Blue1,
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              controller.updatePass(controller.newpassC.text);
+                            },
+                            child: Text(
+                              'Kirim',
+                              textScaleFactor: 1.3,
+                              style: headingBtn.copyWith(color: Yellow1),
                             ),
                           ),
-                          SizedBox(
-                            height: bodyHeight * 0.06,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 1,
-                            height: bodyHeight * 0.07,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(80),
-                              color: Blue1,
-                            ),
-                            child: TextButton(
-                              onPressed: () {},
-                              /*authC.login(emailC.text, passC.text)*/
-                              child: Text(
-                                'Kirim',
-                                textScaleFactor: 1.3,
-                                style: headingBtn.copyWith(color: Yellow1),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     Padding(
                         padding: EdgeInsets.only(
@@ -166,11 +297,13 @@ class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
                                 MediaQuery.of(context).viewInsets.bottom * 1))
                   ],
                 ),
-              ),
-            ),
-          ),
-        ),
-      ),
+              );
+            }),
+          );
+        } else {
+          return LoadingView();
+        }
+      },
     );
   }
 }

@@ -47,7 +47,7 @@ class AuthController extends GetxController {
     } catch (e) {
       print(e);
       Get.defaultDialog(
-        title: "Error",
+        title: "Terjadi Kesalahan",
         middleText: "Tidak Berhasil Memasukkan Data",
       );
     }
@@ -78,49 +78,11 @@ class AuthController extends GetxController {
 
       if (myUser.user!.emailVerified) {
         Get.offAllNamed(Routes.HOME);
-        // StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-        //   stream: streamRole(),
-        //   builder: (context, snapshot) {
-        //     if (snapshot.connectionState == ConnectionState.waiting) {
-        //       return LoadingView();
-        //     }
-        //     String role = snapshot.data!.data()!["divisi"];
-        //     if (role == "HR & Legal") {
-        //       return const HomeHRView();
-        //     } else {
-        //       return HomeView();
-        //     }
-        //   },
-        // );
-
-        // User? user = FirebaseAuth.currentUser;
-        // StreamBuilder<DocumentSnapshot>(
-        //   stream: FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.currentUser!.uid).snapshots(),
-        //   builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        //     return checkDivision(snapshot.data);
-        //   },
-        // );
-
-        // final userID = auth.currentUser?.uid;
-        // firestore
-        //     .collection('Users')
-        //     .doc(userID)
-        //     .get()
-        //     .then((DocumentSnapshot doc) {
-        //   bool divisi;
-        //   if (divisi = doc.get('divisi') == 'HR & Legal') {
-        //     Get.offAllNamed(Routes.HOME_H_R);
-        //   } else {
-        //     Get.offAllNamed(Routes.HOME);
-        //   }
-        // });
-
       } else {
         Get.defaultDialog(
             title: 'Verifikasi Email',
             middleText: 'Anda perlu verifikasi email terlebih dahulu.');
       }
-      // Get.offAllNamed(Routes.HOME);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

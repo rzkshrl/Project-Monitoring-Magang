@@ -200,8 +200,9 @@ class SettingView extends GetView<SettingController> {
                                   child: Material(
                                     color: Colors.transparent,
                                     child: IconButton(
-                                      onPressed: () =>
-                                          Get.to(EditEmailpassView()),
+                                      onPressed: () => Get.toNamed(
+                                          Routes.EDIT_EMAILPASS,
+                                          arguments: snap.data!.data()),
                                       icon: Icon(
                                         IconlyLight.edit,
                                         color: dark,
