@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:project_magang/app/modules/edit_profile/controllers/edit_profile_controller.dart';
 
 import 'package:project_magang/app/modules/home/views/home_view.dart';
 import 'package:project_magang/app/theme/theme.dart';
@@ -29,6 +31,8 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
           var nama = controller.nameC.text = user['name'];
           controller.divisiC.text = user['divisi'];
           controller.nomorindukC.text = user['nomor_induk'];
+          String defaultImage =
+              "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
           return Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: light,
@@ -64,19 +68,46 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                       children: [
                         Stack(
                           children: [
-                            Center(
-                              child: ClipOval(
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.46,
-                                  height: bodyHeight * 0.22,
-                                  color: Colors.grey.shade200,
-                                  child: Image.network(
-                                    "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
+                            GetBuilder<EditProfileHRController>(
+                              builder: (c) {
+                                if (c.image != null) {
+                                  return Center(
+                                    child: ClipOval(
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.46,
+                                        height: bodyHeight * 0.22,
+                                        color: Colors.grey.shade200,
+                                        child: Image.file(
+                                          File(c.image!.path),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  return Center(
+                                    child: ClipOval(
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.46,
+                                        height: bodyHeight * 0.22,
+                                        color: Colors.grey.shade200,
+                                        child: Image.network(
+                                          user["profile"] != null
+                                              ? user["profile"] != ""
+                                                  ? user["profile"]
+                                                  : defaultImage
+                                              : defaultImage,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
                             ),
                             //button untuk ganti foto profil
                             Positioned(
@@ -86,7 +117,9 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                                 child: Material(
                                   color: backgroundBlue,
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      controller.pickImage();
+                                    },
                                     icon: Icon(
                                       IconlyLight.camera,
                                       color: light,
@@ -169,6 +202,7 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                                       controller.setDivisi(value);
                                     }
                                   },
+
                                   selectedItem: controller.divisiC.text,
                                   dropdownDecoratorProps:
                                       DropDownDecoratorProps(

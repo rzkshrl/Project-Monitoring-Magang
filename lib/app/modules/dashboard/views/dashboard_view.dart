@@ -19,6 +19,11 @@ class DashboardView extends GetView<DashboardController> {
   final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
+    final user = Get.arguments;
+    log("$user");
+    final textScale = MediaQuery.of(context).textScaleFactor;
+    final mediaQueryHeight = MediaQuery.of(context).size.height;
+    final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
     final DashboardController controller = Get.put(DashboardController());
 
     return AnnotatedRegion(
@@ -40,33 +45,106 @@ class DashboardView extends GetView<DashboardController> {
                 var nama = snap.data!.get("name");
                 var divisi = snap.data!.get("divisi");
                 var nomor_induk = snap.data!.get("nomor_induk");
+                String defaultImage =
+                    "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
                 return LayoutBuilder(
-                  builder: (context, constraints) {
-                    final textScale = MediaQuery.of(context).textScaleFactor;
-                    final mediaQueryHeight = MediaQuery.of(context).size.height;
-                    final bodyHeight =
-                        mediaQueryHeight - MediaQuery.of(context).padding.top;
-                    return SingleChildScrollView(
-                      reverse: true,
-                      padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.05,
-                        right: MediaQuery.of(context).size.width * 0.05,
-                        bottom: bodyHeight * 0.01,
-                      ),
-                      child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints(minWidth: constraints.maxHeight),
-                        child: IntrinsicHeight(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: bodyHeight * 0.07,
-                              ),
-                              Container(
-                                child: Column(
-                                  children: [
-                                    ClipOval(
-                                      child: Container(
+                  builder: (context, constraints) => SingleChildScrollView(
+                    reverse: true,
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.05,
+                      right: MediaQuery.of(context).size.width * 0.05,
+                      bottom: bodyHeight * 0.01,
+                    ),
+                    child: ConstrainedBox(
+                      constraints:
+                          BoxConstraints(minWidth: constraints.maxHeight),
+                      child: IntrinsicHeight(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: bodyHeight * 0.07,
+                            ),
+                            Container(
+                              child: Column(
+                                children: [
+                                  ClipOval(
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.38,
+                                      height: bodyHeight * 0.18,
+                                      color: Colors.grey.shade200,
+                                      child: Center(
+                                        child: Image.network(
+                                          snap.data!.get("profile") != null
+                                              ? snap.data!.get("profile") != ""
+                                                  ? snap.data!.get("profile")
+                                                  : defaultImage
+                                              : defaultImage,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      // child: Image.network(src),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: bodyHeight * 0.025,
+                                  ),
+                                  Container(
+                                    height: bodyHeight * 0.18,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        color: Blue1.withOpacity(0.5)),
+                                    padding: EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.width *
+                                          0.06,
+                                      right: MediaQuery.of(context).size.width *
+                                          0.06,
+                                      bottom: bodyHeight * 0.02,
+                                      top: bodyHeight * 0.03,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        // ignore: prefer_const_constructors
+                                        Text(
+                                          "$nama",
+                                          textAlign: TextAlign.start,
+                                          textScaleFactor: 2,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: bodyHeight * 0.02,
+                                        ),
+                                        Text(
+                                          "$divisi",
+                                          textAlign: TextAlign.start,
+                                          textScaleFactor: 1.5,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        Text(
+                                          "$nomor_induk",
+                                          textAlign: TextAlign.start,
+                                          textScaleFactor: 1.5,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: bodyHeight * 0.025,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: bodyHeight * 0.34,
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.38,
