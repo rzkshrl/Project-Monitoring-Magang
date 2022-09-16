@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:focused_menu/focused_menu.dart';
+import 'package:focused_menu/modals.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
@@ -14,6 +16,7 @@ import 'package:project_magang/app/modules/home/views/home_view.dart';
 import 'package:project_magang/app/theme/theme.dart';
 import 'package:project_magang/app/utils/loading.dart';
 
+import '../../edit_divisi_HR/views/edit_divisi_h_r_view.dart';
 import '../controllers/edit_profile_h_r_controller.dart';
 
 class EditProfileHRView extends GetView<EditProfileHRController> {
@@ -54,13 +57,46 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                       height: bodyHeight * 0.06,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
                             onPressed: () => Get.back(),
                             icon: Icon(
                               Icons.arrow_back,
                               color: dark,
-                            ))
+                            )),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                        ),
+                        FocusedMenuHolder(
+                          onPressed: () {},
+                          menuItems: [
+                            FocusedMenuItem(
+                                title: Text("Edit Profil"),
+                                onPressed: () {},
+                                trailingIcon: Icon(IconlyLight.profile),
+                                backgroundColor: Yellow1),
+                            FocusedMenuItem(
+                                title: Text(
+                                  "Edit Divisi",
+                                ),
+                                onPressed: () => Get.to(EditDivisiHRView()),
+                                trailingIcon: Icon(IconlyLight.user_1),
+                                backgroundColor: Yellow1),
+                          ],
+                          blurBackgroundColor: Grey1,
+                          blurSize: 0,
+                          openWithTap: true,
+                          menuOffset: bodyHeight * 0.02,
+                          menuWidth: MediaQuery.of(context).size.width * 0.9,
+                          animateMenuItems: false,
+                          child: ClipOval(
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Icon(IconlyLight.filter, color: dark),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: bodyHeight * 0.04),

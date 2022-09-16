@@ -39,6 +39,8 @@ class DashboardHRView extends GetView<DashboardHRController> {
                 var nama = snap.data!.get("name");
                 var divisi = snap.data!.get("divisi");
                 var nomor_induk = snap.data!.get("nomor_induk");
+                var defaultImage =
+                    "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
                 return LayoutBuilder(
                   builder: (context, constraints) => SingleChildScrollView(
                     reverse: true,
@@ -67,7 +69,11 @@ class DashboardHRView extends GetView<DashboardHRController> {
                                       color: Colors.grey.shade200,
                                       // child: Center(child: Text("X")),
                                       child: Image.network(
-                                        "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33",
+                                        snap.data!.get("profile") != null
+                                            ? snap.data!.get("profile") != ""
+                                                ? snap.data!.get("profile")
+                                                : defaultImage
+                                            : defaultImage,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
