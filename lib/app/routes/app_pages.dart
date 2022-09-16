@@ -133,7 +133,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SETTING_H_R,
-      page: () => const SettingHRView(),
+      page: () => SettingHRView(),
       binding: SettingHRBinding(),
     ),
     GetPage(

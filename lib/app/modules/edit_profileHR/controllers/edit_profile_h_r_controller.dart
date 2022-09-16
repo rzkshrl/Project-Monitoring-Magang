@@ -52,14 +52,13 @@ class EditProfileHRController extends GetxController {
     update();
   }
 
-  void editProfil(String nama, String divisi, String nomorInduk) async {
+  void editProfil(String nama, String nomorInduk) async {
     String uid = auth.currentUser!.uid;
     DocumentReference docUsers = firestore.collection("Users").doc(uid);
 
     try {
       Map<String, dynamic> data = {
         "name": nama,
-        "divisi": divisi,
         "nomor_induk": nomorInduk,
       };
       if (image != null) {
@@ -73,45 +72,20 @@ class EditProfileHRController extends GetxController {
         data.addAll({"profile": urlImage});
       }
       await docUsers.update(data);
-      if (divisi != "HR & Legal") {
-        Get.defaultDialog(
-          title: "Berhasil",
-          middleText: "Berhasil Mengubah Data, Silahkan login kembali",
-          onConfirm: () {
-            nameC.clear();
-            divisiCon.close();
-            nomorindukC.clear();
-            authC.logout();
-          },
-          textConfirm: "Okay",
-        );
-      } else if (divisi == "HR & Legal") {
-        Get.defaultDialog(
-          title: "Berhasil",
-          middleText: "Berhasil Mengubah Data, Silahkan login kembali",
-          onConfirm: () {
-            nameC.clear();
-            divisiCon.close();
-            nomorindukC.clear();
-            authC.logout();
-          },
-          textConfirm: "Okay",
-        );
-      } else {
-        Get.defaultDialog(
-          title: "Berhasil",
-          middleText: "Berhasil Mengubah Data",
-          onConfirm: () {
-            nameC.clear();
-            divisiCon.close();
-            nomorindukC.clear();
 
-            Get.back();
-            Get.back();
-          },
-          textConfirm: "Okay",
-        );
-      }
+      Get.defaultDialog(
+        title: "Berhasil",
+        middleText: "Berhasil Mengubah Data",
+        onConfirm: () {
+          nameC.clear();
+
+          nomorindukC.clear();
+
+          Get.back();
+          Get.back();
+        },
+        textConfirm: "Okay",
+      );
     } catch (e) {
       print(e);
       Get.defaultDialog(

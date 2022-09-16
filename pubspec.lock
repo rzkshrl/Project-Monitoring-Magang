@@ -177,7 +177,7 @@ packages:
     source: hosted
     version: "4.1.16"
   firebase_storage_web:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firebase_storage_web
       url: "https://pub.dartlang.org"
@@ -297,7 +297,7 @@ packages:
     source: hosted
     version: "0.8.5+3"
   image_picker_for_web:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image_picker_for_web
       url: "https://pub.dartlang.org"

@@ -80,11 +80,7 @@ class SettingView extends GetView<SettingController> {
                                     height: bodyHeight * 0.09,
                                     color: Colors.grey.shade200,
                                     child: Image.network(
-                                      snap.data!.get("profile") != null
-                                          ? snap.data!.get("profile") != ""
-                                              ? snap.data!.get("profile")
-                                              : defaultImage
-                                          : defaultImage,
+                                      defaultImage,
                                       fit: BoxFit.cover,
                                     ),
                                     // child: Image.network(src),

@@ -41,6 +41,7 @@ class AuthController extends GetxController {
         'name': name,
         'nomor_induk': nomor_induk,
         'email': email,
+        'profile': '',
         'password': password,
         'divisi': divisi,
       });

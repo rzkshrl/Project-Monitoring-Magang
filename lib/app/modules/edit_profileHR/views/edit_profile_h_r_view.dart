@@ -329,7 +329,6 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                           child: TextButton(
                             onPressed: () => controller.editProfil(
                               controller.nameC.text,
-                              controller.divisiCon.value,
                               controller.nomorindukC.text,
                             ),
                             child: Text(
