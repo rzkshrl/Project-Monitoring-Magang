@@ -10,6 +10,10 @@ import '../modules/dashboardHR/bindings/dashboard_h_r_binding.dart';
 import '../modules/dashboardHR/views/dashboard_h_r_view.dart';
 import '../modules/detail_locationHR/bindings/detail_location_h_r_binding.dart';
 import '../modules/detail_locationHR/views/detail_location_h_r_view.dart';
+import '../modules/edit_divisi/bindings/edit_divisi_binding.dart';
+import '../modules/edit_divisi/views/edit_divisi_view.dart';
+import '../modules/edit_divisi_HR/bindings/edit_divisi_h_r_binding.dart';
+import '../modules/edit_divisi_HR/views/edit_divisi_h_r_view.dart';
 import '../modules/edit_emailpass/bindings/edit_emailpass_binding.dart';
 import '../modules/edit_emailpass/views/edit_emailpass_view.dart';
 import '../modules/edit_emailpassHR/bindings/edit_emailpass_h_r_binding.dart';
@@ -20,7 +24,6 @@ import '../modules/edit_profileHR/bindings/edit_profile_h_r_binding.dart';
 import '../modules/edit_profileHR/views/edit_profile_h_r_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-
 import '../modules/list_attendanceHR/bindings/list_attendance_h_r_binding.dart';
 import '../modules/list_attendanceHR/views/list_attendance_h_r_view.dart';
 import '../modules/list_locationHR/bindings/list_location_h_r_binding.dart';
@@ -142,6 +145,16 @@ class AppPages {
       name: _Paths.EDIT_PROFILE_H_R,
       page: () => EditProfileHRView(),
       binding: EditProfileHRBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_DIVISI,
+      page: () => EditDivisiView(),
+      binding: EditDivisiBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_DIVISI_H_R,
+      page: () => EditDivisiHRView(),
+      binding: EditDivisiHRBinding(),
     ),
   ];
 }
