@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:project_magang/app/modules/home/views/home_view.dart';
 
 import '../../../controller/auth_controller.dart';
 
@@ -44,8 +45,7 @@ class EditProfileController extends GetxController {
         onConfirm: () {
           nameC.clear();
           nomorindukC.clear();
-          Get.back();
-          Get.back();
+          Get.to(HomeView());
         },
         textConfirm: "Okay",
       );
