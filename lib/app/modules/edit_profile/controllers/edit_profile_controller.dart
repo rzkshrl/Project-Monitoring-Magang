@@ -1,18 +1,20 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:firebase_storage/firebase_storage.dart' as s;
+import 'package:image_picker/image_picker.dart';
 import 'package:project_magang/app/modules/home/views/home_view.dart';
 
 import '../../../controller/auth_controller.dart';
 
 class EditProfileController extends GetxController {
   //TODO: Implement EditProfileController
-
   FirebaseAuth auth = FirebaseAuth.instance;
 
   final namaKey = GlobalKey<FormState>().obs;
-
   final nomorIndukKey = GlobalKey<FormState>().obs;
   final authC = Get.put(AuthController());
 
@@ -21,6 +23,9 @@ class EditProfileController extends GetxController {
   late TextEditingController nomorindukC = TextEditingController();
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  s.FirebaseStorage storage = s.FirebaseStorage.instance;
+
+  final ImagePicker picker = ImagePicker();
 
   Future<DocumentSnapshot<Object?>> getUserDoc() async {
     String uid = auth.currentUser!.uid;
@@ -28,24 +33,51 @@ class EditProfileController extends GetxController {
     return user.get();
   }
 
+  XFile? image;
+
+  void pickImage() async {
+    image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      print(image!.name);
+      print(image!.name.split(".").last);
+      print(image!.path);
+    } else {
+      print(image);
+    }
+    update();
+  }
+
   void editProfil(String nama, String nomorInduk) async {
     String uid = auth.currentUser!.uid;
     DocumentReference docUsers = firestore.collection("Users").doc(uid);
 
     try {
-      await docUsers.update({
+      Map<String, dynamic> data = {
         "name": nama,
         "nomor_induk": nomorInduk,
-      });
-      await auth.currentUser?.updateDisplayName(nama);
+      };
+      if (image != null) {
+        File file = File(image!.path);
+        String ext = image!.name.split(".").last;
+
+        await storage.ref('$uid/profile.$ext').putFile(file);
+        String urlImage =
+            await storage.ref('$uid/profile.$ext').getDownloadURL();
+
+        data.addAll({"profile": urlImage});
+      }
+      await docUsers.update(data);
 
       Get.defaultDialog(
         title: "Berhasil",
         middleText: "Berhasil Mengubah Data",
         onConfirm: () {
           nameC.clear();
+
           nomorindukC.clear();
-          Get.to(HomeView());
+
+          Get.back();
+          Get.back();
         },
         textConfirm: "Okay",
       );

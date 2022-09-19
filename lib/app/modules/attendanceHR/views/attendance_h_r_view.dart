@@ -26,6 +26,7 @@ class AttendanceHRView extends GetView<AttendanceHRController> {
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
     final authC = Get.put(AuthController());
+
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,

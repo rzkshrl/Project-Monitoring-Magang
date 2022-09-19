@@ -9,6 +9,7 @@ import 'package:iconly/iconly.dart';
 import 'package:project_magang/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:project_magang/app/modules/home/views/home_view.dart';
 
+import '../../../controller/auth_controller.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/custom_icon_login_icons.dart';
 import '../controllers/attendance_controller.dart';
@@ -20,6 +21,7 @@ class AttendanceView extends GetView<AttendanceController> {
     final textScale = MediaQuery.of(context).textScaleFactor;
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
+    final authC = Get.put(AuthController());
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

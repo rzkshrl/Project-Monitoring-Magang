@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -103,23 +104,46 @@ class EditProfileView extends GetView<EditProfileController> {
                       children: [
                         Stack(
                           children: [
-                            Center(
-                              child: ClipOval(
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.46,
-                                  height: bodyHeight * 0.22,
-                                  color: Colors.grey.shade200,
-                                  child: Image.network(
-                                    snap.data!.get("profile") != null
-                                        ? snap.data!.get("profile") != ""
-                                            ? snap.data!.get("profile")
-                                            : defaultImage
-                                        : defaultImage,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
+                            GetBuilder<EditProfileController>(
+                              builder: (c) {
+                                if (c.image != null) {
+                                  return Center(
+                                    child: ClipOval(
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.46,
+                                        height: bodyHeight * 0.22,
+                                        color: Colors.grey.shade200,
+                                        child: Image.file(
+                                          File(c.image!.path),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  return Center(
+                                    child: ClipOval(
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.46,
+                                        height: bodyHeight * 0.22,
+                                        color: Colors.grey.shade200,
+                                        child: Image.network(
+                                          user["profile"] != null
+                                              ? user["profile"] != ""
+                                                  ? user["profile"]
+                                                  : defaultImage
+                                              : defaultImage,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
                             ),
                             //button untuk ganti foto profil
                             Positioned(
@@ -129,7 +153,9 @@ class EditProfileView extends GetView<EditProfileController> {
                                 child: Material(
                                   color: backgroundBlue,
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      controller.pickImage();
+                                    },
                                     icon: Icon(
                                       IconlyLight.camera,
                                       color: light,

@@ -220,7 +220,8 @@ class EditDivisiHRView extends GetView<EditDivisiHRController> {
                             color: Blue1,
                           ),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () => controller
+                                .editProfil(controller.divisiCon.value),
                             child: Text(
                               'Kirim',
                               textScaleFactor: 1.3,

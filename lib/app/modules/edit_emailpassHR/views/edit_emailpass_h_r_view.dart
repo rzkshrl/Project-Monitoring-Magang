@@ -25,6 +25,8 @@ class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
         if (snap.connectionState == ConnectionState.done) {
           var nama = controller.nameC.text = user['name'];
           controller.emailC.text = user['email'];
+          var defaultImage =
+              "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
 
           return Scaffold(
             resizeToAvoidBottomInset: false,
@@ -66,7 +68,11 @@ class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
                               height: bodyHeight * 0.22,
                               color: Colors.grey.shade200,
                               child: Image.network(
-                                "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33",
+                                snap.data!.get("profile") != null
+                                    ? snap.data!.get("profile") != ""
+                                        ? snap.data!.get("profile")
+                                        : defaultImage
+                                    : defaultImage,
                                 fit: BoxFit.cover,
                               ),
                             ),

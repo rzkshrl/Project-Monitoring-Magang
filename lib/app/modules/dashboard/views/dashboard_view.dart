@@ -43,7 +43,7 @@ class DashboardView extends GetView<DashboardController> {
                     var nama = snap.data!.get("name");
                     var divisi = snap.data!.get("divisi");
                     var nomorInduk = snap.data!.get("nomor_induk");
-                    String defaultImage =
+                    var defaultImage =
                         "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
                     return LayoutBuilder(builder: (context, constraints) {
                       final textScale = MediaQuery.of(context).textScaleFactor;
@@ -78,95 +78,18 @@ class DashboardView extends GetView<DashboardController> {
                                               0.38,
                                           height: bodyHeight * 0.18,
                                           color: Colors.grey.shade200,
-                                          child: Center(
-                                            child: Image.network(
-                                              snap.data!.get("profile") != null
-                                                  ? snap.data!.get("profile") !=
-                                                          ""
-                                                      ? snap.data!
-                                                          .get("profile")
-                                                      : defaultImage
-                                                  : defaultImage,
-                                              fit: BoxFit.cover,
-                                            ),
+                                          // child: Center(child: Text("X")),
+                                          child: Image.network(
+                                            snap.data!.get("profile") != null
+                                                ? snap.data!.get("profile") !=
+                                                        ""
+                                                    ? snap.data!.get("profile")
+                                                    : defaultImage
+                                                : defaultImage,
+                                            fit: BoxFit.cover,
                                           ),
-                                          // child: Image.network(src),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: bodyHeight * 0.025,
-                                      ),
-                                      Container(
-                                        height: bodyHeight * 0.18,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                            color: Blue1.withOpacity(0.5)),
-                                        padding: EdgeInsets.only(
-                                          left: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.06,
-                                          right: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.06,
-                                          bottom: bodyHeight * 0.02,
-                                          top: bodyHeight * 0.03,
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            // ignore: prefer_const_constructors
-                                            Text(
-                                              "$nama",
-                                              textAlign: TextAlign.start,
-                                              textScaleFactor: 2,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: bodyHeight * 0.02,
-                                            ),
-                                            Text(
-                                              "$divisi",
-                                              textAlign: TextAlign.start,
-                                              textScaleFactor: 1.5,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            Text(
-                                              "$nomorInduk",
-                                              textAlign: TextAlign.start,
-                                              textScaleFactor: 1.5,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: bodyHeight * 0.025,
-                                      ),
-                                      Row(children: [
-                                        Container(
-                                          height: bodyHeight * 0.34,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.38,
-
-                                          color: Colors.grey.shade200,
-                                          child: Center(child: Text("X")),
-                                          // child: Image.network(src),
-                                        ),
-                                      ]),
                                       SizedBox(
                                         height: bodyHeight * 0.025,
                                       ),

@@ -24,7 +24,8 @@ class EditDivisiView extends GetView<EditDivisiController> {
       builder: (context, snap) {
         if (snap.connectionState == ConnectionState.done) {
           var nama = snap.data!.get('name');
-
+          var defaultImage =
+              "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
           controller.divisiC.text = snap.data!.get('divisi');
 
           return Scaffold(
@@ -100,7 +101,11 @@ class EditDivisiView extends GetView<EditDivisiController> {
                               height: bodyHeight * 0.22,
                               color: Colors.grey.shade200,
                               child: Image.network(
-                                "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33",
+                                snap.data!.get("profile") != null
+                                    ? snap.data!.get("profile") != ""
+                                        ? snap.data!.get("profile")
+                                        : defaultImage
+                                    : defaultImage,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -215,7 +220,8 @@ class EditDivisiView extends GetView<EditDivisiController> {
                             color: Blue1,
                           ),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () => controller
+                                .editProfil(controller.divisiCon.value),
                             child: Text(
                               'Kirim',
                               textScaleFactor: 1.3,

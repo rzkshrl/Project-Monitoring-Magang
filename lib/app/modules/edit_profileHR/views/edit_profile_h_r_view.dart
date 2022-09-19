@@ -32,7 +32,7 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
       builder: (context, snap) {
         if (snap.connectionState == ConnectionState.done) {
           var nama = controller.nameC.text = user['name'];
-          controller.divisiC.text = user['divisi'];
+
           controller.nomorindukC.text = user['nomor_induk'];
           String defaultImage =
               "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
