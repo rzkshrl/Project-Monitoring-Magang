@@ -73,13 +73,18 @@ class AttendanceHRView extends GetView<AttendanceHRController> {
                                   children: [
                                     FocusedMenuHolder(
                                       onPressed: () {},
+                                      menuBoxDecoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0)),
+                                          color: Yellow1),
                                       menuItems: [
                                         FocusedMenuItem(
                                             title: Text("Absensi Saya"),
-                                            onPressed: () => Get.to(HomeView()),
+                                            onPressed: () {},
                                             trailingIcon:
                                                 Icon(IconlyLight.profile),
-                                            backgroundColor: Yellow1),
+                                            backgroundColor:
+                                                Colors.transparent),
                                         FocusedMenuItem(
                                             title: Text(
                                               "Absensi Karyawan",
@@ -88,11 +93,13 @@ class AttendanceHRView extends GetView<AttendanceHRController> {
                                                 Get.to(ListAttendanceHRView()),
                                             trailingIcon:
                                                 Icon(IconlyLight.user_1),
-                                            backgroundColor: Yellow1),
+                                            backgroundColor:
+                                                Colors.transparent),
                                       ],
                                       blurBackgroundColor: Grey1,
                                       blurSize: 0,
                                       openWithTap: true,
+                                      bottomOffsetHeight: bodyHeight * -1,
                                       menuOffset: bodyHeight * 0.02,
                                       menuWidth:
                                           MediaQuery.of(context).size.width *

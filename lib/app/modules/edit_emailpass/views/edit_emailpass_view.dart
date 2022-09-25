@@ -78,8 +78,6 @@ class EditEmailpassView extends GetView<EditEmailpassController> {
                                 ),
                               ),
                             ),
-                            //button untuk ganti foto profil
-
                             SizedBox(
                               height: bodyHeight * 0.08,
                             ),
@@ -281,7 +279,6 @@ class EditEmailpassView extends GetView<EditEmailpassController> {
                             SizedBox(
                               height: bodyHeight * 0.06,
                             ),
-
                             Container(
                               width: bodyWidth * 1,
                               height: bodyHeight * 0.07,

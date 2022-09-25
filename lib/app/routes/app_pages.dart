@@ -108,27 +108,27 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DASHBOARD_H_R,
-      page: () => const DashboardHRView(),
+      page: () => DashboardHRView(),
       binding: DashboardHRBinding(),
     ),
     GetPage(
       name: _Paths.ATTENDANCE_H_R,
-      page: () => const AttendanceHRView(),
+      page: () => AttendanceHRView(),
       binding: AttendanceHRBinding(),
     ),
     GetPage(
       name: _Paths.LIST_ATTENDANCE_H_R,
-      page: () => const ListAttendanceHRView(),
+      page: () => ListAttendanceHRView(),
       binding: ListAttendanceHRBinding(),
     ),
     GetPage(
       name: _Paths.LIST_LOCATION_H_R,
-      page: () => const ListLocationHRView(),
+      page: () => ListLocationHRView(),
       binding: ListLocationHRBinding(),
     ),
     GetPage(
       name: _Paths.DETAIL_LOCATION_H_R,
-      page: () => const DetailLocationHRView(),
+      page: () => DetailLocationHRView(),
       binding: DetailLocationHRBinding(),
     ),
     GetPage(

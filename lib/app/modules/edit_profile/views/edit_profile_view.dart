@@ -32,7 +32,6 @@ class EditProfileView extends GetView<EditProfileController> {
       builder: (context, snap) {
         if (snap.connectionState == ConnectionState.done) {
           var nama = controller.nameC.text = user['name'];
-
           controller.nomorindukC.text = user['nomor_induk'];
           String defaultImage =
               "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
@@ -41,14 +40,13 @@ class EditProfileView extends GetView<EditProfileController> {
             backgroundColor: light,
             body: LayoutBuilder(builder: (context, constraint) {
               final textScale = MediaQuery.of(context).textScaleFactor;
-              final mediaQueryHeight = MediaQuery.of(context).size.height;
-              final bodyHeight =
-                  mediaQueryHeight - MediaQuery.of(context).padding.top;
+              double bodyHeight = constraint.maxHeight;
+              double bodyWidth = constraint.maxWidth;
               return SingleChildScrollView(
                 reverse: true,
                 padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.05,
-                  right: MediaQuery.of(context).size.width * 0.05,
+                  left: bodyWidth * 0.05,
+                  right: bodyWidth * 0.05,
                   bottom: bodyHeight * 0.01,
                 ),
                 child: Column(
@@ -66,7 +64,7 @@ class EditProfileView extends GetView<EditProfileController> {
                               color: dark,
                             )),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.5,
+                          width: bodyWidth * 0.5,
                         ),
                         FocusedMenuHolder(
                           onPressed: () {},
@@ -88,7 +86,7 @@ class EditProfileView extends GetView<EditProfileController> {
                           blurSize: 0,
                           openWithTap: true,
                           menuOffset: bodyHeight * 0.02,
-                          menuWidth: MediaQuery.of(context).size.width * 0.9,
+                          menuWidth: bodyWidth * 0.9,
                           animateMenuItems: false,
                           child: ClipOval(
                             child: Material(
@@ -110,9 +108,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                   return Center(
                                     child: ClipOval(
                                       child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.46,
+                                        width: bodyWidth * 0.46,
                                         height: bodyHeight * 0.22,
                                         color: Colors.grey.shade200,
                                         child: Image.file(
@@ -126,9 +122,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                   return Center(
                                     child: ClipOval(
                                       child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.46,
+                                        width: bodyWidth * 0.46,
                                         height: bodyHeight * 0.22,
                                         color: Colors.grey.shade200,
                                         child: Image.network(
@@ -148,7 +142,7 @@ class EditProfileView extends GetView<EditProfileController> {
                             //button untuk ganti foto profil
                             Positioned(
                               top: bodyHeight * 0.16,
-                              left: MediaQuery.of(context).size.width * 0.55,
+                              left: bodyWidth * 0.55,
                               child: ClipOval(
                                 child: Material(
                                   color: backgroundBlue,
@@ -176,7 +170,7 @@ class EditProfileView extends GetView<EditProfileController> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 1,
+                                width: bodyWidth * 1,
                                 height: bodyHeight * 0.065,
                                 decoration: BoxDecoration(
                                     color: Yellow1,
@@ -217,7 +211,7 @@ class EditProfileView extends GetView<EditProfileController> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 1,
+                                width: bodyWidth * 1,
                                 height: bodyHeight * 0.065,
                                 decoration: BoxDecoration(
                                     color: Yellow1,
@@ -257,7 +251,7 @@ class EditProfileView extends GetView<EditProfileController> {
                           height: bodyHeight * 0.06,
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 1,
+                          width: bodyWidth * 1,
                           height: bodyHeight * 0.07,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(80),
