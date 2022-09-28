@@ -8,6 +8,8 @@ import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/dashboardHR/bindings/dashboard_h_r_binding.dart';
 import '../modules/dashboardHR/views/dashboard_h_r_view.dart';
+import '../modules/detail_attendanceHR/bindings/detail_attendance_h_r_binding.dart';
+import '../modules/detail_attendanceHR/views/detail_attendance_h_r_view.dart';
 import '../modules/detail_locationHR/bindings/detail_location_h_r_binding.dart';
 import '../modules/detail_locationHR/views/detail_location_h_r_view.dart';
 import '../modules/edit_divisi/bindings/edit_divisi_binding.dart';
@@ -155,6 +157,11 @@ class AppPages {
       name: _Paths.EDIT_DIVISI_H_R,
       page: () => EditDivisiHRView(),
       binding: EditDivisiHRBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_ATTENDANCE_H_R,
+      page: () => const DetailAttendanceHRView(),
+      binding: DetailAttendanceHRBinding(),
     ),
   ];
 }
