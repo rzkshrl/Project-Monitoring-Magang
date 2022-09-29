@@ -32,8 +32,8 @@ class SettingHRView extends GetView<SettingHRController> {
       ),
       child: Scaffold(
         backgroundColor: light,
-        body: FutureBuilder<DocumentSnapshot<Object?>>(
-            future: controller.getUserDoc(),
+        body: StreamBuilder<DocumentSnapshot<Object?>>(
+            stream: controller.getUserDoc(),
             builder: (context, snap) {
               if (snap.connectionState == ConnectionState.waiting) {
                 return LoadingView();
@@ -88,7 +88,7 @@ class SettingHRView extends GetView<SettingHRController> {
                                   width: bodyHeight * 0.015,
                                 ),
                                 Container(
-                                  height: bodyHeight * 0.115,
+                                  height: bodyHeight * 0.125,
                                   width:
                                       MediaQuery.of(context).size.width * 0.65,
                                   padding: EdgeInsets.only(

@@ -114,7 +114,7 @@ class DashboardHRView extends GetView<DashboardHRController> {
                                         Text(
                                           "$divisi",
                                           textAlign: TextAlign.start,
-                                          textScaleFactor: 1.5,
+                                          textScaleFactor: 1.2,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w400,
                                           ),
@@ -122,7 +122,7 @@ class DashboardHRView extends GetView<DashboardHRController> {
                                         Text(
                                           "$nomor_induk",
                                           textAlign: TextAlign.start,
-                                          textScaleFactor: 1.5,
+                                          textScaleFactor: 1.2,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w400,
                                           ),
