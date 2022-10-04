@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -66,20 +67,35 @@ class AttendanceHRController extends GetxController {
     Map<String, dynamic> dataResponse = await determinePosition();
     if (!dataResponse["error"]) {
       Position position = dataResponse['position'];
-      await updateLokasi(position);
       // log("${position.latitude} , ${position.latitude}");
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      String address =
+          "${placemarks[0].street}, \n${placemarks[0].subLocality}, ${placemarks[0].locality}, \n${placemarks[0].subAdministrativeArea}, \n${placemarks[0].administrativeArea}, ${placemarks[0].country}";
       Get.defaultDialog(
-          title: dataResponse["message"],
-          middleText: "${position.latitude} , ${position.longitude}");
+          title: dataResponse["message"], middleText: "${address}");
+      await updateLokasi(position, address);
     } else {
       Get.defaultDialog(title: "Error", middleText: dataResponse["message"]);
     }
   }
 
-  Future<void> updateLokasi(Position position) async {
+  Future<void> updateLokasi(Position position, String address) async {
     String uid = auth.currentUser!.uid;
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
     firestore.collection("Users").doc(uid).update({
-      "position": {"lat": position.latitude, "long": position.longitude}
+      "position": {"lat": position.latitude, "long": position.longitude},
+      "address": address,
+      "detailAddress": {
+        "street": placemarks[0].street,
+        "subLocality": placemarks[0].subLocality,
+        "locality": placemarks[0].locality,
+        "subAdministrativeArea": placemarks[0].subAdministrativeArea,
+        "administrativeArea": placemarks[0].administrativeArea,
+        "country": placemarks[0].country,
+        "postalCode": placemarks[0].postalCode
+      }
     });
   }
 

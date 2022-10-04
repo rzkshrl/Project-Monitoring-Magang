@@ -139,8 +139,8 @@ class AttendanceHRView extends GetView<AttendanceHRController> {
                                 height: bodyHeight * 0.02,
                               ),
                               Text(
-                                user['position'] != null
-                                    ? "Latitude : ${user['position']['lat']}\nLongitude : ${user['position']['long']}"
+                                user['detailAddress'] != null
+                                    ? "${user['detailAddress']['street']}, ${user['detailAddress']['subLocality']}, ${user['detailAddress']['locality']}, ${user['detailAddress']['subAdministrativeArea']}, \n${user['detailAddress']['administrativeArea']}, ${user['detailAddress']['country']}, ${user['detailAddress']['postalCode']},"
                                     : "Belum mendapatkan lokasi.",
                                 textAlign: TextAlign.start,
                                 textScaleFactor: 1.1,
