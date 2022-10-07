@@ -2,10 +2,14 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
+import 'package:project_magang/app/theme/theme.dart';
 
 class AttendanceHRController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -110,6 +114,7 @@ class AttendanceHRController extends GetxController {
           }
         },
       });
+
       Get.defaultDialog(
           title: "Sukses", middleText: "Berhasil melakukan Absensi Masuk");
     } else {
@@ -122,8 +127,23 @@ class AttendanceHRController extends GetxController {
         Map<String, dynamic>? dataPresenceToday = todayDocs.data();
         if (dataPresenceToday?['keluar'] != null) {
           //sudah absen masuk & keluar
-          Get.defaultDialog(
-              title: "Sukses", middleText: "Absen sudah terpenuhi hari ini.");
+
+          Get.dialog(
+            Dialog(
+              shape: RoundedRectangleBorder(),
+              child: Container(
+                  width: 100,
+                  height: 100,
+                  child: Column(
+                    children: [
+                      Icon(IconlyBold.add_user),
+                    ],
+                  )),
+            ),
+            barrierColor: Colors.grey.withOpacity(0.5),
+          );
+          // Get.defaultDialog(
+          //     title: "Sukses", middleText: "Absen sudah terpenuhi hari ini.");
         } else {
           //absen keluar
           await colPresence.doc(todayID).update({

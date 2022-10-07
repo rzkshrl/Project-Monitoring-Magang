@@ -1,9 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class ListLocationHRController extends GetxController {
   //TODO: Implement ListLocationHRController
 
-  final count = 0.obs;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  Stream<QuerySnapshot<Object?>> streamDataUsers() {
+    CollectionReference pemasukan = firestore.collection("Users");
+    return pemasukan.snapshots();
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +25,4 @@ class ListLocationHRController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
