@@ -49,7 +49,7 @@ class AttendanceHRView extends GetView<AttendanceHRController> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: bodyHeight * 0.05,
+                          height: bodyHeight * 0.06,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -96,7 +96,7 @@ class AttendanceHRView extends GetView<AttendanceHRController> {
                           ],
                         ),
                         SizedBox(
-                          height: bodyHeight * 0.01,
+                          height: bodyHeight * 0.02,
                         ),
                         Material(
                           color: Grey1,
@@ -128,7 +128,7 @@ class AttendanceHRView extends GetView<AttendanceHRController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Lokasi",
+                                "Lokasi terakhir",
                                 textAlign: TextAlign.start,
                                 textScaleFactor: 1.1,
                                 style: TextStyle(

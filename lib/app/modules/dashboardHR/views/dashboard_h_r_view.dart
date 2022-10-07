@@ -12,41 +12,35 @@ import 'package:project_magang/app/utils/loading.dart';
 import '../controllers/dashboard_h_r_controller.dart';
 
 class DashboardHRView extends GetView<DashboardHRController> {
-  const DashboardHRView({Key? key}) : super(key: key);
+  DashboardHRView({Key? key}) : super(key: key);
+  final DashboardHRController controller = Get.put(DashboardHRController());
   @override
   Widget build(BuildContext context) {
-    final textScale = MediaQuery.of(context).textScaleFactor;
-    final mediaQueryHeight = MediaQuery.of(context).size.height;
-    final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
-    final DashboardHRController controller = Get.put(DashboardHRController());
-
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: light,
-      ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: light,
-        body: FutureBuilder<DocumentSnapshot<Object?>>(
-            future: controller.getUserDoc(),
-            builder: (context, snap) {
-              if (snap.connectionState == ConnectionState.waiting) {
-                return LoadingView();
-              }
-              if (snap.hasData) {
-                var nama = snap.data!.get("name");
-                var divisi = snap.data!.get("divisi");
-                var nomor_induk = snap.data!.get("nomor_induk");
-                var defaultImage =
-                    "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
-                return LayoutBuilder(
-                  builder: (context, constraints) => SingleChildScrollView(
-                    reverse: true,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: light,
+      body: FutureBuilder<DocumentSnapshot<Object?>>(
+          future: controller.getUserDoc(),
+          builder: (context, snap) {
+            if (snap.connectionState == ConnectionState.waiting) {
+              return LoadingView();
+            }
+            if (snap.hasData) {
+              var nama = snap.data!.get("name");
+              var divisi = snap.data!.get("divisi");
+              var nomor_induk = snap.data!.get("nomor_induk");
+              var defaultImage =
+                  "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  final textScale = MediaQuery.of(context).textScaleFactor;
+                  final bodyHeight = MediaQuery.of(context).size.height;
+                  -MediaQuery.of(context).padding.top;
+                  final bodyWidth = MediaQuery.of(context).size.width;
+                  return SingleChildScrollView(
                     padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.05,
-                      right: MediaQuery.of(context).size.width * 0.05,
+                      left: bodyWidth * 0.05,
+                      right: bodyWidth * 0.05,
                       bottom: bodyHeight * 0.01,
                     ),
                     child: ConstrainedBox(
@@ -63,8 +57,7 @@ class DashboardHRView extends GetView<DashboardHRController> {
                                 children: [
                                   ClipOval(
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.38,
+                                      width: bodyWidth * 0.38,
                                       height: bodyHeight * 0.18,
                                       color: Colors.grey.shade200,
                                       // child: Center(child: Text("X")),
@@ -83,15 +76,13 @@ class DashboardHRView extends GetView<DashboardHRController> {
                                   ),
                                   Container(
                                     height: bodyHeight * 0.18,
-                                    width: MediaQuery.of(context).size.width,
+                                    width: bodyWidth,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(12),
                                         color: Blue1.withOpacity(0.5)),
                                     padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.width *
-                                          0.06,
-                                      right: MediaQuery.of(context).size.width *
-                                          0.06,
+                                      left: bodyWidth * 0.06,
+                                      right: bodyWidth * 0.06,
                                       bottom: bodyHeight * 0.02,
                                       top: bodyHeight * 0.03,
                                     ),
@@ -135,15 +126,13 @@ class DashboardHRView extends GetView<DashboardHRController> {
                                   ),
                                   Container(
                                     height: bodyHeight * 0.48,
-                                    width: MediaQuery.of(context).size.width,
+                                    width: bodyWidth,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(12),
                                         color: Yellow1.withOpacity(0.5)),
                                     padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.width *
-                                          0.03,
-                                      right: MediaQuery.of(context).size.width *
-                                          0.03,
+                                      left: bodyWidth * 0.03,
+                                      right: bodyWidth * 0.03,
                                       bottom: bodyHeight * 0.02,
                                       top: bodyHeight * 0.01,
                                     ),
@@ -188,13 +177,13 @@ class DashboardHRView extends GetView<DashboardHRController> {
                         ),
                       ),
                     ),
-                  ),
-                );
-              } else {
-                return LoadingView();
-              }
-            }),
-      ),
+                  );
+                },
+              );
+            } else {
+              return LoadingView();
+            }
+          }),
     );
   }
 }

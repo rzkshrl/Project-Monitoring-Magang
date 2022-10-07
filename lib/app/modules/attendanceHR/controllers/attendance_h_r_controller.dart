@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 
 class AttendanceHRController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -72,11 +73,103 @@ class AttendanceHRController extends GetxController {
           await placemarkFromCoordinates(position.latitude, position.longitude);
       String address =
           "${placemarks[0].street}, \n${placemarks[0].subLocality}, ${placemarks[0].locality}, \n${placemarks[0].subAdministrativeArea}, \n${placemarks[0].administrativeArea}, ${placemarks[0].country}";
-      Get.defaultDialog(
-          title: dataResponse["message"], middleText: "${address}");
       await updateLokasi(position, address);
+      await absensi(position, address);
     } else {
       Get.defaultDialog(title: "Error", middleText: dataResponse["message"]);
+    }
+  }
+
+  Future<void> absensi(Position position, String address) async {
+    String uid = auth.currentUser!.uid;
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+
+    CollectionReference<Map<String, dynamic>> colPresence =
+        await firestore.collection("Users").doc(uid).collection('Presence');
+    QuerySnapshot<Map<String, dynamic>> snapPresence = await colPresence.get();
+
+    DateTime now = DateTime.now();
+    String todayID = DateFormat.yMd().format(now).replaceAll("/", "-");
+    if (snapPresence.docs.length == 0) {
+      //belum pernah absen dan method absen masuk
+      await colPresence.doc(todayID).set({
+        "todayDate": now.toIso8601String(),
+        "masuk": {
+          "date": now.toIso8601String(),
+          "position": {"lat": position.latitude, "long": position.longitude},
+          "address": address,
+          "detailAddress": {
+            "street": placemarks[0].street,
+            "subLocality": placemarks[0].subLocality,
+            "locality": placemarks[0].locality,
+            "subAdministrativeArea": placemarks[0].subAdministrativeArea,
+            "administrativeArea": placemarks[0].administrativeArea,
+            "country": placemarks[0].country,
+            "postalCode": placemarks[0].postalCode
+          }
+        },
+      });
+      Get.defaultDialog(
+          title: "Sukses", middleText: "Berhasil melakukan Absensi Masuk");
+    } else {
+      //sudah pernah absen
+      DocumentSnapshot<Map<String, dynamic>> todayDocs =
+          await colPresence.doc(todayID).get();
+      //cek kondisi absen -> sudah pernah / belum?
+      if (todayDocs.exists == true) {
+        //absen keluar / sudah keduanya
+        Map<String, dynamic>? dataPresenceToday = todayDocs.data();
+        if (dataPresenceToday?['keluar'] != null) {
+          //sudah absen masuk & keluar
+          Get.defaultDialog(
+              title: "Sukses", middleText: "Absen sudah terpenuhi hari ini.");
+        } else {
+          //absen keluar
+          await colPresence.doc(todayID).update({
+            "keluar": {
+              "date": now.toIso8601String(),
+              "position": {
+                "lat": position.latitude,
+                "long": position.longitude
+              },
+              "address": address,
+              "detailAddress": {
+                "street": placemarks[0].street,
+                "subLocality": placemarks[0].subLocality,
+                "locality": placemarks[0].locality,
+                "subAdministrativeArea": placemarks[0].subAdministrativeArea,
+                "administrativeArea": placemarks[0].administrativeArea,
+                "country": placemarks[0].country,
+                "postalCode": placemarks[0].postalCode
+              }
+            },
+          });
+          Get.defaultDialog(
+              title: "Sukses", middleText: "Berhasil melakukan Absensi Keluar");
+        }
+      } else {
+        //absen masuk dahulu
+        await colPresence.doc(todayID).set({
+          "todayDate": now.toIso8601String(),
+          "masuk": {
+            "date": now.toIso8601String(),
+            "position": {"lat": position.latitude, "long": position.longitude},
+            "address": address,
+            "detailAddress": {
+              "street": placemarks[0].street,
+              "subLocality": placemarks[0].subLocality,
+              "locality": placemarks[0].locality,
+              "subAdministrativeArea": placemarks[0].subAdministrativeArea,
+              "administrativeArea": placemarks[0].administrativeArea,
+              "country": placemarks[0].country,
+              "postalCode": placemarks[0].postalCode
+            }
+          },
+        });
+        Get.defaultDialog(
+            title: "Sukses", middleText: "Berhasil melakukan Absensi Masuk");
+      }
     }
   }
 
