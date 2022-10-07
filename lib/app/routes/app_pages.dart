@@ -160,7 +160,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DETAIL_ATTENDANCE_H_R,
-      page: () => const DetailAttendanceHRView(),
+      page: () => DetailAttendanceHRView(),
       binding: DetailAttendanceHRBinding(),
     ),
   ];

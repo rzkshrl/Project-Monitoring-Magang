@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ class ListAttendanceHRView extends GetView<ListAttendanceHRController> {
 
   final ListAttendanceHRController controller =
       Get.put(ListAttendanceHRController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +29,7 @@ class ListAttendanceHRView extends GetView<ListAttendanceHRController> {
           builder: (context, snap) {
             if (snap.connectionState == ConnectionState.active) {
               var listAllDocs = snap.data!.docs;
+
               return LayoutBuilder(
                 builder: (context, constraints) {
                   final textScale = MediaQuery.of(context).textScaleFactor;
@@ -121,6 +125,12 @@ class ListAttendanceHRView extends GetView<ListAttendanceHRController> {
                             itemCount: listAllDocs.length,
                             // itemCount: 20,
                             itemBuilder: (context, index) {
+                              var nama = {
+                                (listAllDocs[index].data()
+                                    as Map<String, dynamic>)["name"]
+                              };
+                              var defaultImage =
+                                  "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
                               return Padding(
                                 padding:
                                     EdgeInsets.only(bottom: bodyHeight * 0.015),
@@ -129,7 +139,8 @@ class ListAttendanceHRView extends GetView<ListAttendanceHRController> {
                                   borderRadius: BorderRadius.circular(10),
                                   child: InkWell(
                                     onTap: () => Get.toNamed(
-                                        Routes.DETAIL_ATTENDANCE_H_R),
+                                        Routes.DETAIL_ATTENDANCE_H_R,
+                                        arguments: listAllDocs[index].data()),
                                     borderRadius: BorderRadius.circular(10),
                                     child: SizedBox(
                                       width: bodyWidth * 1,
@@ -154,6 +165,11 @@ class ListAttendanceHRView extends GetView<ListAttendanceHRController> {
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.w500,
                                                   ),
+                                                ),
+                                                Visibility(
+                                                  child: Text(
+                                                      "${(listAllDocs[index].data() as Map<String, dynamic>)["uid"]}"),
+                                                  visible: false,
                                                 ),
                                                 Text(
                                                   "${(listAllDocs[index].data() as Map<String, dynamic>)["divisi"]}",

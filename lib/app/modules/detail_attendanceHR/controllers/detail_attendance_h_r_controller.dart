@@ -1,9 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class DetailAttendanceHRController extends GetxController {
   //TODO: Implement DetailAttendanceHRController
 
-  final count = 0.obs;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> streamDataPresenceUser(
+      String uid) async* {
+    yield* firestore
+        .collection("Users")
+        .doc(uid)
+        .collection("Presence")
+        .orderBy("todayDate")
+        .snapshots();
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +30,4 @@ class DetailAttendanceHRController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
