@@ -59,7 +59,6 @@ class HomeView extends GetView<HomeController> {
                     children: [
                       navBarItem(context, IconlyLight.home, 0),
                       navBarItem(context, IconlyLight.time_circle, 1),
-                      navBarItem(context, IconlyLight.location, 2),
                       navBarItem(context, IconlyLight.document, 3),
                       navBarItem(context, IconlyLight.setting, 4),
                     ],
