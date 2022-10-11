@@ -26,6 +26,7 @@ abstract class Routes {
   static const EDIT_DIVISI = _Paths.EDIT_DIVISI;
   static const EDIT_DIVISI_H_R = _Paths.EDIT_DIVISI_H_R;
   static const DETAIL_ATTENDANCE_H_R = _Paths.DETAIL_ATTENDANCE_H_R;
+  static const DETAIL_LOCATION_PER_DATE = _Paths.DETAIL_LOCATION_PER_DATE;
 }
 
 abstract class _Paths {
@@ -53,4 +54,5 @@ abstract class _Paths {
   static const EDIT_DIVISI = '/edit-divisi';
   static const EDIT_DIVISI_H_R = '/edit-divisi-h-r';
   static const DETAIL_ATTENDANCE_H_R = '/detail-attendance-h-r';
+  static const DETAIL_LOCATION_PER_DATE = '/detail-location-per-date';
 }

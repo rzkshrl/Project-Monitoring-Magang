@@ -22,7 +22,7 @@ class DetailAttendanceHRView extends GetView<DetailAttendanceHRController> {
   @override
   Widget build(BuildContext context) {
     final user = Get.arguments;
-    log("${user}");
+    // log("${user}");
     var uid = user['uid'];
 
     return Scaffold(
@@ -236,7 +236,7 @@ class DetailAttendanceHRView extends GetView<DetailAttendanceHRController> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      "${DateFormat.d().format(DateTime.parse(data['masuk']['date']))} ${DateFormat.LLLL().format(DateTime.parse(data['masuk']['date']))} ${DateFormat.y().format(DateTime.parse(data['masuk']['date']))}",
+                                                      "${DateFormat('d MMMM yyyy', 'id-ID').format(DateTime.parse(data['masuk']['date']))}",
                                                       textAlign:
                                                           TextAlign.start,
                                                       textScaleFactor: 0.9,
@@ -246,7 +246,7 @@ class DetailAttendanceHRView extends GetView<DetailAttendanceHRController> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      "${DateFormat.Hm().format(DateTime.parse(data['masuk']['date']))}",
+                                                      "${DateFormat('HH:MM', 'id-ID').format(DateTime.parse(data['masuk']['date']))}",
                                                       textAlign:
                                                           TextAlign.start,
                                                       textScaleFactor: 0.9,
@@ -274,7 +274,7 @@ class DetailAttendanceHRView extends GetView<DetailAttendanceHRController> {
                                                     ),
                                                     Text(
                                                       data["keluar"] != null
-                                                          ? "${DateFormat.d().format(DateTime.parse(data['keluar']['date']))} ${DateFormat.LLLL().format(DateTime.parse(data['keluar']['date']))} ${DateFormat.y().format(DateTime.parse(data['keluar']['date']))}"
+                                                          ? "${DateFormat('d MMMM yyyy', 'id-ID').format(DateTime.parse(data['keluar']['date']))}"
                                                           : "",
                                                       textAlign:
                                                           TextAlign.start,
@@ -286,7 +286,7 @@ class DetailAttendanceHRView extends GetView<DetailAttendanceHRController> {
                                                     ),
                                                     Text(
                                                       data["keluar"] != null
-                                                          ? "${DateFormat.Hm().format(DateTime.parse(data['keluar']['date']))}"
+                                                          ? "${DateFormat('HH:MM', 'id-ID').format(DateTime.parse(data['keluar']['date']))}"
                                                           : "--",
                                                       textAlign:
                                                           TextAlign.start,

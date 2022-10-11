@@ -12,7 +12,7 @@ class DetailAttendanceHRController extends GetxController {
         .collection("Users")
         .doc(uid)
         .collection("Presence")
-        .orderBy("todayDate")
+        .orderBy("todayDate", descending: true)
         .snapshots();
   }
 

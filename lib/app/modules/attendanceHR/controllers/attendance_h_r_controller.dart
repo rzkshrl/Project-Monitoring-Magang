@@ -99,6 +99,7 @@ class AttendanceHRController extends GetxController {
       //belum pernah absen dan method absen masuk
       await colPresence.doc(todayID).set({
         "todayDate": now.toIso8601String(),
+        "uid": uid,
         "masuk": {
           "date": now.toIso8601String(),
           "position": {"lat": position.latitude, "long": position.longitude},
@@ -215,6 +216,20 @@ class AttendanceHRController extends GetxController {
   Stream<DocumentSnapshot<Map<String, dynamic>>> streamUser() async* {
     String uid = auth.currentUser!.uid;
     yield* firestore.collection("Users").doc(uid).snapshots();
+  }
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>>
+      streamTodayPresenceUser() async* {
+    String uid = auth.currentUser!.uid;
+    String todayID =
+        DateFormat.yMd().format(DateTime.now()).replaceAll("/", "-");
+
+    yield* firestore
+        .collection("Users")
+        .doc(uid)
+        .collection("Presence")
+        .doc(todayID)
+        .snapshots();
   }
 
   @override

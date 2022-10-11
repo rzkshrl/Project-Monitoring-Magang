@@ -39,20 +39,6 @@ class ListLocationHRView extends GetView<ListLocationHRController> {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: bodyHeight * 0.06,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                                onPressed: () => Get.back(),
-                                icon: Icon(
-                                  Icons.arrow_back,
-                                  color: dark,
-                                )),
-                          ],
-                        ),
                         Container(
                           width: bodyWidth * 1,
                           height: bodyHeight * 0.065,
@@ -95,10 +81,10 @@ class ListLocationHRView extends GetView<ListLocationHRController> {
                                   color: Yellow1,
                                   borderRadius: BorderRadius.circular(10),
                                   child: InkWell(
-                                    // onTap: () => Get.toNamed(
-                                    //     Routes.DETAIL_ATTENDANCE_H_R,
-                                    //     arguments: listAllDocs[index].data()),
-                                    onTap: () {},
+                                    onTap: () => Get.toNamed(
+                                        Routes.DETAIL_LOCATION_H_R,
+                                        arguments: listAllDocs[index].data()),
+                                    // onTap: () {},
                                     borderRadius: BorderRadius.circular(10),
                                     child: SizedBox(
                                       width: bodyWidth * 1,

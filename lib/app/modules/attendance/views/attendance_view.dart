@@ -7,6 +7,7 @@ import 'package:focused_menu/modals.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 import 'package:project_magang/app/controller/auth_controller.dart';
 import 'package:project_magang/app/modules/home/views/home_view.dart';
 import 'package:project_magang/app/routes/app_pages.dart';
@@ -77,110 +78,148 @@ class AttendanceView extends GetView<AttendanceController> {
                           decoration: BoxDecoration(
                               color: Yellow1,
                               borderRadius: BorderRadius.circular(22)),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Lokasi terakhir",
-                                textAlign: TextAlign.start,
-                                textScaleFactor: 1.1,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              SizedBox(
-                                height: bodyHeight * 0.02,
-                              ),
-                              Text(
-                                user['detailAddress'] != null
-                                    ? "${user['detailAddress']['street']}, ${user['detailAddress']['subLocality']}, ${user['detailAddress']['locality']}, ${user['detailAddress']['subAdministrativeArea']}, \n${user['detailAddress']['administrativeArea']}, ${user['detailAddress']['country']}, ${user['detailAddress']['postalCode']},"
-                                    : "Belum mendapatkan lokasi.",
-                                textAlign: TextAlign.start,
-                                textScaleFactor: 1.1,
-                                style: TextStyle(
-                                  color: Grey2,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              SizedBox(
-                                height: bodyHeight * 0.05,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Masuk",
-                                    textAlign: TextAlign.start,
-                                    textScaleFactor: 1.1,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
+                          child: StreamBuilder<
+                                  DocumentSnapshot<Map<String, dynamic>>>(
+                              stream: controller.streamTodayPresenceUser(),
+                              builder: (context, snapToday) {
+                                if (snap.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return LoadingView();
+                                }
+                                Map<String, dynamic>? dataToday =
+                                    snapToday.data?.data();
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Lokasi terakhir",
+                                      textAlign: TextAlign.start,
+                                      textScaleFactor: 1.1,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    "Keluar",
-                                    textAlign: TextAlign.start,
-                                    textScaleFactor: 1.1,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
+                                    SizedBox(
+                                      height: bodyHeight * 0.02,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: bodyHeight * 0.01,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    "- -",
-                                    textAlign: TextAlign.start,
-                                    textScaleFactor: 1.1,
-                                    style: TextStyle(
-                                      color: Grey2,
-                                      fontWeight: FontWeight.w400,
+                                    Text(
+                                      user['detailAddress'] != null
+                                          ? "${user['detailAddress']['street']}, ${user['detailAddress']['subLocality']}, ${user['detailAddress']['locality']}, ${user['detailAddress']['subAdministrativeArea']}, \n${user['detailAddress']['administrativeArea']}, ${user['detailAddress']['country']}, ${user['detailAddress']['postalCode']},"
+                                          : "Belum mendapatkan lokasi.",
+                                      textAlign: TextAlign.start,
+                                      textScaleFactor: 1.1,
+                                      style: TextStyle(
+                                        color: Grey2,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: bodyWidth * 0.6,
-                                  ),
-                                  Text(
-                                    "- -",
-                                    textAlign: TextAlign.start,
-                                    textScaleFactor: 1.1,
-                                    style: TextStyle(
-                                      color: Grey2,
-                                      fontWeight: FontWeight.w400,
+                                    SizedBox(
+                                      height: bodyHeight * 0.05,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: bodyHeight * 0.02,
-                              ),
-                              Container(
-                                width: bodyWidth * 1,
-                                height: bodyHeight * 0.06,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(80),
-                                  color: Blue1,
-                                ),
-                                child: TextButton(
-                                  onPressed: () {
-                                    controller.getLokasi();
-                                  },
-                                  /*authC.logut(emailC.text, passC.text)*/
-                                  child: Text(
-                                    'Masuk',
-                                    textScaleFactor: 1.1,
-                                    style: headingBtn.copyWith(color: Yellow1),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Masuk",
+                                          textAlign: TextAlign.start,
+                                          textScaleFactor: 1.1,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Keluar",
+                                          textAlign: TextAlign.start,
+                                          textScaleFactor: 1.1,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: bodyHeight * 0.01,
+                                    ),
+                                    Center(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            dataToday?["masuk"] == null
+                                                ? "--:--"
+                                                : "${DateFormat('HH:mm', 'id-ID').format(DateTime.parse(dataToday?['masuk']['date']))}",
+                                            textAlign: TextAlign.start,
+                                            textScaleFactor: 1.1,
+                                            style: TextStyle(
+                                              color: Grey2,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          // SizedBox(
+                                          //   width: bodyWidth * 0.3,
+                                          // ),
+                                          Text(
+                                            dataToday?["keluar"] == null
+                                                ? "--:--"
+                                                : "${DateFormat('HH:mm', 'id-ID').format(DateTime.parse(dataToday?['keluar']['date']))}",
+                                            textAlign: TextAlign.start,
+                                            textScaleFactor: 1.1,
+                                            style: TextStyle(
+                                              color: Grey2,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: bodyHeight * 0.02,
+                                    ),
+                                    Container(
+                                      width: bodyWidth * 1,
+                                      height: bodyHeight * 0.06,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(80),
+                                        color: Blue1,
+                                      ),
+                                      child: StreamBuilder<
+                                              DocumentSnapshot<
+                                                  Map<String, dynamic>>>(
+                                          stream: controller
+                                              .streamTodayPresenceUser(),
+                                          builder: (context, snapBtn) {
+                                            if (snap.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return LoadingView();
+                                            }
+                                            Map<String, dynamic>? dataToday =
+                                                snapBtn.data?.data();
+                                            return TextButton(
+                                              onPressed: () {
+                                                controller.getLokasi();
+                                              },
+                                              /*authC.logut(emailC.text, passC.text)*/
+                                              child: Text(
+                                                dataToday?["masuk"] == null
+                                                    ? "Masuk"
+                                                    : "Keluar",
+                                                textScaleFactor: 1.1,
+                                                style: headingBtn.copyWith(
+                                                    color: dataToday?[
+                                                                "keluar"] !=
+                                                            null
+                                                        ? Yellow1.withOpacity(
+                                                            0.5)
+                                                        : Yellow1),
+                                              ),
+                                            );
+                                          }),
+                                    ),
+                                  ],
+                                );
+                              }),
                         ),
                       ],
                     ),

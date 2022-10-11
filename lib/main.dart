@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:project_magang/app/modules/login/views/login_view.dart';
 import 'package:project_magang/app/modules/register/views/register_view.dart';
 import 'package:project_magang/app/theme/theme.dart';
@@ -14,14 +15,15 @@ import 'app/modules/home/views/home_view.dart';
 import 'app/routes/app_pages.dart';
 import 'firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(ProjectMagangApp());
+  await initializeDateFormatting('id_ID', null)
+      .then((_) => runApp(ProjectMagangApp()));
 }
 
 class ProjectMagangApp extends StatelessWidget {

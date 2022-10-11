@@ -3,19 +3,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class DetailLocationHRController extends GetxController {
-  //TODO: Implement DetailLocationHRController
+class DetailLocationPerDateController extends GetxController {
+  //TODO: Implement DetailLocationPerDateController
 
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> streamDataLocationUser(
-      String uid) async* {
+  Stream<DocumentSnapshot<Map<String, dynamic>>> streamTodayLocationUser(
+      String uid, String todayDate) async* {
+    String todayID =
+        DateFormat.yMd().format(DateTime.parse(todayDate)).replaceAll("/", "-");
+
     yield* firestore
         .collection("Users")
         .doc(uid)
         .collection("Presence")
-        .orderBy("todayDate", descending: true)
+        .doc(todayID)
         .snapshots();
   }
 

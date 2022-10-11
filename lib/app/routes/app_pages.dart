@@ -12,6 +12,8 @@ import '../modules/detail_attendanceHR/bindings/detail_attendance_h_r_binding.da
 import '../modules/detail_attendanceHR/views/detail_attendance_h_r_view.dart';
 import '../modules/detail_locationHR/bindings/detail_location_h_r_binding.dart';
 import '../modules/detail_locationHR/views/detail_location_h_r_view.dart';
+import '../modules/detail_location_per_date/bindings/detail_location_per_date_binding.dart';
+import '../modules/detail_location_per_date/views/detail_location_per_date_view.dart';
 import '../modules/edit_divisi/bindings/edit_divisi_binding.dart';
 import '../modules/edit_divisi/views/edit_divisi_view.dart';
 import '../modules/edit_divisi_HR/bindings/edit_divisi_h_r_binding.dart';
@@ -162,6 +164,11 @@ class AppPages {
       name: _Paths.DETAIL_ATTENDANCE_H_R,
       page: () => DetailAttendanceHRView(),
       binding: DetailAttendanceHRBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_LOCATION_PER_DATE,
+      page: () => DetailLocationPerDateView(),
+      binding: DetailLocationPerDateBinding(),
     ),
   ];
 }
