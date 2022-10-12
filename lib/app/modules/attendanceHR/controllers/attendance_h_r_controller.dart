@@ -266,6 +266,7 @@ class AttendanceHRController extends GetxController {
         //absen masuk dahulu
         await colPresence.doc(todayID).set({
           "todayDate": now.toIso8601String(),
+          "uid": uid,
           "masuk": {
             "date": now.toIso8601String(),
             "position": {"lat": position.latitude, "long": position.longitude},
