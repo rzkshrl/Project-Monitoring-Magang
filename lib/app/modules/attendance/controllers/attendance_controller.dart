@@ -2,10 +2,13 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
+import 'package:project_magang/app/theme/theme.dart';
 
 class AttendanceController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -111,8 +114,40 @@ class AttendanceController extends GetxController {
           }
         },
       });
-      Get.defaultDialog(
-          title: "Sukses", middleText: "Berhasil melakukan Absensi Masuk");
+      Get.dialog(Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: Yellow1,
+        child: Container(
+          width: 300,
+          height: 210,
+          margin: EdgeInsets.only(top: 40),
+          child: Column(
+            children: [
+              Icon(
+                IconlyLight.tick_square,
+                color: Blue1,
+                size: 100,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                'Absensi Sudah Terpenuhi',
+                style: TextStyle(
+                    color: Blue1, fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Text(
+                'Selamat dan Semangat Bekerja!!',
+                style: TextStyle(
+                    color: Blue1, fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      ));
     } else {
       //sudah pernah absen
       DocumentSnapshot<Map<String, dynamic>> todayDocs =
@@ -123,8 +158,45 @@ class AttendanceController extends GetxController {
         Map<String, dynamic>? dataPresenceToday = todayDocs.data();
         if (dataPresenceToday?['keluar'] != null) {
           //sudah absen masuk & keluar
-          Get.defaultDialog(
-              title: "Sukses", middleText: "Absen sudah terpenuhi hari ini.");
+          Get.dialog(Dialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            backgroundColor: Yellow1,
+            child: Container(
+              width: 300,
+              height: 210,
+              margin: EdgeInsets.only(top: 40),
+              child: Column(
+                children: [
+                  Icon(
+                    IconlyLight.tick_square,
+                    color: Blue1,
+                    size: 100,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Absensi Sudah Terpenuhi',
+                    style: TextStyle(
+                        color: Blue1,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    'Selamat dan Semangat Bekerja!!',
+                    style: TextStyle(
+                        color: Blue1,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ));
         } else {
           //absen keluar
           await colPresence.doc(todayID).update({
@@ -146,8 +218,45 @@ class AttendanceController extends GetxController {
               }
             },
           });
-          Get.defaultDialog(
-              title: "Sukses", middleText: "Berhasil melakukan Absensi Keluar");
+          Get.dialog(Dialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            backgroundColor: Yellow1,
+            child: Container(
+              width: 300,
+              height: 210,
+              margin: EdgeInsets.only(top: 40),
+              child: Column(
+                children: [
+                  Icon(
+                    IconlyLight.tick_square,
+                    color: Blue1,
+                    size: 100,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Sukses Absensi Keluar',
+                    style: TextStyle(
+                        color: Blue1,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    'Sampai Jumpa Besok Pagi Dengan Semangat Kerja Baru',
+                    style: TextStyle(
+                        color: Blue1,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ));
         }
       } else {
         //absen masuk dahulu

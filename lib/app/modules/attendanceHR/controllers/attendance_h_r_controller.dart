@@ -129,20 +129,45 @@ class AttendanceHRController extends GetxController {
         if (dataPresenceToday?['keluar'] != null) {
           //sudah absen masuk & keluar
 
-          Get.dialog(
-            Dialog(
-              shape: RoundedRectangleBorder(),
-              child: Container(
-                  width: 100,
-                  height: 100,
-                  child: Column(
-                    children: [
-                      Icon(IconlyBold.add_user),
-                    ],
-                  )),
+          Get.dialog(Dialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            backgroundColor: Yellow1,
+            child: Container(
+              width: 300,
+              height: 210,
+              margin: EdgeInsets.only(top: 40),
+              child: Column(
+                children: [
+                  Icon(
+                    IconlyLight.tick_square,
+                    color: Blue1,
+                    size: 100,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Absensi Sudah Terpenuhi',
+                    style: TextStyle(
+                        color: Blue1,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    'Selamat dan Semangat Bekerja!!',
+                    style: TextStyle(
+                        color: Blue1,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
-            barrierColor: Colors.grey.withOpacity(0.5),
-          );
+          ));
           // Get.defaultDialog(
           //     title: "Sukses", middleText: "Absen sudah terpenuhi hari ini.");
         } else {
@@ -166,8 +191,45 @@ class AttendanceHRController extends GetxController {
               }
             },
           });
-          Get.defaultDialog(
-              title: "Sukses", middleText: "Berhasil melakukan Absensi Keluar");
+          Get.dialog(Dialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            backgroundColor: Yellow1,
+            child: Container(
+              width: 300,
+              height: 210,
+              margin: EdgeInsets.only(top: 40),
+              child: Column(
+                children: [
+                  Icon(
+                    IconlyLight.tick_square,
+                    color: Blue1,
+                    size: 100,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Absensi Sudah Terpenuhi',
+                    style: TextStyle(
+                        color: Blue1,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    'Selamat dan Semangat Bekerja!!',
+                    style: TextStyle(
+                        color: Blue1,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ));
         }
       } else {
         //absen masuk dahulu
@@ -188,8 +250,41 @@ class AttendanceHRController extends GetxController {
             }
           },
         });
-        Get.defaultDialog(
-            title: "Sukses", middleText: "Berhasil melakukan Absensi Masuk");
+        Get.dialog(Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          backgroundColor: Yellow1,
+          child: Container(
+            width: 300,
+            height: 210,
+            margin: EdgeInsets.only(top: 40),
+            child: Column(
+              children: [
+                Icon(
+                  IconlyLight.tick_square,
+                  color: Blue1,
+                  size: 100,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  'Absensi Sudah Terpenuhi',
+                  style: TextStyle(
+                      color: Blue1, fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  'Selamat dan Semangat Bekerja!!',
+                  style: TextStyle(
+                      color: Blue1, fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ));
       }
     }
   }
