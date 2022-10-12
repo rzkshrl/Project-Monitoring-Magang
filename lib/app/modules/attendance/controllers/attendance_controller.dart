@@ -132,7 +132,7 @@ class AttendanceController extends GetxController {
                 height: 30,
               ),
               Text(
-                'Absensi Sudah Terpenuhi',
+                'Absen Masuk Sukses',
                 style: TextStyle(
                     color: Blue1, fontSize: 16, fontWeight: FontWeight.bold),
               ),
@@ -177,7 +177,7 @@ class AttendanceController extends GetxController {
                     height: 30,
                   ),
                   Text(
-                    'Absensi Sudah Terpenuhi',
+                    'Absensi Sudah Terpenuhi Hari Ini',
                     style: TextStyle(
                         color: Blue1,
                         fontSize: 16,
@@ -187,7 +187,8 @@ class AttendanceController extends GetxController {
                     height: 8,
                   ),
                   Text(
-                    'Selamat dan Semangat Bekerja!!',
+                    'Sampai Jumpa Besok Pagi \nDengan Semangat Kerja Baru',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Blue1,
                         fontSize: 16,
@@ -237,7 +238,7 @@ class AttendanceController extends GetxController {
                     height: 30,
                   ),
                   Text(
-                    'Sukses Absensi Keluar',
+                    'Absen Keluar Sukses',
                     style: TextStyle(
                         color: Blue1,
                         fontSize: 16,
@@ -247,7 +248,8 @@ class AttendanceController extends GetxController {
                     height: 8,
                   ),
                   Text(
-                    'Sampai Jumpa Besok Pagi Dengan Semangat Kerja Baru',
+                    'Sampai Jumpa Besok Pagi \nDengan Semangat Kerja Baru',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Blue1,
                         fontSize: 16,
@@ -278,8 +280,41 @@ class AttendanceController extends GetxController {
             }
           },
         });
-        Get.defaultDialog(
-            title: "Sukses", middleText: "Berhasil melakukan Absensi Masuk");
+        Get.dialog(Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          backgroundColor: Yellow1,
+          child: Container(
+            width: 300,
+            height: 210,
+            margin: EdgeInsets.only(top: 40),
+            child: Column(
+              children: [
+                Icon(
+                  IconlyLight.tick_square,
+                  color: Blue1,
+                  size: 100,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  'Absen Masuk Sukses',
+                  style: TextStyle(
+                      color: Blue1, fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  'Selamat dan Semangat Bekerja!!',
+                  style: TextStyle(
+                      color: Blue1, fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ));
       }
     }
   }
