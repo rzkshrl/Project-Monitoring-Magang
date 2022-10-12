@@ -54,17 +54,6 @@ class AuthController extends GetxController {
     }
   }
 
-  // Stream<QuerySnapshot> streamRole() async* {
-  //   yield* firestore.collection("Users").snapshots();
-  // }
-
-  // Stream<DocumentSnapshot<Map<String, dynamic>>> streamRole() async* {
-  //   String uid = auth.currentUser!.uid;
-  //   log("${uid}");
-  //   yield* firestore.collection("Users").doc(uid).snapshots();
-  //   // log("${firestore.collection("Users").doc(uid).snapshots()}");
-  // }
-
   Future<DocumentSnapshot<Object?>> role() async {
     String uid = auth.currentUser!.uid;
     DocumentReference users = firestore.collection('Users').doc(uid);
@@ -90,6 +79,16 @@ class AuthController extends GetxController {
         Get.defaultDialog(
           title: 'Terjadi Kesalahan',
           middleText: 'Email tidak ditemukan.',
+        );
+      } else if (!GetUtils.isEmail(email)) {
+        Get.defaultDialog(
+          title: 'Terjadi Kesalahan',
+          middleText: 'Format email salah.',
+        );
+      } else if (password.length <= 6) {
+        Get.defaultDialog(
+          title: 'Terjadi Kesalahan',
+          middleText: 'Password minimal 6 karakter.',
         );
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
@@ -159,12 +158,4 @@ class AuthController extends GetxController {
     await FirebaseAuth.instance.signOut();
     Get.offAllNamed(Routes.LOGIN);
   }
-
-  // Widget checkDivision(DocumentSnapshot<Object?>? snapshot) {
-  //   if (snapshot?.get('divisi') == 'HR & Legal') {
-  //     return HomeHRView();
-  //   } else {
-  //     return HomeView();
-  //   }
-  // }
 }
