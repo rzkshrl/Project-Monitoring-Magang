@@ -359,6 +359,15 @@ class AttendanceHRController extends GetxController {
         .snapshots();
   }
 
+  Stream<Position> streamGetPosition() {
+    return Geolocator.getPositionStream(
+      locationSettings: LocationSettings(
+        accuracy: LocationAccuracy.best,
+        distanceFilter: 50,
+      ),
+    );
+  }
+
   @override
   void onInit() {
     super.onInit();

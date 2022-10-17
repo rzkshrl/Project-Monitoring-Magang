@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 
@@ -99,17 +101,35 @@ class AttendanceHRView extends GetView<AttendanceHRController> {
                         SizedBox(
                           height: bodyHeight * 0.02,
                         ),
-                        Material(
-                          color: Grey1,
-                          borderRadius: BorderRadius.circular(10),
-                          child: InkWell(
-                            onTap: () {},
-                            // onTap: () => Get.toNamed(Routes.LOCATION),
-                            borderRadius: BorderRadius.circular(10),
-                            child: Container(
-                              height: bodyHeight * 0.4,
-                              width: bodyWidth * 1,
+                        Container(
+                          height: bodyHeight * 0.4,
+                          width: bodyWidth * 1,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: FlutterMap(
+                            options: MapOptions(
+                              zoom: 17.8,
+                              maxZoom: 19.2,
+                              interactiveFlags: InteractiveFlag.pinchZoom,
                             ),
+                            children: [
+                              TileLayer(
+                                tileSize: 256.0,
+                                urlTemplate:
+                                    'http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}',
+                                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                                maxZoom: 22,
+                              ),
+                              CurrentLocationLayer(
+                                  centerOnLocationUpdate:
+                                      CenterOnLocationUpdate.always,
+                                  positionStream:
+                                      LocationMarkerDataStreamFactory()
+                                          .geolocatorPositionStream(
+                                    stream: controller.streamGetPosition(),
+                                  )),
+                            ],
                           ),
                         ),
                         SizedBox(
