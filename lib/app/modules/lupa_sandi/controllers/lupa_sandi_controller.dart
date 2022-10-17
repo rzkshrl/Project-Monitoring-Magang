@@ -1,9 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
 class LupaSandiController extends GetxController {
   //TODO: Implement LupaSandiController
+
+  final emailValidator = MultiValidator([
+    EmailValidator(errorText: "Email tidak valid"),
+    RequiredValidator(errorText: "Kolom harus diisi"),
+  ]);
+
+  final emailKey = GlobalKey<FormState>().obs;
 
   late TextEditingController emailC = TextEditingController();
 

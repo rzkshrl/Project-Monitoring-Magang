@@ -95,6 +95,7 @@ class EditEmailpassView extends GetView<EditEmailpassController> {
                                         borderRadius:
                                             BorderRadius.circular(12)),
                                     child: TextFormField(
+                                      enabled: false,
                                       style: TextStyle(color: dark),
                                       controller: controller.emailC,
                                       // key: _nama,
@@ -107,11 +108,11 @@ class EditEmailpassView extends GetView<EditEmailpassController> {
                                               heightFactor: 1.0,
                                               child: Icon(
                                                 IconlyLight.profile,
-                                                color: Grey1,
+                                                color: Blue1,
                                               )),
                                           hintText: 'Nama',
                                           hintStyle: heading6.copyWith(
-                                              color: Grey1,
+                                              color: Grey2,
                                               fontSize: 14 * textScale),
                                           border: OutlineInputBorder(
                                               borderSide: BorderSide.none)),
@@ -161,11 +162,11 @@ class EditEmailpassView extends GetView<EditEmailpassController> {
                                                 heightFactor: 1.0,
                                                 child: Icon(
                                                   IconlyLight.lock,
-                                                  color: Grey1,
+                                                  color: Blue1,
                                                 )),
                                             hintText: 'Kata Sandi Saat Ini',
                                             hintStyle: heading6.copyWith(
-                                                color: Grey1,
+                                                color: Grey2,
                                                 fontSize: 14 * textScale),
                                             suffixIcon: Padding(
                                               padding: EdgeInsets.only(
@@ -239,11 +240,11 @@ class EditEmailpassView extends GetView<EditEmailpassController> {
                                                 heightFactor: 1.0,
                                                 child: Icon(
                                                   IconlyLight.lock,
-                                                  color: Grey1,
+                                                  color: Blue1,
                                                 )),
                                             hintText: 'Kata Sandi Baru',
                                             hintStyle: heading6.copyWith(
-                                                color: Grey1,
+                                                color: Grey2,
                                                 fontSize: 14 * textScale),
                                             suffixIcon: Padding(
                                               padding: EdgeInsets.only(

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:project_magang/app/routes/app_pages.dart';
 import 'package:project_magang/app/theme/theme.dart';
 import 'package:project_magang/app/widgets/custom_icon_all_icons.dart';
 
@@ -13,33 +14,39 @@ import '../../register/views/register_view.dart';
 import '../controllers/lupa_sandi_controller.dart';
 
 class LupaSandiView extends GetView<LupaSandiController> {
-  const LupaSandiView({Key? key}) : super(key: key);
+  LupaSandiView({Key? key}) : super(key: key);
+
+  final LupaSandiController controller = Get.put(LupaSandiController());
 
   @override
   Widget build(BuildContext context) {
-    final textScale = MediaQuery.of(context).textScaleFactor;
-    final mediaQueryHeight = MediaQuery.of(context).size.height;
-    final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
-    final LupaSandiController controller = Get.put(LupaSandiController());
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.light,
-        statusBarColor: backgroundBlue,
-      ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: backgroundBlue,
-        body: LayoutBuilder(
-          builder: (context, constraints) => SingleChildScrollView(
-            padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.05,
-              right: MediaQuery.of(context).size.width * 0.05,
-              bottom: bodyHeight * 0.02,
-            ),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minWidth: constraints.maxHeight),
-              child: IntrinsicHeight(
+    return WillPopScope(
+      onWillPop: () async {
+        final shouldPop = await Get.offAllNamed(Routes.LOGIN);
+        return shouldPop;
+      },
+      child: AnnotatedRegion(
+        value: SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.light,
+          statusBarColor: backgroundBlue,
+        ),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: backgroundBlue,
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              final textScale = MediaQuery.of(context).textScaleFactor;
+              final bodyHeight = MediaQuery.of(context).size.height;
+              -MediaQuery.of(context).padding.top;
+              final bodyWidth = MediaQuery.of(context).size.width;
+              return SingleChildScrollView(
+                reverse: true,
+                padding: EdgeInsets.only(
+                  left: bodyWidth * 0.05,
+                  right: bodyWidth * 0.05,
+                  bottom: bodyHeight * 0.02,
+                ),
                 child: Column(
                   children: [
                     SizedBox(
@@ -48,7 +55,7 @@ class LupaSandiView extends GetView<LupaSandiController> {
                     Row(
                       children: [
                         IconButton(
-                            onPressed: () => Get.back(),
+                            onPressed: () => Get.offAllNamed(Routes.LOGIN),
                             icon: Icon(
                               Icons.arrow_back,
                               color: light,
@@ -60,7 +67,7 @@ class LupaSandiView extends GetView<LupaSandiController> {
                       children: [
                         Image.asset(
                           'assets/icons/logo.png',
-                          width: MediaQuery.of(context).size.width * 0.5,
+                          width: bodyWidth * 0.5,
                           height: bodyHeight * 0.05,
                         ),
                         SizedBox(
@@ -70,7 +77,7 @@ class LupaSandiView extends GetView<LupaSandiController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.75,
+                                width: bodyWidth * 0.75,
                                 height: bodyHeight * 0.02,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
@@ -93,17 +100,26 @@ class LupaSandiView extends GetView<LupaSandiController> {
                           height: bodyHeight * 0.03,
                         ),
                         Form(
+                          key: controller.emailKey.value,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 1,
-                                height: bodyHeight * 0.065,
-                                decoration: BoxDecoration(
-                                    color: light,
-                                    borderRadius: BorderRadius.circular(12)),
+                                width: bodyWidth * 1,
+                                height: bodyHeight * 0.085,
                                 child: TextFormField(
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  onTap: () {
+                                    FocusScopeNode currentFocus =
+                                        FocusScope.of(context);
+
+                                    if (!currentFocus.hasPrimaryFocus) {
+                                      currentFocus.unfocus();
+                                    }
+                                  },
                                   controller: controller.emailC,
+                                  validator: controller.emailValidator,
                                   style: TextStyle(color: dark),
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: InputDecoration(
@@ -112,14 +128,43 @@ class LupaSandiView extends GetView<LupaSandiController> {
                                           heightFactor: 1.0,
                                           child: Icon(
                                             IconlyLight.message,
-                                            color: Grey1,
+                                            color: Blue1,
                                           )),
                                       hintText: 'Email',
                                       hintStyle: heading6.copyWith(
                                           color: Grey1,
                                           fontSize: 14 * textScale),
+                                      focusColor: Blue1,
+                                      fillColor: light,
+                                      filled: true,
+                                      errorStyle: TextStyle(
+                                        fontSize: 13.5 * textScale,
+                                        color: light,
+                                        background: Paint()
+                                          ..strokeWidth = 13
+                                          ..color = errorBg
+                                          ..style = PaintingStyle.stroke
+                                          ..strokeJoin = StrokeJoin.round,
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: errorBg, width: 1.8),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          gapPadding: 2),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: error, width: 1.8),
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Blue1, width: 1.8),
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
                                       border: OutlineInputBorder(
-                                          borderSide: BorderSide.none)),
+                                          borderRadius:
+                                              BorderRadius.circular(12))),
                                 ),
                               ),
                               SizedBox(
@@ -132,18 +177,22 @@ class LupaSandiView extends GetView<LupaSandiController> {
                           height: bodyHeight * 0.035,
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 1,
+                          width: bodyWidth * 1,
                           height: bodyHeight * 0.07,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(80),
                             color: Blue1,
                           ),
                           child: TextButton(
-                            onPressed: () =>
-                                controller.lupaSandi(controller.emailC.text),
+                            onPressed: () {
+                              if (controller.emailKey.value.currentState!
+                                  .validate()) {
+                                controller.lupaSandi(controller.emailC.text);
+                              }
+                            },
                             /*authC.login(emailC.text, passC.text)*/
                             child: Text(
-                              'Masuk',
+                              'Lupa Sandi',
                               textScaleFactor: 1.25,
                               style: headingBtn.copyWith(
                                 color: Yellow1,
@@ -159,8 +208,8 @@ class LupaSandiView extends GetView<LupaSandiController> {
                                 MediaQuery.of(context).viewInsets.bottom * 1))
                   ],
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ),
       ),

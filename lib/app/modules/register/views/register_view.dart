@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:project_magang/app/modules/login/views/login_view.dart';
+import 'package:project_magang/app/routes/app_pages.dart';
 import 'package:project_magang/app/theme/theme.dart';
 import 'package:project_magang/app/widgets/custom_icon_login_icons.dart';
 
@@ -15,36 +16,51 @@ import '../../lupa_sandi/views/lupa_sandi_view.dart';
 import '../controllers/register_controller.dart';
 
 class RegisterView extends GetView<RegisterController> {
-  // ignore: prefer_const_constructors_in_immutables
   RegisterView({Key? key}) : super(key: key);
   final authC = Get.find<AuthController>();
+  final RegisterController controller = Get.put(RegisterController());
+
   @override
   Widget build(BuildContext context) {
-    final textScale = MediaQuery.of(context).textScaleFactor;
-    final mediaQueryHeight = MediaQuery.of(context).size.height;
-    final bodyHeight = mediaQueryHeight - MediaQuery.of(context).padding.top;
-
-    final RegisterController controller = Get.put(RegisterController());
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.light,
-        statusBarColor: backgroundBlue,
-      ),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: backgroundBlue,
-        body: LayoutBuilder(
-          builder: (context, constraints) => SingleChildScrollView(
-            reverse: true,
-            padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.05,
-              right: MediaQuery.of(context).size.width * 0.05,
-              bottom: bodyHeight * 0.02,
-            ),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minWidth: constraints.maxHeight),
-              child: IntrinsicHeight(
+    return WillPopScope(
+      onWillPop: () async {
+        final dialog = await Get.defaultDialog<bool>(
+            title: "Peringatan",
+            middleText:
+                "Apakah Anda yakin ingin keluar?\n(Perubahan Anda tidak akan tersimpan)",
+            onConfirm: () {
+              Navigator.pop(context, true);
+              Get.offAllNamed(Routes.LOGIN);
+            },
+            onCancel: () {},
+            textConfirm: "Ya",
+            textCancel: "Tidak",
+            buttonColor: Blue1,
+            titleStyle: heading6.copyWith(fontWeight: FontWeight.w700));
+        return dialog!;
+      },
+      child: AnnotatedRegion(
+        value: SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.light,
+          statusBarColor: backgroundBlue,
+        ),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: backgroundBlue,
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              final textScale = MediaQuery.of(context).textScaleFactor;
+              final bodyHeight = MediaQuery.of(context).size.height;
+              -MediaQuery.of(context).padding.top;
+              final bodyWidth = MediaQuery.of(context).size.width;
+              return SingleChildScrollView(
+                reverse: true,
+                padding: EdgeInsets.only(
+                  left: bodyWidth * 0.05,
+                  right: bodyWidth * 0.05,
+                  bottom: bodyHeight * 0.02,
+                ),
                 child: Column(
                   children: [
                     SizedBox(
@@ -54,7 +70,7 @@ class RegisterView extends GetView<RegisterController> {
                       children: [
                         Image.asset(
                           'assets/icons/logo.png',
-                          width: MediaQuery.of(context).size.width * 0.5,
+                          width: bodyWidth * 0.5,
                           height: bodyHeight * 0.05,
                         ),
                       ],
@@ -62,19 +78,18 @@ class RegisterView extends GetView<RegisterController> {
                     SizedBox(
                       height: bodyHeight * 0.08,
                     ),
-                    Form(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 1,
-                            height: bodyHeight * 0.065,
-                            decoration: BoxDecoration(
-                                color: light,
-                                borderRadius: BorderRadius.circular(12)),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Form(
+                          key: controller.nameKey.value,
+                          child: Container(
+                            width: bodyWidth * 1,
+                            height: bodyHeight * 0.085,
                             child: TextFormField(
                               style: TextStyle(color: dark),
                               controller: controller.nameC,
+                              textInputAction: TextInputAction.next,
                               onTap: () {
                                 FocusScopeNode currentFocus =
                                     FocusScope.of(context);
@@ -83,120 +98,150 @@ class RegisterView extends GetView<RegisterController> {
                                   currentFocus.unfocus();
                                 }
                               },
-                              validator: (value) {
-                                return value!.isNotEmpty
-                                    ? null
-                                    : "Form tidak boleh kosong";
-                              },
+                              validator: controller.nameValidator,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               decoration: InputDecoration(
                                   prefixIcon: Align(
                                       widthFactor: 1.0,
                                       heightFactor: 1.0,
                                       child: Icon(
                                         IconlyLight.profile,
-                                        color: Grey1,
+                                        color: Blue1,
                                       )),
                                   hintText: 'Nama',
                                   hintStyle: heading6.copyWith(
                                       color: Grey1, fontSize: 14 * textScale),
+                                  focusColor: Blue1,
+                                  fillColor: light,
+                                  filled: true,
+                                  errorStyle: TextStyle(
+                                    fontSize: 13.5 * textScale,
+                                    color: light,
+                                    background: Paint()
+                                      ..strokeWidth = 13
+                                      ..color = errorBg
+                                      ..style = PaintingStyle.stroke
+                                      ..strokeJoin = StrokeJoin.round,
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: errorBg, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12),
+                                      gapPadding: 2),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: error, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Blue1, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12)),
                                   border: OutlineInputBorder(
-                                      borderSide: BorderSide.none)),
+                                      borderRadius: BorderRadius.circular(12))),
                             ),
                           ),
-                          SizedBox(
-                            height: bodyHeight * 0.025,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 1,
-                            height: bodyHeight * 0.065,
-                            decoration: BoxDecoration(
-                                color: light,
-                                borderRadius: BorderRadius.circular(12)),
-                            child: DropdownSearch<String>(
-                              clearButtonProps: ClearButtonProps(
-                                  isVisible: true, color: dark),
-                              items: [
-                                "Teknis",
-                                "Marketing & Sales",
-                                "HR & Legal",
-                                'Multimedia',
-                                "Finance",
-                              ],
-                              onChanged: (value) {
-                                if (value != null) {
-                                  controller.setDivisi(value);
-                                }
-                              },
-                              dropdownDecoratorProps: DropDownDecoratorProps(
-                                  dropdownSearchDecoration: InputDecoration(
-                                      prefixIcon: Align(
-                                          widthFactor: 1.0,
-                                          heightFactor: 1.0,
-                                          child: Icon(
-                                            IconlyLight.user_1,
-                                            color: Grey1,
-                                          )),
-                                      hintText: "Divisi",
-                                      hintStyle: heading6.copyWith(
-                                          color: Grey1,
-                                          fontSize: 14 * textScale),
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none))),
-                              popupProps: PopupProps.menu(
-                                constraints: BoxConstraints(
-                                    maxHeight: bodyHeight * 0.18),
-                                scrollbarProps: ScrollbarProps(
-                                    trackVisibility: true, trackColor: dark),
-                                fit: FlexFit.loose,
-                                menuProps: MenuProps(
-                                  borderRadius: BorderRadius.circular(12),
-                                  backgroundColor: Colors.transparent,
-                                  elevation: 0,
-                                ),
-                                containerBuilder: (ctx, popupWidget) {
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 20),
-                                      ),
-                                      Flexible(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: light,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    offset: Offset(0, 0.5),
-                                                    blurRadius: 1,
-                                                    color:
-                                                        dark.withOpacity(0.5))
-                                              ],
-                                              borderRadius:
-                                                  BorderRadius.circular(12)),
-                                          child: popupWidget,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
+                        ),
+                        SizedBox(
+                          height: bodyHeight * 0.005,
+                        ),
+                        //dropdown
+                        Container(
+                          width: bodyWidth * 1,
+                          height: bodyHeight * 0.06,
+                          decoration: BoxDecoration(
+                              color: light,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: DropdownSearch<String>(
+                            autoValidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            clearButtonProps:
+                                ClearButtonProps(isVisible: true, color: dark),
+                            items: [
+                              "Teknis",
+                              "Marketing & Sales",
+                              "HR & Legal",
+                              'Multimedia',
+                              "Finance",
+                            ],
+                            onChanged: (value) {
+                              if (value != null) {
+                                controller.setDivisi(value);
+                              }
+                            },
+                            validator: (value) {
+                              controller.divisiValidator;
+                            },
+                            dropdownDecoratorProps: DropDownDecoratorProps(
+                                dropdownSearchDecoration: InputDecoration(
+                                    prefixIcon: Align(
+                                        widthFactor: 1.0,
+                                        heightFactor: 1.0,
+                                        child: Icon(
+                                          IconlyLight.user_1,
+                                          color: Blue1,
+                                        )),
+                                    hintText: "Divisi",
+                                    hintStyle: heading6.copyWith(
+                                        color: Grey1, fontSize: 14 * textScale),
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide.none))),
+                            popupProps: PopupProps.menu(
+                              constraints:
+                                  BoxConstraints(maxHeight: bodyHeight * 0.18),
+                              scrollbarProps: ScrollbarProps(
+                                  trackVisibility: true, trackColor: dark),
+                              fit: FlexFit.loose,
+                              menuProps: MenuProps(
+                                borderRadius: BorderRadius.circular(12),
+                                backgroundColor: Colors.transparent,
+                                elevation: 0,
                               ),
+                              containerBuilder: (ctx, popupWidget) {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 20),
+                                    ),
+                                    Flexible(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: light,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  offset: Offset(0, 0.5),
+                                                  blurRadius: 1,
+                                                  color: dark.withOpacity(0.5))
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(12)),
+                                        child: popupWidget,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
                           ),
-                          SizedBox(
-                            height: bodyHeight * 0.025,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 1,
-                            height: bodyHeight * 0.065,
-                            decoration: BoxDecoration(
-                                color: light,
-                                borderRadius: BorderRadius.circular(12)),
+                        ),
+                        SizedBox(
+                          height: bodyHeight * 0.028,
+                        ),
+                        Form(
+                          key: controller.noIndukKey.value,
+                          child: Container(
+                            width: bodyWidth * 1,
+                            height: bodyHeight * 0.085,
                             child: TextFormField(
                               style: TextStyle(color: dark),
                               controller: controller.nomorindukC,
                               keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.allow(
                                     RegExp(r'[0-9]')),
@@ -209,37 +254,61 @@ class RegisterView extends GetView<RegisterController> {
                                   currentFocus.unfocus();
                                 }
                               },
-                              validator: (value) {
-                                return value!.isNotEmpty
-                                    ? null
-                                    : "Form tidak boleh kosong";
-                              },
+                              validator: controller.noIndukValidator,
                               decoration: InputDecoration(
                                   prefixIcon: Align(
                                       widthFactor: 1.0,
                                       heightFactor: 1.0,
                                       child: Icon(
                                         IconlyLight.info_circle,
-                                        color: Grey1,
+                                        color: Blue1,
                                       )),
                                   hintText: 'Nomor Induk Karyawan',
                                   hintStyle: heading6.copyWith(
                                       color: Grey1, fontSize: 14 * textScale),
+                                  focusColor: Blue1,
+                                  fillColor: light,
+                                  filled: true,
+                                  errorStyle: TextStyle(
+                                    fontSize: 13.5 * textScale,
+                                    color: light,
+                                    background: Paint()
+                                      ..strokeWidth = 13
+                                      ..color = errorBg
+                                      ..style = PaintingStyle.stroke
+                                      ..strokeJoin = StrokeJoin.round,
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: errorBg, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12),
+                                      gapPadding: 2),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: error, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Blue1, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12)),
                                   border: OutlineInputBorder(
-                                      borderSide: BorderSide.none)),
+                                      borderRadius: BorderRadius.circular(12))),
                             ),
                           ),
-                          SizedBox(
-                            height: bodyHeight * 0.025,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 1,
-                            height: bodyHeight * 0.065,
-                            decoration: BoxDecoration(
-                                color: light,
-                                borderRadius: BorderRadius.circular(12)),
+                        ),
+                        SizedBox(
+                          height: bodyHeight * 0.005,
+                        ),
+                        Form(
+                          key: controller.emailKey.value,
+                          child: Container(
+                            width: bodyWidth * 1,
+                            height: bodyHeight * 0.085,
                             child: TextFormField(
                               keyboardType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.next,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               controller: controller.emailC,
                               onTap: () {
                                 FocusScopeNode currentFocus =
@@ -249,11 +318,7 @@ class RegisterView extends GetView<RegisterController> {
                                   currentFocus.unfocus();
                                 }
                               },
-                              validator: (value) {
-                                return value!.isNotEmpty
-                                    ? null
-                                    : "Form tidak boleh kosong";
-                              },
+                              validator: controller.emailValidator,
                               style: TextStyle(color: dark),
                               decoration: InputDecoration(
                                   prefixIcon: Align(
@@ -261,86 +326,129 @@ class RegisterView extends GetView<RegisterController> {
                                       heightFactor: 1.0,
                                       child: Icon(
                                         IconlyLight.message,
-                                        color: Grey1,
+                                        color: Blue1,
                                       )),
                                   hintText: 'Email',
                                   hintStyle: heading6.copyWith(
                                       color: Grey1, fontSize: 14 * textScale),
+                                  focusColor: Blue1,
+                                  fillColor: light,
+                                  filled: true,
+                                  errorStyle: TextStyle(
+                                    fontSize: 13.5 * textScale,
+                                    color: light,
+                                    background: Paint()
+                                      ..strokeWidth = 13
+                                      ..color = errorBg
+                                      ..style = PaintingStyle.stroke
+                                      ..strokeJoin = StrokeJoin.round,
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: errorBg, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12),
+                                      gapPadding: 2),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: error, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Blue1, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12)),
                                   border: OutlineInputBorder(
-                                      borderSide: BorderSide.none)),
+                                      borderRadius: BorderRadius.circular(12))),
                             ),
                           ),
-                          SizedBox(
-                            height: bodyHeight * 0.025,
-                          ),
-                          Obx(
-                            () => Container(
-                              width: MediaQuery.of(context).size.width * 1,
-                              height: bodyHeight * 0.065,
-                              decoration: BoxDecoration(
-                                  color: light,
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: TextFormField(
-                                style: TextStyle(color: dark),
-                                onTap: () {
-                                  FocusScopeNode currentFocus =
-                                      FocusScope.of(context);
+                        ),
 
-                                  if (!currentFocus.hasPrimaryFocus) {
-                                    currentFocus.unfocus();
-                                  }
-                                },
-                                validator: (value) {
-                                  return value!.isNotEmpty
-                                      ? null
-                                      : "Form tidak boleh kosong";
-                                },
-                                obscureText: controller.isPasswordHidden.value,
-                                controller: controller.passC,
-                                decoration: InputDecoration(
-                                    prefixIcon: Align(
-                                        widthFactor: 1.0,
-                                        heightFactor: 1.0,
-                                        child: Icon(
-                                          IconlyLight.lock,
-                                          color: Grey1,
-                                        )),
-                                    hintText: 'Kata Sandi',
-                                    hintStyle: heading6.copyWith(
-                                        color: Grey1, fontSize: 14 * textScale),
-                                    suffixIcon: Padding(
-                                      padding: EdgeInsets.only(
-                                        right:
-                                            MediaQuery.of(context).size.width *
-                                                0.02,
-                                      ),
-                                      child: IconButton(
-                                        color: Colors.black26,
-                                        splashRadius: 1,
-                                        icon: Icon(
-                                            controller.isPasswordHidden.value
-                                                ? Icons.visibility_rounded
-                                                : Icons.visibility_off),
-                                        onPressed: () {
-                                          controller.isPasswordHidden.value =
-                                              !controller
-                                                  .isPasswordHidden.value;
-                                        },
-                                      ),
+                        SizedBox(
+                          height: bodyHeight * 0.005,
+                        ),
+                        Obx(
+                          () => Container(
+                            width: bodyWidth * 1,
+                            height: bodyHeight * 0.085,
+                            child: TextFormField(
+                              style: TextStyle(color: dark),
+                              onTap: () {
+                                FocusScopeNode currentFocus =
+                                    FocusScope.of(context);
+
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                }
+                              },
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: controller.passValidator,
+                              obscureText: controller.isPasswordHidden.value,
+                              controller: controller.passC,
+                              decoration: InputDecoration(
+                                  prefixIcon: Align(
+                                      widthFactor: 1.0,
+                                      heightFactor: 1.0,
+                                      child: Icon(
+                                        IconlyLight.lock,
+                                        color: Blue1,
+                                      )),
+                                  hintText: 'Kata Sandi',
+                                  hintStyle: heading6.copyWith(
+                                      color: Grey1, fontSize: 14 * textScale),
+                                  suffixIcon: Padding(
+                                    padding: EdgeInsets.only(
+                                      right: bodyWidth * 0.02,
                                     ),
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide.none)),
-                              ),
+                                    child: IconButton(
+                                      color: Colors.black26,
+                                      splashRadius: 1,
+                                      icon: Icon(
+                                          controller.isPasswordHidden.value
+                                              ? Icons.visibility_rounded
+                                              : Icons.visibility_off),
+                                      onPressed: () {
+                                        controller.isPasswordHidden.value =
+                                            !controller.isPasswordHidden.value;
+                                      },
+                                    ),
+                                  ),
+                                  focusColor: Blue1,
+                                  fillColor: light,
+                                  filled: true,
+                                  errorStyle: TextStyle(
+                                    fontSize: 13.5 * textScale,
+                                    color: light,
+                                    background: Paint()
+                                      ..strokeWidth = 13
+                                      ..color = errorBg
+                                      ..style = PaintingStyle.stroke
+                                      ..strokeJoin = StrokeJoin.round,
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: errorBg, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12),
+                                      gapPadding: 2),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: error, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Blue1, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12))),
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(
-                      height: bodyHeight * 0.06,
+                      height: bodyHeight * 0.05,
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 1,
+                      width: bodyWidth * 1,
                       height: bodyHeight * 0.07,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(80),
@@ -362,21 +470,7 @@ class RegisterView extends GetView<RegisterController> {
                       ),
                     ),
                     SizedBox(
-                      height: bodyHeight * 0.03,
-                    ),
-                    TextButton(
-                      onPressed: () => Get.to(LupaSandiView()),
-                      child: Text(
-                        'Lupa Kata Sandi?',
-                        textScaleFactor: 0.8,
-                        style: regular12pt.copyWith(
-                          color: light,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: bodyHeight * 0.12,
+                      height: bodyHeight * 0.155,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -402,11 +496,11 @@ class RegisterView extends GetView<RegisterController> {
                     Padding(
                         padding: EdgeInsets.only(
                             bottom: MediaQuery.of(context).viewInsets.bottom *
-                                0.45))
+                                0.425))
                   ],
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ),
       ),

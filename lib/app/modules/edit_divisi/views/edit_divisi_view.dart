@@ -152,11 +152,11 @@ class EditDivisiView extends GetView<EditDivisiController> {
                                                       heightFactor: 1.0,
                                                       child: Icon(
                                                         IconlyLight.user_1,
-                                                        color: Grey1,
+                                                        color: Blue1,
                                                       )),
                                                   hintText: "Divisi",
                                                   hintStyle: heading6.copyWith(
-                                                      color: Grey1,
+                                                      color: Grey2,
                                                       fontSize: 14 * textScale),
                                                   border: OutlineInputBorder(
                                                       borderSide:

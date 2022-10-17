@@ -188,11 +188,11 @@ class EditProfileView extends GetView<EditProfileController> {
                                           heightFactor: 1.0,
                                           child: Icon(
                                             IconlyLight.profile,
-                                            color: Grey1,
+                                            color: Blue1,
                                           )),
                                       hintText: 'Nama',
                                       hintStyle: heading6.copyWith(
-                                          color: Grey1,
+                                          color: Grey2,
                                           fontSize: 14 * textScale),
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide.none)),
@@ -234,11 +234,11 @@ class EditProfileView extends GetView<EditProfileController> {
                                           heightFactor: 1.0,
                                           child: Icon(
                                             IconlyLight.info_square,
-                                            color: Grey1,
+                                            color: Blue1,
                                           )),
                                       hintText: 'Nomor Induk',
                                       hintStyle: heading6.copyWith(
-                                          color: Grey1,
+                                          color: Grey2,
                                           fontSize: 14 * textScale),
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide.none)),

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
@@ -11,7 +12,34 @@ class RegisterController extends GetxController {
   final nameC = TextEditingController();
   final nomorindukC = TextEditingController();
   final divisiC = "".obs;
-  final count = 0.obs;
+
+  final nameKey = GlobalKey<FormState>().obs;
+  final emailKey = GlobalKey<FormState>().obs;
+  final passKey = GlobalKey<FormState>().obs;
+  final noIndukKey = GlobalKey<FormState>().obs;
+
+  final nameValidator = MultiValidator([
+    RequiredValidator(errorText: "Kolom harus diisi"),
+  ]);
+
+  final emailValidator = MultiValidator([
+    EmailValidator(errorText: "Email tidak valid"),
+    RequiredValidator(errorText: "Kolom harus diisi"),
+  ]);
+
+  final noIndukValidator = MultiValidator([
+    RequiredValidator(errorText: "Kolom harus diisi"),
+  ]);
+
+  final divisiValidator = MultiValidator([
+    RequiredValidator(errorText: "Kolom harus diisi"),
+  ]);
+
+  final passValidator = MultiValidator([
+    RequiredValidator(errorText: "Kolom harus diisi"),
+    MinLengthValidator(6, errorText: "Kata sandi kurang dari 6 karakter"),
+  ]);
+
   var isPasswordHidden = true.obs;
 
   void setDivisi(String divisi) {
@@ -33,6 +61,4 @@ class RegisterController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

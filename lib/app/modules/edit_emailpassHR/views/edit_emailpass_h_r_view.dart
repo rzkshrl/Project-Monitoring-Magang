@@ -98,6 +98,7 @@ class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
                                 child: TextFormField(
                                   style: TextStyle(color: dark),
                                   controller: controller.emailC,
+                                  enabled: false,
                                   // key: _nama,
                                   autocorrect: false,
                                   textInputAction: TextInputAction.next,
@@ -108,11 +109,11 @@ class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
                                           heightFactor: 1.0,
                                           child: Icon(
                                             IconlyLight.profile,
-                                            color: Grey1,
+                                            color: Blue1,
                                           )),
                                       hintText: 'Nama',
                                       hintStyle: heading6.copyWith(
-                                          color: Grey1,
+                                          color: Grey2,
                                           fontSize: 14 * textScale),
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide.none)),
@@ -161,11 +162,11 @@ class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
                                             heightFactor: 1.0,
                                             child: Icon(
                                               IconlyLight.lock,
-                                              color: Grey1,
+                                              color: Blue1,
                                             )),
                                         hintText: 'Kata Sandi Saat Ini',
                                         hintStyle: heading6.copyWith(
-                                            color: Grey1,
+                                            color: Grey2,
                                             fontSize: 14 * textScale),
                                         suffixIcon: Padding(
                                           padding: EdgeInsets.only(
@@ -237,11 +238,11 @@ class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
                                             heightFactor: 1.0,
                                             child: Icon(
                                               IconlyLight.lock,
-                                              color: Grey1,
+                                              color: Blue1,
                                             )),
                                         hintText: 'Kata Sandi Baru',
                                         hintStyle: heading6.copyWith(
-                                            color: Grey1,
+                                            color: Grey2,
                                             fontSize: 14 * textScale),
                                         suffixIcon: Padding(
                                           padding: EdgeInsets.only(
