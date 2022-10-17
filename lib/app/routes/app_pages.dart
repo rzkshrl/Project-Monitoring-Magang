@@ -32,10 +32,7 @@ import '../modules/list_attendanceHR/bindings/list_attendance_h_r_binding.dart';
 import '../modules/list_attendanceHR/views/list_attendance_h_r_view.dart';
 import '../modules/list_locationHR/bindings/list_location_h_r_binding.dart';
 import '../modules/list_locationHR/views/list_location_h_r_view.dart';
-import '../modules/location/bindings/location_binding.dart';
-import '../modules/location/views/location_view.dart';
-import '../modules/login/bindings/login_binding.dart';
-import '../modules/login/views/login_view.dart';
+
 import '../modules/lupa_sandi/bindings/lupa_sandi_binding.dart';
 import '../modules/lupa_sandi/views/lupa_sandi_view.dart';
 import '../modules/register/bindings/register_binding.dart';
@@ -61,11 +58,6 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.LOGIN,
-      page: () => LoginView(),
-      binding: LoginBinding(),
-    ),
-    GetPage(
       name: _Paths.REGISTER,
       page: () => RegisterView(),
       binding: RegisterBinding(),
@@ -79,11 +71,6 @@ class AppPages {
       name: _Paths.ATTENDANCE,
       page: () => AttendanceView(),
       binding: AttendanceBinding(),
-    ),
-    GetPage(
-      name: _Paths.LOCATION,
-      page: () => LocationView(),
-      binding: LocationBinding(),
     ),
     GetPage(
       name: _Paths.REPORT,

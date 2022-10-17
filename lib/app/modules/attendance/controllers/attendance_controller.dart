@@ -8,7 +8,9 @@ import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
+import 'package:project_magang/app/theme/app_theme.dart';
 import 'package:project_magang/app/theme/theme.dart';
+import 'package:vector_map_tiles/vector_map_tiles.dart';
 
 class AttendanceController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -65,6 +67,15 @@ class AttendanceController extends GetxController {
       "message": "Berhasil mendapatkan lokasi device.",
       "error": false
     };
+  }
+
+  Stream<Position> streamGetPosition() {
+    return Geolocator.getPositionStream(
+      locationSettings: LocationSettings(
+        accuracy: LocationAccuracy.best,
+        distanceFilter: 50,
+      ),
+    );
   }
 
   void getLokasi() async {

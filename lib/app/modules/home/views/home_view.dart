@@ -10,7 +10,7 @@ import 'package:project_magang/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:project_magang/app/modules/dashboardHR/views/dashboard_h_r_view.dart';
 import 'package:project_magang/app/modules/home/controllers/home_controller.dart';
 import 'package:project_magang/app/modules/list_locationHR/views/list_location_h_r_view.dart';
-import 'package:project_magang/app/modules/location/views/location_view.dart';
+
 import 'package:project_magang/app/modules/report/views/report_view.dart';
 import 'package:project_magang/app/modules/setting/views/setting_view.dart';
 import 'package:project_magang/app/modules/settingHR/views/setting_h_r_view.dart';
@@ -26,7 +26,6 @@ class HomeView extends GetView<HomeController> {
     var pages = <Widget>[
       DashboardView(),
       AttendanceView(),
-      LocationView(),
       ReportView(),
       SettingView(),
       DashboardHRView(),

@@ -2,12 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:project_magang/app/controller/auth_controller.dart';
 import 'package:project_magang/app/modules/home/views/home_view.dart';
 import 'package:project_magang/app/routes/app_pages.dart';
@@ -21,6 +25,7 @@ import '../controllers/attendance_controller.dart';
 
 class AttendanceView extends GetView<AttendanceController> {
   AttendanceView({Key? key}) : super(key: key);
+  final locDef = LatLng(0, 0);
 
   final AttendanceController controller = Get.put(AttendanceController());
   @override
@@ -52,17 +57,35 @@ class AttendanceView extends GetView<AttendanceController> {
                         SizedBox(
                           height: bodyHeight * 0.08,
                         ),
-                        Material(
-                          color: Grey1,
-                          borderRadius: BorderRadius.circular(10),
-                          child: InkWell(
-                            onTap: () {},
-                            // onTap: () => Get.toNamed(Routes.LOCATION),
-                            borderRadius: BorderRadius.circular(10),
-                            child: Container(
-                              height: bodyHeight * 0.4,
-                              width: bodyWidth * 1,
-                            ),
+                        Container(
+                          height: bodyHeight * 0.4,
+                          width: bodyWidth * 1,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: FlutterMap(
+                            options: MapOptions(
+                                zoom: 17.8,
+                                maxZoom: 19.2,
+                                interactiveFlags: InteractiveFlag.pinchZoom,
+                                keepAlive: true),
+                            children: [
+                              TileLayer(
+                                tileSize: 256.0,
+                                urlTemplate:
+                                    'http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}',
+                                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                                maxZoom: 22,
+                              ),
+                              CurrentLocationLayer(
+                                  centerOnLocationUpdate:
+                                      CenterOnLocationUpdate.always,
+                                  positionStream:
+                                      LocationMarkerDataStreamFactory()
+                                          .geolocatorPositionStream(
+                                    stream: controller.streamGetPosition(),
+                                  )), // <-- add layer here
+                            ],
                           ),
                         ),
                         SizedBox(
