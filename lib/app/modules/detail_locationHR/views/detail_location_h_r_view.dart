@@ -140,7 +140,7 @@ class DetailLocationHRView extends GetView<DetailLocationHRController> {
                               child: InkWell(
                                 onTap: () => Get.toNamed(
                                     Routes.DETAIL_LOCATION_PER_DATE,
-                                    arguments: data),
+                                    arguments: [data, user]),
                                 borderRadius: BorderRadius.circular(30),
                                 child: SizedBox(
                                   width: bodyWidth * 1,

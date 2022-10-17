@@ -25,7 +25,6 @@ import '../controllers/attendance_controller.dart';
 
 class AttendanceView extends GetView<AttendanceController> {
   AttendanceView({Key? key}) : super(key: key);
-  final locDef = LatLng(0, 0);
 
   final AttendanceController controller = Get.put(AttendanceController());
   @override
