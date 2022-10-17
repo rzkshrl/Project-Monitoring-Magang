@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconly/iconly.dart';
 
 import '../../../theme/theme.dart';
@@ -14,6 +14,6 @@ class LocationView extends GetView<LocationController> {
   final LocationController controller = Get.put(LocationController());
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(initialCameraPosition: controller.initialCameraPosition);
+    return Scaffold();
   }
 }

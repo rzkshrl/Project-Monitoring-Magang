@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/auth_controller.dart';
@@ -24,6 +25,16 @@ class EditEmailpassHRController extends GetxController {
   late TextEditingController emailC = TextEditingController();
   late TextEditingController currentpassC = TextEditingController();
   late TextEditingController newpassC = TextEditingController();
+
+  final passValidator = MultiValidator([
+    RequiredValidator(errorText: "Kolom harus diisi"),
+    MinLengthValidator(6, errorText: "Kata sandi kurang dari 6 karakter"),
+  ]);
+
+  final isKeyboard = false.obs;
+
+  final iconEmail = false.obs;
+  final iconPass = false.obs;
 
   Future<DocumentSnapshot<Object?>> getUserDoc() async {
     String uid = auth.currentUser!.uid;

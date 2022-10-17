@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as s;
 import 'package:flutter/material.dart';
@@ -15,6 +16,14 @@ class EditProfileHRController extends GetxController {
   final namaKey = GlobalKey<FormState>().obs;
   final nomorIndukKey = GlobalKey<FormState>().obs;
   final authC = Get.put(AuthController());
+
+  final nameValidator = MultiValidator([
+    RequiredValidator(errorText: "Kolom harus diisi"),
+  ]);
+
+  final noIndukValidator = MultiValidator([
+    RequiredValidator(errorText: "Kolom harus diisi"),
+  ]);
 
   late TextEditingController nameC = TextEditingController();
 

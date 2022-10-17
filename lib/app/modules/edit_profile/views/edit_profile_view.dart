@@ -165,86 +165,132 @@ class EditProfileView extends GetView<EditProfileController> {
                         ),
                         Form(
                           key: controller.namaKey.value,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                width: bodyWidth * 1,
-                                height: bodyHeight * 0.065,
-                                decoration: BoxDecoration(
-                                    color: Yellow1,
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: TextFormField(
-                                  style: TextStyle(color: dark),
-                                  controller: controller.nameC,
-                                  // key: _nama,
-                                  autocorrect: false,
-                                  textInputAction: TextInputAction.next,
-                                  onTap: () {},
-                                  decoration: InputDecoration(
-                                      prefixIcon: Align(
-                                          widthFactor: 1.0,
-                                          heightFactor: 1.0,
-                                          child: Icon(
-                                            IconlyLight.profile,
-                                            color: Blue1,
-                                          )),
-                                      hintText: 'Nama',
-                                      hintStyle: heading6.copyWith(
-                                          color: Grey2,
-                                          fontSize: 14 * textScale),
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none)),
-                                ),
-                              ),
-                            ],
+                          child: Container(
+                            width: bodyWidth * 1,
+                            height: bodyHeight * 0.085,
+                            child: TextFormField(
+                              style: TextStyle(color: dark),
+                              controller: controller.nameC,
+                              textInputAction: TextInputAction.next,
+                              onTap: () {
+                                FocusScopeNode currentFocus =
+                                    FocusScope.of(context);
+
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                }
+                              },
+                              validator: controller.nameValidator,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              decoration: InputDecoration(
+                                  prefixIcon: Align(
+                                      widthFactor: 1.0,
+                                      heightFactor: 1.0,
+                                      child: Icon(
+                                        IconlyLight.profile,
+                                        color: Blue1,
+                                      )),
+                                  hintText: 'Nama',
+                                  hintStyle: heading6.copyWith(
+                                      color: Grey2, fontSize: 14 * textScale),
+                                  focusColor: Blue1,
+                                  fillColor: Yellow1,
+                                  filled: true,
+                                  errorStyle: TextStyle(
+                                    fontSize: 13.5 * textScale,
+                                    color: light,
+                                    background: Paint()
+                                      ..strokeWidth = 13
+                                      ..color = errorBg
+                                      ..style = PaintingStyle.stroke
+                                      ..strokeJoin = StrokeJoin.round,
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: errorBg, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12),
+                                      gapPadding: 2),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: error, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Blue1, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12))),
+                            ),
                           ),
                         ),
                         SizedBox(
-                          height: bodyHeight * 0.025,
+                          height: bodyHeight * 0.015,
                         ),
                         Form(
                           key: controller.nomorIndukKey.value,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                width: bodyWidth * 1,
-                                height: bodyHeight * 0.065,
-                                decoration: BoxDecoration(
-                                    color: Yellow1,
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: TextFormField(
-                                  autocorrect: false,
-                                  controller: controller.nomorindukC,
-                                  // onTap: () {
-                                  //   FocusScopeNode currentFocus =
-                                  //       FocusScope.of(context);
+                          child: Container(
+                            width: bodyWidth * 1,
+                            height: bodyHeight * 0.085,
+                            child: TextFormField(
+                              style: TextStyle(color: dark),
+                              controller: controller.nomorindukC,
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9]')),
+                              ],
+                              onTap: () {
+                                FocusScopeNode currentFocus =
+                                    FocusScope.of(context);
 
-                                  //   if (!currentFocus.hasPrimaryFocus) {
-                                  //     currentFocus.unfocus();
-                                  //   }
-                                  // },
-                                  style: TextStyle(color: dark),
-                                  decoration: InputDecoration(
-                                      prefixIcon: Align(
-                                          widthFactor: 1.0,
-                                          heightFactor: 1.0,
-                                          child: Icon(
-                                            IconlyLight.info_square,
-                                            color: Blue1,
-                                          )),
-                                      hintText: 'Nomor Induk',
-                                      hintStyle: heading6.copyWith(
-                                          color: Grey2,
-                                          fontSize: 14 * textScale),
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none)),
-                                ),
-                              ),
-                            ],
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                }
+                              },
+                              validator: controller.noIndukValidator,
+                              decoration: InputDecoration(
+                                  prefixIcon: Align(
+                                      widthFactor: 1.0,
+                                      heightFactor: 1.0,
+                                      child: Icon(
+                                        IconlyLight.info_circle,
+                                        color: Blue1,
+                                      )),
+                                  hintText: 'Nomor Induk Karyawan',
+                                  hintStyle: heading6.copyWith(
+                                      color: Grey1, fontSize: 14 * textScale),
+                                  focusColor: Blue1,
+                                  fillColor: Yellow1,
+                                  filled: true,
+                                  errorStyle: TextStyle(
+                                    fontSize: 13.5 * textScale,
+                                    color: light,
+                                    background: Paint()
+                                      ..strokeWidth = 13
+                                      ..color = errorBg
+                                      ..style = PaintingStyle.stroke
+                                      ..strokeJoin = StrokeJoin.round,
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: errorBg, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12),
+                                      gapPadding: 2),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: error, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Blue1, width: 1.8),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12))),
+                            ),
                           ),
                         ),
                         SizedBox(
