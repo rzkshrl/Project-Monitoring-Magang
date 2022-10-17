@@ -13,7 +13,6 @@ import 'package:project_magang/app/utils/loading.dart';
 import 'app/controller/auth_controller.dart';
 import 'app/modules/home/views/home_view.dart';
 import 'app/routes/app_pages.dart';
-import 'app/theme/app_theme.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -47,7 +46,6 @@ class ProjectMagangApp extends StatelessWidget {
             return GetMaterialApp(
               debugShowCheckedModeBanner: false,
               title: "Monitoring GeekGarden",
-              theme: AppThemes.light,
               initialRoute: snapshot.data != null ? Routes.HOME : Routes.LOGIN,
               getPages: AppPages.routes,
               // home: HomeView(),

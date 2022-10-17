@@ -65,10 +65,10 @@ class AttendanceView extends GetView<AttendanceController> {
                           ),
                           child: FlutterMap(
                             options: MapOptions(
-                                zoom: 17.8,
-                                maxZoom: 19.2,
-                                interactiveFlags: InteractiveFlag.pinchZoom,
-                                keepAlive: true),
+                              zoom: 17.8,
+                              maxZoom: 19.2,
+                              interactiveFlags: InteractiveFlag.pinchZoom,
+                            ),
                             children: [
                               TileLayer(
                                 tileSize: 256.0,
@@ -84,7 +84,7 @@ class AttendanceView extends GetView<AttendanceController> {
                                       LocationMarkerDataStreamFactory()
                                           .geolocatorPositionStream(
                                     stream: controller.streamGetPosition(),
-                                  )), // <-- add layer here
+                                  )),
                             ],
                           ),
                         ),
