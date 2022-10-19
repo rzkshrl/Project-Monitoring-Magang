@@ -85,7 +85,7 @@ class AuthController extends GetxController {
           title: 'Terjadi Kesalahan',
           middleText: 'Format email salah.',
         );
-      } else if (password.length <= 6) {
+      } else if (password.length < 6) {
         Get.defaultDialog(
           title: 'Terjadi Kesalahan',
           middleText: 'Password minimal 6 karakter.',

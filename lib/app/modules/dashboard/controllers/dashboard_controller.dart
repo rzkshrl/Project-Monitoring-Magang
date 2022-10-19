@@ -17,6 +17,18 @@ class DashboardController extends GetxController {
     return user.get();
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>>
+      streamDataLastPresenceUser() async* {
+    String uid = auth.currentUser!.uid;
+    yield* firestore
+        .collection("Users")
+        .doc(uid)
+        .collection("Presence")
+        .orderBy("todayDate", descending: true)
+        .limitToLast(5)
+        .snapshots();
+  }
+
   Stream<DocumentSnapshot<Map<String, dynamic>>>
       streamTodayPresenceUser() async* {
     String uid = auth.currentUser!.uid;

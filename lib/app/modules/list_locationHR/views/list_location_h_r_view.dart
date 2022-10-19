@@ -39,28 +39,8 @@ class ListLocationHRView extends GetView<ListLocationHRController> {
                     ),
                     child: Column(
                       children: [
-                        Container(
-                          width: bodyWidth * 1,
-                          height: bodyHeight * 0.065,
-                          decoration: BoxDecoration(
-                              color: light,
-                              borderRadius: BorderRadius.circular(12)),
-                          child: TextFormField(
-                            style: TextStyle(color: dark),
-                            decoration: InputDecoration(
-                                prefixIcon: Align(
-                                    widthFactor: 1.0,
-                                    heightFactor: 1.0,
-                                    child: Icon(
-                                      IconlyLight.search,
-                                      color: Grey1,
-                                    )),
-                                hintText: 'Cari',
-                                hintStyle: heading6.copyWith(
-                                    color: Grey1, fontSize: 14 * textScale),
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none)),
-                          ),
+                        SizedBox(
+                          height: bodyHeight * 0.02,
                         ),
                         ListView.builder(
                             shrinkWrap: true,

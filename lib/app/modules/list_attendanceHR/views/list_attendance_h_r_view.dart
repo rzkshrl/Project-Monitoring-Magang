@@ -121,6 +121,8 @@ class ListAttendanceHRView extends GetView<ListAttendanceHRController> {
                         ),
                         ListView.builder(
                             shrinkWrap: true,
+                            padding:
+                                EdgeInsets.only(bottom: bodyHeight * 0.015),
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: listAllDocs.length,
                             // itemCount: 20,

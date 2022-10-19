@@ -41,8 +41,8 @@ class DetailLocationPerDateView
             Map<String, dynamic>? dataToday = snap.data?.data();
             var latUserMasuk = dataToday?['masuk']['position']['lat'];
             var longUserMasuk = dataToday?['masuk']['position']['long'];
-            var latUserKeluar = dataToday?['masuk']['position']['lat'];
-            var longUserKeluar = dataToday?['masuk']['position']['long'];
+            var latUserKeluar = dataToday?['keluar']['position']['lat'];
+            var longUserKeluar = dataToday?['keluar']['position']['long'];
             return LayoutBuilder(
               builder: (context, constraints) {
                 final textScale = MediaQuery.of(context).textScaleFactor;
