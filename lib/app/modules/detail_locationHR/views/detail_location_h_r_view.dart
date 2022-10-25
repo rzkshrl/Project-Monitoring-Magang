@@ -6,6 +6,7 @@ import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../theme/theme.dart';
@@ -24,19 +25,21 @@ class DetailLocationHRView extends GetView<DetailLocationHRController> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: light,
-      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: controller.streamDataLocationUser(uid),
-          builder: (context, snap) {
-            final textScale = MediaQuery.of(context).textScaleFactor;
-            final bodyHeight = MediaQuery.of(context).size.height;
-            -MediaQuery.of(context).padding.top;
-            final bodyWidth = MediaQuery.of(context).size.width;
-            var nama = user['name'];
-            var profile = user['profile'];
-            var defaultImage =
-                "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
-            if (snap.connectionState == ConnectionState.active) {
-              print(snap.data?.docs);
+      body: GetBuilder<DetailLocationHRController>(builder: (c) {
+        return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            future: controller.getDataPresenceUser(uid),
+            builder: (context, snap) {
+              final textScale = MediaQuery.of(context).textScaleFactor;
+              final bodyHeight = MediaQuery.of(context).size.height;
+              -MediaQuery.of(context).padding.top;
+              final bodyWidth = MediaQuery.of(context).size.width;
+              var nama = user['name'];
+              var profile = user['profile'];
+              var defaultImage =
+                  "https://ui-avatars.com/api/?name=${nama}&background=fff38a&color=5175c0&font-size=0.33";
+              if (snap.connectionState == ConnectionState.waiting) {
+                return LoadingView();
+              }
               if (snap.data?.docs.length == 0 || snap.data == null) {
                 return SingleChildScrollView(
                   padding: EdgeInsets.only(
@@ -85,6 +88,8 @@ class DetailLocationHRView extends GetView<DetailLocationHRController> {
                   bottom: bodyHeight * 0.01,
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     SizedBox(
                       height: bodyHeight * 0.06,
@@ -100,31 +105,67 @@ class DetailLocationHRView extends GetView<DetailLocationHRController> {
                             )),
                       ],
                     ),
-                    Container(
-                      width: bodyWidth * 1,
-                      height: bodyHeight * 0.065,
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(12)),
-                      child: TextFormField(
-                        style: TextStyle(color: dark),
-                        decoration: InputDecoration(
-                            prefixIcon: Align(
-                                widthFactor: 1.0,
-                                heightFactor: 1.0,
-                                child: Icon(
-                                  IconlyLight.search,
-                                  color: Grey1,
-                                )),
-                            hintText: 'Cari',
-                            hintStyle: heading6.copyWith(
-                                color: Grey1, fontSize: 14 * textScale),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none)),
-                      ),
-                    ),
+                    TextButton(
+                        onPressed: () {
+                          Get.dialog(Dialog(
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                left: bodyWidth * 0.05,
+                                right: bodyWidth * 0.05,
+                                bottom: bodyHeight * 0.01,
+                                top: bodyHeight * 0.01,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              height: bodyHeight * 0.4,
+                              child: SfDateRangePicker(
+                                todayHighlightColor: Blue1,
+                                selectionColor: Blue1,
+                                rangeSelectionColor: Blue1.withOpacity(0.2),
+                                startRangeSelectionColor:
+                                    Blue1.withOpacity(0.5),
+                                endRangeSelectionColor: Blue1.withOpacity(0.5),
+                                monthViewSettings:
+                                    DateRangePickerMonthViewSettings(
+                                  firstDayOfWeek: 1,
+                                ),
+                                selectionMode:
+                                    DateRangePickerSelectionMode.range,
+                                showActionButtons: true,
+                                cancelText: "Batal",
+                                confirmText: "OK",
+                                onCancel: () => Get.back(),
+                                onSubmit: (value) {
+                                  if (value != null) {
+                                    if ((value as PickerDateRange).endDate !=
+                                        null) {
+                                      controller.pickRangeDate(
+                                          value.startDate!, value.endDate!);
+                                      Get.back();
+                                    } else {
+                                      Get.defaultDialog(
+                                          title: 'Terjadi Kesalahan',
+                                          middleText:
+                                              'Pilih tanggal jangkauan\n(Senin-Sabtu, dsb)\n(tekan tanggal dua kali \nuntuk memilih tanggal yang sama)');
+                                    }
+                                  } else {
+                                    Get.defaultDialog(
+                                        title: 'Terjadi Kesalahan',
+                                        middleText: 'Tanggal tidak dipilih');
+                                  }
+                                },
+                              ),
+                            ),
+                          ));
+                        },
+                        child: Text(
+                          "Filter Riwayat Lokasi",
+                          textAlign: TextAlign.end,
+                        )),
                     ListView.builder(
                         shrinkWrap: true,
+                        padding: EdgeInsets.only(bottom: bodyHeight * 0.02),
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: snap.data!.docs.length,
                         itemBuilder: (context, index) {
@@ -231,10 +272,8 @@ class DetailLocationHRView extends GetView<DetailLocationHRController> {
                   ],
                 ),
               );
-            } else {
-              return LoadingView();
-            }
-          }),
+            });
+      }),
     );
   }
 }

@@ -121,7 +121,10 @@ class DetailAttendanceHRView extends GetView<DetailAttendanceHRController> {
                           menuItems: [
                             FocusedMenuItem(
                                 title: Text("Absensi Saya"),
-                                onPressed: () => Get.back(),
+                                onPressed: () {
+                                  Get.back();
+                                  Get.back();
+                                },
                                 trailingIcon: Icon(IconlyLight.profile),
                                 backgroundColor: Colors.transparent),
                             FocusedMenuItem(
@@ -301,7 +304,9 @@ class DetailAttendanceHRView extends GetView<DetailAttendanceHRController> {
                                                   ],
                                                 ),
                                                 SizedBox(
-                                                  width: bodyWidth * 0.095,
+                                                  width: data["keluar"] != null
+                                                      ? bodyWidth * 0.095
+                                                      : bodyWidth * 0.15,
                                                 ),
                                                 Column(
                                                   children: [
