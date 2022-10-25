@@ -121,7 +121,10 @@ class DetailAttendanceHRView extends GetView<DetailAttendanceHRController> {
                           menuItems: [
                             FocusedMenuItem(
                                 title: Text("Absensi Saya"),
-                                onPressed: () => Get.back(),
+                                onPressed: () {
+                                  Get.back();
+                                  Get.back();
+                                },
                                 trailingIcon: Icon(IconlyLight.profile),
                                 backgroundColor: Colors.transparent),
                             FocusedMenuItem(

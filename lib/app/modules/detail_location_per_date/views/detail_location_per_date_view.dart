@@ -39,10 +39,18 @@ class DetailLocationPerDateView
               return LoadingView();
             }
             Map<String, dynamic>? dataToday = snap.data?.data();
-            var latUserMasuk = dataToday?['masuk']['position']['lat'];
-            var longUserMasuk = dataToday?['masuk']['position']['long'];
-            var latUserKeluar = dataToday?['keluar']['position']['lat'];
-            var longUserKeluar = dataToday?['keluar']['position']['long'];
+            var latUserMasuk = dataToday?['masuk'] == null
+                ? null
+                : dataToday?['masuk']['position']['lat'];
+            var longUserMasuk = dataToday?['masuk'] == null
+                ? null
+                : dataToday?['masuk']['position']['long'];
+            var latUserKeluar = dataToday?['keluar'] == null
+                ? null
+                : dataToday?['keluar']['position']['lat'];
+            var longUserKeluar = dataToday?['keluar'] == null
+                ? null
+                : dataToday?['keluar']['position']['long'];
             return LayoutBuilder(
               builder: (context, constraints) {
                 final textScale = MediaQuery.of(context).textScaleFactor;
