@@ -40,7 +40,7 @@ class ListLocationHRView extends GetView<ListLocationHRController> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: bodyHeight * 0.02,
+                          height: bodyHeight * 0.05,
                         ),
                         ListView.builder(
                             shrinkWrap: true,
