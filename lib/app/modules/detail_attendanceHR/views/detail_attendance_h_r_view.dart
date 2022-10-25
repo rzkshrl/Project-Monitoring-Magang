@@ -304,7 +304,9 @@ class DetailAttendanceHRView extends GetView<DetailAttendanceHRController> {
                                                   ],
                                                 ),
                                                 SizedBox(
-                                                  width: bodyWidth * 0.095,
+                                                  width: data["keluar"] != null
+                                                      ? bodyWidth * 0.095
+                                                      : bodyWidth * 0.15,
                                                 ),
                                                 Column(
                                                   children: [
