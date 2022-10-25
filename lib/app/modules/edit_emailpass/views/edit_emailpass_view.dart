@@ -190,7 +190,7 @@ class EditEmailpassView extends GetView<EditEmailpassController> {
                                             )),
                                         hintText: 'Kata Sandi Saat Ini',
                                         hintStyle: heading6.copyWith(
-                                            color: Grey1,
+                                            color: Grey2,
                                             fontSize: 14 * textScale),
                                         fillColor: Yellow1,
                                         filled: true,
@@ -287,7 +287,7 @@ class EditEmailpassView extends GetView<EditEmailpassController> {
                                             )),
                                         hintText: 'Kata Sandi Baru',
                                         hintStyle: heading6.copyWith(
-                                            color: Grey1,
+                                            color: Grey2,
                                             fontSize: 14 * textScale),
                                         fillColor: Yellow1,
                                         filled: true,

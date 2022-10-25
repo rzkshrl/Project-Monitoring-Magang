@@ -220,6 +220,7 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                                           BorderSide(color: Blue1, width: 1.8),
                                       borderRadius: BorderRadius.circular(12)),
                                   border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.circular(12))),
                             ),
                           ),
@@ -289,6 +290,7 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                                           BorderSide(color: Blue1, width: 1.8),
                                       borderRadius: BorderRadius.circular(12)),
                                   border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.circular(12))),
                             ),
                           ),
