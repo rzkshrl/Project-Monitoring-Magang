@@ -43,7 +43,8 @@ class EditProfileHRController extends GetxController {
   XFile? image;
 
   void pickImage() async {
-    image = await picker.pickImage(source: ImageSource.gallery);
+    image =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 75);
     if (image != null) {
       print(image!.name);
       print(image!.name.split(".").last);
