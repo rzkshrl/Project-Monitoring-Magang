@@ -186,7 +186,7 @@ class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
                                         )),
                                     hintText: 'Kata Sandi Saat Ini',
                                     hintStyle: heading6.copyWith(
-                                        color: Grey1, fontSize: 14 * textScale),
+                                        color: Grey2, fontSize: 14 * textScale),
                                     fillColor: Yellow1,
                                     filled: true,
                                     errorStyle: TextStyle(
@@ -278,7 +278,7 @@ class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
                                         )),
                                     hintText: 'Kata Sandi Baru',
                                     hintStyle: heading6.copyWith(
-                                        color: Grey1, fontSize: 14 * textScale),
+                                        color: Grey2, fontSize: 14 * textScale),
                                     fillColor: Yellow1,
                                     filled: true,
                                     errorStyle: TextStyle(
@@ -300,11 +300,7 @@ class EditEmailpassHRView extends GetView<EditEmailpassHRController> {
                                             color: error, width: 1.8),
                                         borderRadius:
                                             BorderRadius.circular(12)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Blue1, width: 1.8),
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
+                                    
                                     suffixIcon: Padding(
                                       padding: EdgeInsets.only(
                                         right:
