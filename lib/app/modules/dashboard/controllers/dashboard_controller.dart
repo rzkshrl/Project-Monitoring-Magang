@@ -25,7 +25,7 @@ class DashboardController extends GetxController {
         .doc(uid)
         .collection("Presence")
         .orderBy("todayDate", descending: true)
-        .limitToLast(5)
+        .limit(5)
         .snapshots();
   }
 

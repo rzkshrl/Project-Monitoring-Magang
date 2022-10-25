@@ -6,6 +6,8 @@ class ListAttendanceHRController extends GetxController {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  var searchList = List.empty(growable: true).obs;
+
   Stream<QuerySnapshot<Object?>> streamDataUsers() {
     CollectionReference pemasukan = firestore.collection("Users");
     return pemasukan.snapshots();

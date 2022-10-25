@@ -139,188 +139,277 @@ class DashboardView extends GetView<DashboardController> {
                                     }
                                     Map<String, dynamic>? dataToday =
                                         snapToday.data?.data();
-                                    return Row(
+
+                                    var checkOutTime =
+                                        dataToday?["keluar"] == null
+                                            ? DateTime.now()
+                                            : DateTime.parse(
+                                                dataToday?['keluar']['date']);
+
+                                    var checkInTime =
+                                        dataToday?["masuk"] == null
+                                            ? DateTime.now()
+                                            : DateTime.parse(
+                                                dataToday?['masuk']['date']);
+
+                                    var hours = checkOutTime
+                                        .difference(checkInTime)
+                                        .inHours;
+
+                                    var minutes = checkOutTime
+                                        .difference(checkInTime)
+                                        .inMinutes;
+
+                                    var totalWorkingHours =
+                                        '$hours jam ${minutes % 60} menit';
+
+                                    return Column(
                                       children: [
-                                        Container(
-                                          height: bodyHeight * 0.34,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.42,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              color: Yellow1.withOpacity(0.5)),
-                                          padding: EdgeInsets.only(
-                                            left: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.06,
-                                            right: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.06,
-                                            bottom: bodyHeight * 0.02,
-                                            top: bodyHeight * 0.03,
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Masuk",
-                                                textAlign: TextAlign.start,
-                                                textScaleFactor: 1.6,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                ),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: bodyHeight * 0.34,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.42,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  color:
+                                                      Yellow1.withOpacity(0.5)),
+                                              padding: EdgeInsets.only(
+                                                left: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.06,
+                                                right: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.06,
+                                                bottom: bodyHeight * 0.02,
+                                                top: bodyHeight * 0.03,
                                               ),
-                                              SizedBox(
-                                                height: bodyHeight * 0.025,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "Masuk",
+                                                    textAlign: TextAlign.start,
+                                                    textScaleFactor: 1.6,
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: bodyHeight * 0.025,
+                                                  ),
+                                                  Text(
+                                                    dataToday?["masuk"] == null
+                                                        ? "Belum Absen Masuk"
+                                                        : "${DateFormat('d MMMM yyyy', 'id-ID').format(DateTime.parse(dataToday?['masuk']['date']))}",
+                                                    textAlign: TextAlign.center,
+                                                    textScaleFactor: 1.3,
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: bodyHeight * 0.01,
+                                                  ),
+                                                  Text(
+                                                    dataToday?["masuk"] == null
+                                                        ? ""
+                                                        : "${DateFormat('HH:mm', 'id-ID').format(DateTime.parse(dataToday?['masuk']['date']))}",
+                                                    textAlign: TextAlign.start,
+                                                    textScaleFactor: 1.3,
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Text(
-                                                dataToday?["masuk"] == null
-                                                    ? "Belum Absen Masuk"
-                                                    : "${DateFormat('d MMMM yyyy', 'id-ID').format(DateTime.parse(dataToday?['masuk']['date']))}",
-                                                textAlign: TextAlign.center,
-                                                textScaleFactor: 1.3,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                ),
+                                            ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.06,
+                                            ),
+                                            Container(
+                                              height: bodyHeight * 0.34,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.42,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  color:
+                                                      Yellow1.withOpacity(0.5)),
+                                              padding: EdgeInsets.only(
+                                                left: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.06,
+                                                right: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.06,
+                                                bottom: bodyHeight * 0.02,
+                                                top: bodyHeight * 0.03,
                                               ),
-                                              SizedBox(
-                                                height: bodyHeight * 0.01,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "Keluar",
+                                                    textAlign: TextAlign.start,
+                                                    textScaleFactor: 1.6,
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: bodyHeight * 0.025,
+                                                  ),
+                                                  Text(
+                                                    dataToday?["keluar"] == null
+                                                        ? "Belum Absen Keluar"
+                                                        : "${DateFormat('d MMMM yyyy', 'id-ID').format(DateTime.parse(dataToday?['keluar']['date']))}",
+                                                    textAlign: TextAlign.center,
+                                                    textScaleFactor: 1.3,
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: bodyHeight * 0.01,
+                                                  ),
+                                                  Text(
+                                                    dataToday?["keluar"] == null
+                                                        ? ""
+                                                        : "${DateFormat('HH:mm', 'id-ID').format(DateTime.parse(dataToday?['keluar']['date']))}",
+                                                    textAlign: TextAlign.start,
+                                                    textScaleFactor: 1.3,
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Text(
-                                                dataToday?["masuk"] == null
-                                                    ? ""
-                                                    : "${DateFormat('HH:mm', 'id-ID').format(DateTime.parse(dataToday?['masuk']['date']))}",
-                                                textAlign: TextAlign.start,
-                                                textScaleFactor: 1.3,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                         SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.06,
+                                          height: bodyHeight * 0.025,
                                         ),
-                                        Container(
-                                          height: bodyHeight * 0.34,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.42,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              color: Yellow1.withOpacity(0.5)),
-                                          padding: EdgeInsets.only(
-                                            left: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.06,
-                                            right: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.06,
-                                            bottom: bodyHeight * 0.02,
-                                            top: bodyHeight * 0.03,
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Keluar",
-                                                textAlign: TextAlign.start,
-                                                textScaleFactor: 1.6,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
+                                        Builder(builder: (context) {
+                                          if (dataToday?["masuk"] == null ||
+                                              dataToday?["keluar"] == null) {
+                                            return Container(
+                                              height: bodyHeight * 0.14,
+                                              width: bodyWidth,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  color:
+                                                      Yellow1.withOpacity(0.5)),
+                                              padding: EdgeInsets.only(
+                                                left: bodyWidth * 0.06,
+                                                right: bodyWidth * 0.06,
+                                                bottom: bodyHeight * 0.02,
+                                                top: bodyHeight * 0.01,
+                                              ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "Total Jam Kerja",
+                                                    textAlign: TextAlign.start,
+                                                    textScaleFactor: 1.6,
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: bodyHeight * 0.01,
+                                                  ),
+                                                  Text(
+                                                    "Belum Melengkapi Absensi",
+                                                    textAlign: TextAlign.start,
+                                                    textScaleFactor: 1.3,
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          }
+                                          return Container(
+                                            height: bodyHeight * 0.14,
+                                            width: bodyWidth,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                color:
+                                                    Yellow1.withOpacity(0.5)),
+                                            padding: EdgeInsets.only(
+                                              left: bodyWidth * 0.06,
+                                              right: bodyWidth * 0.06,
+                                              bottom: bodyHeight * 0.02,
+                                              top: bodyHeight * 0.01,
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "Total Jam Kerja",
+                                                  textAlign: TextAlign.start,
+                                                  textScaleFactor: 1.6,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: bodyHeight * 0.025,
-                                              ),
-                                              Text(
-                                                dataToday?["keluar"] == null
-                                                    ? "Belum Absen Keluar"
-                                                    : "${DateFormat('d MMMM yyyy', 'id-ID').format(DateTime.parse(dataToday?['keluar']['date']))}",
-                                                textAlign: TextAlign.center,
-                                                textScaleFactor: 1.3,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
+                                                SizedBox(
+                                                  height: bodyHeight * 0.01,
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: bodyHeight * 0.01,
-                                              ),
-                                              Text(
-                                                dataToday?["keluar"] == null
-                                                    ? ""
-                                                    : "${DateFormat('HH:mm', 'id-ID').format(DateTime.parse(dataToday?['keluar']['date']))}",
-                                                textAlign: TextAlign.start,
-                                                textScaleFactor: 1.3,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
+                                                Text(
+                                                  totalWorkingHours,
+                                                  textAlign: TextAlign.start,
+                                                  textScaleFactor: 1.5,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
+                                              ],
+                                            ),
+                                          );
+                                        }),
                                       ],
                                     );
                                   }),
-                              SizedBox(
-                                height: bodyHeight * 0.025,
-                              ),
-                              Container(
-                                height: bodyHeight * 0.14,
-                                width: bodyWidth,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: Yellow1.withOpacity(0.5)),
-                                padding: EdgeInsets.only(
-                                  left: bodyWidth * 0.06,
-                                  right: bodyWidth * 0.06,
-                                  bottom: bodyHeight * 0.02,
-                                  top: bodyHeight * 0.01,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Total Jam Kerja",
-                                      textAlign: TextAlign.start,
-                                      textScaleFactor: 1.6,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: bodyHeight * 0.01,
-                                    ),
-                                    Text(
-                                      "08.20.16",
-                                      textAlign: TextAlign.start,
-                                      textScaleFactor: 1.5,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
                             ],
                           ),
                           Container(
@@ -352,6 +441,9 @@ class DashboardView extends GetView<DashboardController> {
                                 }
                                 return ListView.builder(
                                     shrinkWrap: true,
+                                    padding: EdgeInsets.only(
+                                        bottom: bodyHeight * 0.002,
+                                        top: bodyHeight * 0.03),
                                     physics: NeverScrollableScrollPhysics(),
                                     itemCount: snapPresence.data!.docs.length,
                                     itemBuilder: (context, index) {
@@ -594,7 +686,7 @@ class DashboardView extends GetView<DashboardController> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: bodyHeight * 0.05,
+                                        height: bodyHeight * 0.03,
                                       ),
                                       Container(
                                         height: bodyHeight * 0.48,

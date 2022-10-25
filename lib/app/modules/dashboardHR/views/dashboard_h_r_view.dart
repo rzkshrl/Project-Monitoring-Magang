@@ -122,7 +122,7 @@ class DashboardHRView extends GetView<DashboardHRController> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: bodyHeight * 0.05,
+                                    height: bodyHeight * 0.03,
                                   ),
                                   Container(
                                     height: bodyHeight * 0.48,
