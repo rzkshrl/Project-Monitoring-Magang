@@ -1,8 +1,11 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -11,6 +14,7 @@ import 'package:project_magang/app/modules/register/views/register_view.dart';
 import 'package:project_magang/app/theme/theme.dart';
 import 'package:project_magang/app/utils/loading.dart';
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'app/controller/auth_controller.dart';
 import 'app/modules/home/views/home_view.dart';
@@ -33,29 +37,85 @@ class ProjectMagangApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      // ignore: prefer_const_constructors
-      value: SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.dark,
-        statusBarColor: light,
-      ),
-      child: StreamBuilder<User?>(
+    return ScreenUtilInit(
+      minTextAdapt: true,
+      builder: (context, child) {
+        return AnnotatedRegion(
+            // ignore: prefer_const_constructors
+            value: SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.dark,
+              statusBarBrightness: Brightness.dark,
+              statusBarColor: light,
+            ),
+            child: GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: "GeekGarden Attendance",
+              getPages: AppPages.routes,
+              home: SplashScreen(),
+            ));
+      },
+    );
+  }
+}
+
+class SplashScreen extends StatelessWidget {
+  final authC = Get.put(AuthController(), permanent: true);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+        stream: authC.streamAuthStatus,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            print(snapshot.data);
+            return AnnotatedRegion(
+              value: SystemUiOverlayStyle(
+                statusBarBrightness: Brightness.dark,
+                statusBarIconBrightness: Brightness.light,
+                statusBarColor: backgroundBlue,
+              ),
+              child: AnimatedSplashScreen(
+                animationDuration: Duration(milliseconds: 900),
+                duration: 1200,
+                splash: 'assets/icons/logo.png',
+                backgroundColor: backgroundBlue,
+                nextScreen: HomeScreen(),
+                nextRoute: snapshot.data != null &&
+                        snapshot.data!.emailVerified == true
+                    ? Routes.HOME
+                    : Routes.LOGIN,
+                splashIconSize: 55,
+                splashTransition: SplashTransition.fadeTransition,
+                pageTransitionType: PageTransitionType.leftToRight,
+              ),
+            );
+          }
+          return LoadingView();
+        });
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  final authC = Get.put(AuthController(), permanent: true);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
         stream: authC.streamAuthStatus,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             print(snapshot.data);
             return GetMaterialApp(
               debugShowCheckedModeBanner: false,
-              title: "Monitoring GeekGarden",
-              initialRoute: snapshot.data != null ? Routes.HOME : Routes.LOGIN,
+              title: "GeekGarden Attendance",
+              initialRoute:
+                  snapshot.data != null && snapshot.data!.emailVerified == true
+                      ? Routes.HOME
+                      : Routes.LOGIN,
               getPages: AppPages.routes,
-              // home: HomeView(),
             );
           }
           return LoadingView();
-        },
-      ),
-    );
+        });
   }
 }

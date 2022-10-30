@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
 
@@ -102,8 +103,8 @@ class SettingView extends GetView<SettingController> {
                                         0.06,
                                     right: MediaQuery.of(context).size.width *
                                         0.02,
-                                    bottom: bodyHeight * 0.02,
-                                    top: bodyHeight * 0.02,
+                                    bottom: bodyHeight * 0.015,
+                                    top: bodyHeight * 0.025,
                                   ),
                                   decoration: BoxDecoration(
                                       color: Grey1,
@@ -133,18 +134,16 @@ class SettingView extends GetView<SettingController> {
                                           Text(
                                             "$divisi",
                                             textAlign: TextAlign.center,
-                                            textScaleFactor: 1,
                                             style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 15.sp),
                                           ),
                                           Text(
                                             "$nomor_induk",
                                             textAlign: TextAlign.center,
-                                            textScaleFactor: 1,
                                             style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 15.sp),
                                           ),
                                           // SizedBox(
                                           //   width: MediaQuery.of(context)

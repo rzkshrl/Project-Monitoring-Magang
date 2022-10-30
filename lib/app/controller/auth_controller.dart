@@ -8,11 +8,14 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_magang/app/utils/loading.dart';
 
+import '../modules/attendance/controllers/attendance_controller.dart';
 import '../modules/home/views/home_view.dart';
 import '../routes/app_pages.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  final attendanceC = Get.put(AttendanceController());
 
   Stream<User?> get streamAuthStatus => auth.userChanges();
 
@@ -68,6 +71,7 @@ class AuthController extends GetxController {
 
       if (myUser.user!.emailVerified) {
         Get.offAllNamed(Routes.HOME);
+        attendanceC.getPositionOnly();
       } else {
         Get.defaultDialog(
             title: 'Verifikasi Email',

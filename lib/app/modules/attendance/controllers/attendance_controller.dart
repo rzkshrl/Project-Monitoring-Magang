@@ -31,8 +31,8 @@ class AttendanceController extends GetxController {
       // accessing the position and request users of the
       // App to enable the location services.
       return {
-        "message":
-            "Layanan lokasi GPS dimatikan, tidak dapat mendapatkan lokasi device",
+        "message": Get.snackbar("Kesalahan",
+            "Layanan lokasi GPS dimatikan, tidak dapat mendapatkan lokasi device"),
         "error": true
       };
     }
@@ -46,22 +46,28 @@ class AttendanceController extends GetxController {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        return {"message": "Izin lokasi ditolak.", "error": true};
+        return {
+          "message": Get.snackbar("Kesalahan", "Izin lokasi ditolak."),
+          "error": true
+        };
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
       return {
-        "message":
-            "Izin lokasi ditolak secara permanen, ubah permintaan izin lokasi pada device.",
+        "message": Get.snackbar("Kesalahan",
+            "Izin lokasi ditolak secara permanen, ubah permintaan izin lokasi pada device."),
         "error": true
       };
     }
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
+
     Position position = await Geolocator.getCurrentPosition();
+    streamGetPosition();
+    // Get.reloadAll();
     return {
       "position": position,
       "message": "Berhasil mendapatkan lokasi device.",
@@ -76,6 +82,25 @@ class AttendanceController extends GetxController {
         distanceFilter: 50,
       ),
     );
+  }
+
+  void getPositionOnly() async {
+    await determinePosition();
+  }
+
+  void getPositionAndAddress() async {
+    Map<String, dynamic> dataResponse = await determinePosition();
+    if (!dataResponse["error"]) {
+      Position position = dataResponse['position'];
+      // log("${position.latitude} , ${position.latitude}");
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      String address =
+          "${placemarks[0].street}, \n${placemarks[0].subLocality}, ${placemarks[0].locality}, \n${placemarks[0].subAdministrativeArea}, \n${placemarks[0].administrativeArea}, ${placemarks[0].country}";
+      await updateLokasi(position, address);
+    } else {
+      Get.defaultDialog(title: "Error", middleText: dataResponse["message"]);
+    }
   }
 
   void getLokasi() async {

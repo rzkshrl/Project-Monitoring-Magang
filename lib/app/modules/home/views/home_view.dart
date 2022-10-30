@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:project_magang/app/controller/auth_controller.dart';
+import 'package:project_magang/app/modules/attendance/controllers/attendance_controller.dart';
 import 'package:project_magang/app/modules/attendance/views/attendance_view.dart';
 import 'package:project_magang/app/modules/attendanceHR/views/attendance_h_r_view.dart';
 import 'package:project_magang/app/modules/dashboard/views/dashboard_view.dart';
@@ -21,6 +23,8 @@ import '../../../utils/loading.dart';
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
   final authC = Get.put(AuthController());
+  final attendanceC = Get.put(AttendanceController());
+
   @override
   Widget build(BuildContext context) {
     var pages = <Widget>[
@@ -101,12 +105,15 @@ class HomeView extends GetView<HomeController> {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         controller.changePage(index);
+        if (index == 1 || index == 6) {
+          attendanceC.getPositionAndAddress();
+        }
       },
       child: SizedBox(
-        height: bodyHeight * 0.075,
+        height: 0.08.sh,
         child: SizedBox(
-          width: 25,
-          height: 25,
+          width: 0.05.sw,
+          height: 0.25.sh,
           child: Obx(
             () => Icon(
               icon,

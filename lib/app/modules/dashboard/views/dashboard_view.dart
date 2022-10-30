@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
@@ -81,7 +82,7 @@ class DashboardView extends GetView<DashboardController> {
                                 height: bodyHeight * 0.025,
                               ),
                               Container(
-                                height: bodyHeight * 0.18,
+                                height: 0.38.sw,
                                 width: bodyWidth,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12),
@@ -110,18 +111,17 @@ class DashboardView extends GetView<DashboardController> {
                                     Text(
                                       "$divisi",
                                       textAlign: TextAlign.start,
-                                      textScaleFactor: 1.5,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w400,
+                                        fontSize: ScreenUtil().setSp(23),
                                       ),
                                     ),
                                     Text(
                                       "$nomorInduk",
                                       textAlign: TextAlign.start,
-                                      textScaleFactor: 1.5,
                                       style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                      ),
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: ScreenUtil().setSp(23)),
                                     ),
                                   ],
                                 ),
@@ -638,17 +638,17 @@ class DashboardView extends GetView<DashboardController> {
                                         height: bodyHeight * 0.025,
                                       ),
                                       Container(
-                                        height: bodyHeight * 0.18,
-                                        width: bodyWidth,
+                                        height: 0.3.sh,
+                                        width: bodyWidth.w,
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(12),
                                             color: Blue1.withOpacity(0.5)),
                                         padding: EdgeInsets.only(
-                                          left: bodyWidth * 0.06,
-                                          right: bodyWidth * 0.06,
-                                          bottom: bodyHeight * 0.02,
-                                          top: bodyHeight * 0.03,
+                                          left: bodyWidth * 0.06.w,
+                                          right: bodyWidth * 0.06.w,
+                                          bottom: bodyHeight * 0.02.h,
+                                          top: bodyHeight * 0.03.h,
                                         ),
                                         child: Column(
                                           crossAxisAlignment:
@@ -669,18 +669,16 @@ class DashboardView extends GetView<DashboardController> {
                                             Text(
                                               "$divisi",
                                               textAlign: TextAlign.start,
-                                              textScaleFactor: 1.2,
                                               style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                              ),
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 23.sp),
                                             ),
                                             Text(
                                               "$nomorInduk",
                                               textAlign: TextAlign.start,
-                                              textScaleFactor: 1.2,
                                               style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                              ),
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 23.sp),
                                             ),
                                           ],
                                         ),

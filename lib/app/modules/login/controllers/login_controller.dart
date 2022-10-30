@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,8 @@ class LoginController extends GetxController {
   //TODO: Implement LoginController
   final emailC = TextEditingController();
   final passC = TextEditingController();
+
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   final emailKey = GlobalKey<FormState>().obs;
   final passKey = GlobalKey<FormState>().obs;

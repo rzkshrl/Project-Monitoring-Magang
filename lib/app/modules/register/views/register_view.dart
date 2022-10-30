@@ -148,7 +148,7 @@ class RegisterView extends GetView<RegisterController> {
                         //dropdown
                         Container(
                           width: bodyWidth * 1,
-                          height: bodyHeight * 0.06,
+                          height: bodyHeight * 0.062,
                           decoration: BoxDecoration(
                               color: light,
                               borderRadius: BorderRadius.circular(12)),
@@ -188,7 +188,7 @@ class RegisterView extends GetView<RegisterController> {
                                         borderSide: BorderSide.none))),
                             popupProps: PopupProps.menu(
                               constraints:
-                                  BoxConstraints(maxHeight: bodyHeight * 0.18),
+                                  BoxConstraints(maxHeight: bodyHeight * 0.2),
                               scrollbarProps: ScrollbarProps(
                                   trackVisibility: true, trackColor: dark),
                               fit: FlexFit.loose,
