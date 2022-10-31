@@ -1,3 +1,4 @@
 {
-    "dart.flutterSdkPath": "D:\\downlaod\\flutter_windows_2.10.2-stable\\flutter"
+    "dart.flutterSdkPath": "D:\\downlaod\\flutter_windows_2.10.2-stable\\flutter",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
