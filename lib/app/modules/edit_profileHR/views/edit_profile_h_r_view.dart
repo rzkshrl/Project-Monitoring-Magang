@@ -16,6 +16,7 @@ import 'package:project_magang/app/modules/home/views/home_view.dart';
 import 'package:project_magang/app/theme/theme.dart';
 import 'package:project_magang/app/utils/loading.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../edit_divisi_HR/views/edit_divisi_h_r_view.dart';
 import '../controllers/edit_profile_h_r_controller.dart';
 
@@ -85,7 +86,9 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                                 title: Text(
                                   "Edit Divisi",
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.toNamed(Routes.EDIT_DIVISI_H_R);
+                                },
                                 trailingIcon: Icon(IconlyLight.user_1),
                                 backgroundColor: Colors.transparent),
                           ],

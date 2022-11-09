@@ -85,7 +85,9 @@ class EditProfileView extends GetView<EditProfileController> {
                                 title: Text(
                                   "Edit Divisi",
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.toNamed(Routes.EDIT_DIVISI);
+                                },
                                 trailingIcon: Icon(IconlyLight.user_1),
                                 backgroundColor: Colors.transparent),
                           ],
