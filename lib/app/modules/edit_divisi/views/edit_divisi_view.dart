@@ -62,23 +62,31 @@ class EditDivisiView extends GetView<EditDivisiController> {
                         ),
                         FocusedMenuHolder(
                           onPressed: () {},
+                          menuBoxDecoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              color: Yellow1),
                           menuItems: [
                             FocusedMenuItem(
                                 title: Text("Edit Divisi"),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.back();
+                                  Get.back();
+                                },
                                 trailingIcon: Icon(IconlyLight.profile),
-                                backgroundColor: Yellow1),
+                                backgroundColor: Colors.transparent),
                             FocusedMenuItem(
                                 title: Text(
                                   "Edit Profil",
                                 ),
-                                onPressed: () => Get.back(),
+                                onPressed: () {},
                                 trailingIcon: Icon(IconlyLight.user_1),
-                                backgroundColor: Yellow1),
+                                backgroundColor: Colors.transparent),
                           ],
                           blurBackgroundColor: Grey1,
                           blurSize: 0,
                           openWithTap: true,
+                          bottomOffsetHeight: bodyHeight * -5,
                           menuOffset: bodyHeight * 0.02,
                           menuWidth: MediaQuery.of(context).size.width * 0.9,
                           animateMenuItems: false,

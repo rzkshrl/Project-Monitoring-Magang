@@ -64,29 +64,37 @@ class EditProfileHRView extends GetView<EditProfileHRController> {
                               color: dark,
                             )),
                         SizedBox(
-                          width: bodyWidth * 0.5,
+                          width: MediaQuery.of(context).size.width * 0.5,
                         ),
                         FocusedMenuHolder(
                           onPressed: () {},
+                          menuBoxDecoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              color: Yellow1),
                           menuItems: [
                             FocusedMenuItem(
                                 title: Text("Edit Profil"),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.back();
+                                  Get.back();
+                                },
                                 trailingIcon: Icon(IconlyLight.profile),
-                                backgroundColor: Yellow1),
+                                backgroundColor: Colors.transparent),
                             FocusedMenuItem(
                                 title: Text(
                                   "Edit Divisi",
                                 ),
-                                onPressed: () => Get.to(EditDivisiHRView()),
+                                onPressed: () {},
                                 trailingIcon: Icon(IconlyLight.user_1),
-                                backgroundColor: Yellow1),
+                                backgroundColor: Colors.transparent),
                           ],
                           blurBackgroundColor: Grey1,
                           blurSize: 0,
                           openWithTap: true,
+                          bottomOffsetHeight: bodyHeight * -5,
                           menuOffset: bodyHeight * 0.02,
-                          menuWidth: bodyWidth * 0.9,
+                          menuWidth: MediaQuery.of(context).size.width * 0.9,
                           animateMenuItems: false,
                           child: ClipOval(
                             child: Material(
